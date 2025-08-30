@@ -1,124 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Door System Control</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body { background: #f5f5f5; }
-    h1 { text-align: center; margin: 40px 0; font-weight: bold; }
-    .card { margin-bottom: 20px; }
-    .list-group-item button, .list-group-item a {
-      width: 100%;
-      text-align: left;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Door System Control</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        h1 { text-align: center; margin: 20px 0; font-weight: bold; }
+        .card { margin-bottom: 20px; }
+        .list-group-item button, .list-group-item a {
+            width: 100%;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Smart Door System Control</h1>
 
-  <div class="container">
-    <h1>Smart Door System Control</h1>
+        <!-- Smart Door System Options -->
+        <div class="card">
+            <div class="card-header bg-secondary text-white">Smart Door System Options</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><button onclick="sendToBot('open door & close it')">Open Door & Close It</button></li>
+                <li class="list-group-item"><button onclick="sendToBot('open door only')">Open Door Only</button></li>
+                <li class="list-group-item"><button onclick="sendToBot('close door only')">Close Door Only</button></li>
+                <li class="list-group-item"><button onclick="sendToBot('start camera')">Start Camera</button></li>
+                <li class="list-group-item"><button onclick="sendToBot('stop camera')">Stop Camera</button></li>
+                <li class="list-group-item"><button onclick="sendToBot('unlock system')">Unlock System</button></li>
+                <li class="list-group-item"><button onclick="sendToBot('lock system')">Lock System</button></li>
+                <li class="list-group-item"><button onclick="sendToBot('the system penalty')">Default Penalty</button></li>
+                <li class="list-group-item"><button onclick="sendToBot('extended to 30 seconds')">Penalty 30s</button></li>
+                <li class="list-group-item"><button onclick="sendToBot('extended to 1 minutes')">Penalty 1min</button></li>
+                <li class="list-group-item"><button onclick="sendToBot('penalty with coffin dance buzzer')">Penalty Coffin Dance</button></li>
+                <li class="list-group-item"><button onclick="sendToBot('penalty with pirates of the caribbean')">Penalty Pirates</button></li>
+                <li class="list-group-item"><button onclick="sendToBot('penalty with tokyo')">Penalty Tokyo</button></li>
+            </ul>
+        </div>
 
-    <!-- Smart Door System Options -->
-    <div class="card">
-      <div class="card-header bg-dark text-white">Smart Door System Options</div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <button onclick="sendToBot('open door & close it')">Open Door & Close It</button>
-        </li>
-        <li class="list-group-item">
-          <button onclick="sendToBot('open door only')">Open Door Only</button>
-        </li>
-        <li class="list-group-item">
-          <button onclick="sendToBot('close door only')">Close Door Only</button>
-        </li>
-        <li class="list-group-item">
-          <button onclick="sendToBot('start camera')">Start Camera</button>
-        </li>
-        <li class="list-group-item">
-          <button onclick="sendToBot('stop camera')">Stop Camera</button>
-        </li>
-        <li class="list-group-item">
-          <button onclick="sendToBot('unlock system')">Unlock System</button>
-        </li>
-        <li class="list-group-item">
-          <button onclick="sendToBot('lock system')">Lock System</button>
-        </li>
-        <li class="list-group-item">
-          <button onclick="sendToBot('the system penalty')">Default Penalty</button>
-        </li>
-        <li class="list-group-item">
-          <button onclick="sendToBot('extended to 30 seconds')">Penalty 30s</button>
-        </li>
-        <li class="list-group-item">
-          <button onclick="sendToBot('extended to 1 minutes')">Penalty 1min</button>
-        </li>
-        <li class="list-group-item">
-          <button onclick="sendToBot('penalty with coffin dance buzzer')">Penalty Coffin Dance</button>
-        </li>
-        <li class="list-group-item">
-          <button onclick="sendToBot('penalty with pirates of the caribbean')">Penalty Pirates</button>
-        </li>
-        <li class="list-group-item">
-          <button onclick="sendToBot('penalty with tokyo')">Penalty Tokyo</button>
-        </li>
-      </ul>
+        <!-- Add-on Options -->
+        <div class="card">
+            <div class="card-header bg-secondary text-white">Smart Door System Add-on Options</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="downloads/tkinter_colors.png" download>TKinter Color Chart</a></li>
+            </ul>
+        </div>
+
+        <!-- Explanation -->
+        <div class="card">
+            <div class="card-header bg-secondary text-white">Smart Door System Explanation</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="downloads/arduino_components.txt" download>Arduino Components</a></li>
+                <li class="list-group-item"><a href="downloads/python_components.txt" download>Python Components</a></li>
+                <li class="list-group-item"><a href="downloads/arduino_libraries.txt" download>Arduino Libraries</a></li>
+                <li class="list-group-item"><a href="downloads/python_libraries.txt" download>Python Libraries</a></li>
+                <li class="list-group-item"><a href="downloads/explain_arduino.txt" download>Explain Arduino Code</a></li>
+                <li class="list-group-item"><a href="downloads/explain_python.txt" download>Explain Python Code</a></li>
+                <li class="list-group-item"><a href="downloads/version1.txt" download>Version 1.0</a></li>
+                <li class="list-group-item"><a href="downloads/version2.txt" download>Version 2.0</a></li>
+                <li class="list-group-item"><a href="downloads/version3.txt" download>Version 3.0</a></li>
+                <li class="list-group-item"><a href="downloads/dt06_wifi.txt" download>DT-06 WiFi Config</a></li>
+                <li class="list-group-item"><a href="downloads/face_recognition.txt" download>Face Recognition</a></li>
+            </ul>
+        </div>
     </div>
 
-    <!-- Add-on Options -->
-    <div class="card">
-      <div class="card-header bg-dark text-white">Smart Door System Add-on Options</div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <a href="downloads/tkinter_colors.png" download>TKinter Color Chart</a>
-        </li>
-      </ul>
-    </div>
+    <!-- Telegram Bot Script -->
+    <script>
+        const BOT_TOKEN = "8325912903:AAHYb-xLVI-JXWl3dc6_P8x2WwpqA_siA3g";
+        const CHAT_ID = "1399615425";
 
-    <!-- Explanation -->
-    <div class="card">
-      <div class="card-header bg-dark text-white">Smart Door System Explanation</div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="downloads/arduino_components.txt" download>Arduino Components</a></li>
-        <li class="list-group-item"><a href="downloads/python_components.txt" download>Python Components</a></li>
-        <li class="list-group-item"><a href="downloads/arduino_libraries.txt" download>Arduino Libraries</a></li>
-        <li class="list-group-item"><a href="downloads/python_libraries.txt" download>Python Libraries</a></li>
-        <li class="list-group-item"><a href="downloads/explain_arduino.txt" download>Explain Arduino Code</a></li>
-        <li class="list-group-item"><a href="downloads/explain_python.txt" download>Explain Python Code</a></li>
-        <li class="list-group-item"><a href="downloads/version1.txt" download>Version 1.0</a></li>
-        <li class="list-group-item"><a href="downloads/version2.txt" download>Version 2.0</a></li>
-        <li class="list-group-item"><a href="downloads/version3.txt" download>Version 3.0</a></li>
-        <li class="list-group-item"><a href="downloads/dt06_wifi.txt" download>DT-06 WiFi Config</a></li>
-        <li class="list-group-item"><a href="downloads/face_recognition.txt" download>Face Recognition</a></li>
-      </ul>
-    </div>
-
-  </div>
-
-  <!-- Telegram Bot Sender -->
-  <script>
-    const BOT_TOKEN = "8325912903:AAHYb-xLVI-JXWl3dc6_P8x2WwpqA_siA3g";
-    const CHAT_ID = "1399615425";
-
-    function sendToBot(command) {
-      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: command
-        })
-      }).then(res => {
-        if (res.ok) {
-          alert("Command sent: " + command);
-        } else {
-          alert("Failed to send command.");
+        function sendToBot(command) {
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: command
+                })
+            }).then(res => {
+                if (res.ok) {
+                    console.log("Command sent: " + command);
+                } else {
+                    console.error("Failed to send command.");
+                }
+            });
         }
-      });
-    }
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
