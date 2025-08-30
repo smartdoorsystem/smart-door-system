@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Door System Control</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    .main-btn {
+      background-color: #444;
+      color: white;
+      padding: 14px 22px;
+      margin: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      margin: 15px;
+    }
+    .dropbtn {
+      background-color: #333;
+      color: white;
+      padding: 14px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      min-width: 240px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 8px;
+      text-align: left;
+    }
+    .dropdown-content button,
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .dropdown-content button:hover,
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  </style>
+  <script>
+    // send command to backend (Python bot)
+    function sendToBot(command) {
+      fetch("/send", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({command: command})
+      });
+      alert("Command sent: " + command);
+    }
+  </script>
+</head>
+<body>
+  <h1>Smart Door System</h1>
+
+  <!-- Main Buttons -->
+  <div class="dropdown">
+    <button class="dropbtn">Smart Door System Options</button>
+    <div class="dropdown-content">
+      <div class="dropdown">
+        <button>Open Door</button>
+        <div class="dropdown-content">
+          <button onclick="sendToBot('open door & close it')">Open & Close</button>
+          <button onclick="sendToBot('open door only')">Open Only</button>
+          <button onclick="sendToBot('close door only')">Close Only</button>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>Toggle Camera</button>
+        <div class="dropdown-content">
+          <button onclick="sendToBot('start camera')">Start Camera</button>
+          <button onclick="sendToBot('stop camera')">Stop Camera</button>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>Toggle System</button>
+        <div class="dropdown-content">
+          <button onclick="sendToBot('unlock system')">Unlock System</button>
+          <button onclick="sendToBot('lock system')">Lock System</button>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>Penalty Activate</button>
+        <div class="dropdown-content">
+          <button onclick="sendToBot('the system penalty')">Default Penalty</button>
+          <button onclick="sendToBot('extended to 30 seconds')">30 Seconds</button>
+          <button onclick="sendToBot('extended to 1 minutes')">1 Minute</button>
+          <button onclick="sendToBot('penalty with coffin dance buzzer')">Coffin Dance</button>
+          <button onclick="sendToBot('penalty with pirates of the caribbean')">Pirates</button>
+          <button onclick="sendToBot('penalty with tokyo')">Tokyo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn">Smart Door System Add-on Options</button>
+    <div class="dropdown-content">
+      <a href="downloads/tkinter_colors.png" download>TKinter Color Chart</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn">Smart Door System Explanation</button>
+    <div class="dropdown-content">
+      <a href="downloads/arduino_components.txt" download>Arduino Components</a>
+      <a href="downloads/python_components.txt" download>Python Components</a>
+      <a href="downloads/arduino_libraries.txt" download>Arduino Libraries</a>
+      <a href="downloads/python_libraries.txt" download>Python Libraries</a>
+      <a href="downloads/explain_arduino.txt" download>Explain Arduino Code</a>
+      <a href="downloads/explain_python.txt" download>Explain Python Code</a>
+      <a href="downloads/version1.txt" download>Version 1.0</a>
+      <a href="downloads/version2.txt" download>Version 2.0</a>
+      <a href="downloads/version3.txt" download>Version 3.0</a>
+      <a href="downloads/dt06_wifi.txt" download>DT-06 WiFi Config</a>
+      <a href="downloads/face_recognition.txt" download>Face Recognition</a>
+    </div>
+  </div>
+
+</body>
+</html>
