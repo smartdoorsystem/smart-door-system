@@ -1,0 +1,43 @@
+smart door system - Arduino Libraries :
+
+المكاتب (Libraries) المستعملة في الكود:
+
+Servo.h
+
+مكتبة للتحكم في محركات السيرفو (Servo Motor).
+
+موجودة افتراضياً في Arduino IDE (مش لازم تنزلها).
+
+Wire.h
+
+مكتبة للتواصل بالـ I²C (I2C Communication).
+
+موجودة افتراضياً في Arduino IDE (مش لازم تنزلها).
+
+LiquidCrystal_I2C.h
+
+مكتبة لشاشة LCD I²C.
+
+لازم تنزلها لأن مش تجي مع Arduino IDE.
+
+(ممكن تنزلها من مكتبة "LiquidCrystal I2C" في Library Manager).
+
+SPI.h
+
+مكتبة للتواصل بالـ SPI (مطلوبة للـ RFID).
+
+موجودة افتراضياً في Arduino IDE (مش لازم تنزلها).
+
+MFRC522.h
+
+مكتبة لقارئ البطاقات RFID (RC522).
+
+لازم تنزلها (اسمها غالباً "MFRC522" في Library Manager).
+
+pitches.h
+
+هذا ملف محلي (مش مكتبة خارجية).
+
+يحتوي على تعريف النوتات الموسيقية (NOTE_C4, NOTE_D4 ... إلخ) باش يشغل الألحان في البزر (buzzer).
+
+لازم تدير ملف جديد اسمه pitches.h وتحط فيه التعريفات.
