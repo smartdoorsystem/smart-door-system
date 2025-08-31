@@ -1,212 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Smart Door System — Control</title>
-
-  <!-- Bootstrap 5 (CSS) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-  <style>
-    :root{
-      --bg1:#2c2c2c; --bg2:#1a1a1a;
-      --card:#2f2f2f; --list:#3a3a3a; --list-hover:#4a4a4a; --text:#fff;
-    }
-    body{
-      background: linear-gradient(120deg,var(--bg1),var(--bg2));
-      color:var(--text);
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,"Plus Jakarta Sans",Arial,sans-serif;
-    }
-    h1{
-      text-align:center; font-weight:800; letter-spacing:.05em;
-      margin:40px 0 24px;
-    }
-    .control-card{
-      background:var(--card); border:0; border-radius:16px; overflow:hidden;
-      box-shadow:0 10px 30px rgba(0,0,0,.35); margin-bottom:16px;
-    }
-    .btn-toggle{
-      width:100%; text-align:left; padding:16px 20px; font-weight:700; color:#fff;
-      background:transparent; border:0;
-    }
-    .btn-toggle:hover{ background:rgba(255,255,255,.05); }
-    .list-group-dark .list-group-item{
-      background:var(--list); color:#fff; border-color:rgba(255,255,255,.05);
-    }
-    .list-group-dark .list-group-item:hover{ background:var(--list-hover); }
-    .ms-3{ margin-left:1rem !important; }
-    button.cmd-btn {background:none;border:none;color:white;text-align:left;width:100%;}
-    button.cmd-btn:hover {text-decoration:underline;}
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Door Control</title>
 </head>
 <body>
-  <div class="container py-3">
-    <h1>SMART DOOR SYSTEM</h1>
+  <h1>Smart Door System Control</h1>
 
-    <!-- ========== OPTIONS ========== -->
-    <div class="card control-card">
-      <button type="button" class="btn-toggle"
-              data-bs-toggle="collapse" data-bs-target="#sdsOptions"
-              aria-expanded="false" aria-controls="sdsOptions"
-              onclick="closeInnerMenus('#sdsOptions')">
-        Smart Door System Options
-      </button>
+  <!-- الأزرار -->
+  <button onclick="sendCommand('normal_door')">open door & close it</button>
+  <button onclick="sendCommand('door_openn')">open door only</button>
+  <button onclick="sendCommand('door_closee')">close door only</button>
+  <button onclick="sendCommand('sys_unloc')">unlock system</button>
+  <button onclick="sendCommand('sys_loc')">lock system</button>
+  <button onclick="sendCommand('sys_pen')">the system penalty</button>
+  <button onclick="sendCommand('sys_pen30')">extended to 30 seconds</button>
+  <button onclick="sendCommand('sys_pen60')">extended to 1 minutes</button>
+  <button onclick="sendCommand('sys_buzzcof')">penalty with coffin dance buzzer</button>
+  <button onclick="sendCommand('sys_buzzpoc')">penalty with pirates of the caribbean</button>
+  <button onclick="sendCommand('sys_buzztok')">penalty with tokyo</button>
+  <button onclick="sendCommand('start_camera')">start camera</button>
+  <button onclick="sendCommand('stop_camera')">stop camera</button>
 
-      <div id="sdsOptions" class="collapse">
-        <ul class="list-group list-group-flush list-group-dark">
+  <script type="module">
+    // استيراد Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-          <!-- Open Door -->
-          <li class="list-group-item">
-            <button type="button" class="btn-toggle ps-0"
-                    data-bs-toggle="collapse" data-bs-target="#openDoorMenu"
-                    aria-expanded="false" aria-controls="openDoorMenu">
-              Open Door
-            </button>
-            <div id="openDoorMenu" class="collapse" data-bs-parent="#sdsOptions">
-              <ul class="list-group list-group-flush list-group-dark ms-3">
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('open door & close it')">Open Door & Close It</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('open door only')">Open door only</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('close door only')">Close door only</button></li>
-              </ul>
-            </div>
-          </li>
+    // إعدادات مشروعك
+    const firebaseConfig = {
+      apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
+      authDomain: "smart-door-system-project.firebaseapp.com",
+      databaseURL: "https://smart-door-system-project-default-rtdb.firebaseio.com",
+      projectId: "smart-door-system-project",
+      storageBucket: "smart-door-system-project.firebasestorage.app",
+      messagingSenderId: "298920936811",
+      appId: "1:298920936811:web:033b6b7af47d93d52f382e",
+      measurementId: "G-HY1Y22VZJT"
+    };
 
-          <!-- Toggle Camera -->
-          <li class="list-group-item">
-            <button type="button" class="btn-toggle ps-0"
-                    data-bs-toggle="collapse" data-bs-target="#cameraMenu"
-                    aria-expanded="false" aria-controls="cameraMenu">
-              Toggle Camera
-            </button>
-            <div id="cameraMenu" class="collapse" data-bs-parent="#sdsOptions">
-              <ul class="list-group list-group-flush list-group-dark ms-3">
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('start camera')">Start camera</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('stop camera')">Stop camera</button></li>
-              </ul>
-            </div>
-          </li>
+    // تهيئة Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-          <!-- Toggle of the System -->
-          <li class="list-group-item">
-            <button type="button" class="btn-toggle ps-0"
-                    data-bs-toggle="collapse" data-bs-target="#systemMenu"
-                    aria-expanded="false" aria-controls="systemMenu">
-              Toggle of the System
-            </button>
-            <div id="systemMenu" class="collapse" data-bs-parent="#sdsOptions">
-              <ul class="list-group list-group-flush list-group-dark ms-3">
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('lock system')">Lock system</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('unlock system')">Unlock system</button></li>
-              </ul>
-            </div>
-          </li>
+    // دالة تبعت الأمر لفايربيز
+    function sendCommand(command) {
+      set(ref(db, "commands/last"), {
+        action: command,
+        timestamp: Date.now()
+      });
+      alert("✅ Sent: " + command);
+    }
 
-          <!-- Penalty Activate -->
-          <li class="list-group-item">
-            <button type="button" class="btn-toggle ps-0"
-                    data-bs-toggle="collapse" data-bs-target="#penaltyMenu"
-                    aria-expanded="false" aria-controls="penaltyMenu">
-              Penalty Activate
-            </button>
-            <div id="penaltyMenu" class="collapse" data-bs-parent="#sdsOptions">
-              <ul class="list-group list-group-flush list-group-dark ms-3">
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('the system penalty')">The system penalty</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('extended to 30 seconds')">Extended to 30 seconds</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('extended to 1 minutes')">Extended to 1 minutes</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('penalty with coffin dance buzzer')">Penalty with coffin dance buzzer</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('penalty with pirates of the caribbean')">Penalty with pirates of the Caribbean</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('penalty with tokyo')">Penalty with tokyo</button></li>
-              </ul>
-            </div>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-
-    <!-- ========== ADD-ON OPTIONS ========== -->
-    <div class="card control-card">
-      <button type="button" class="btn-toggle"
-              data-bs-toggle="collapse" data-bs-target="#addonOptions"
-              aria-expanded="false" aria-controls="addonOptions"
-              onclick="closeInnerMenus('#addonOptions')">
-        Smart Door System Add-on Options
-      </button>
-      <div id="addonOptions" class="collapse">
-        <ul class="list-group list-group-flush list-group-dark">
-          <li class="list-group-item"><a href="downloads/colors.png" download>TKinter Color Chart</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ========== EXPLANATION ========== -->
-    <div class="card control-card mb-5">
-      <button type="button" class="btn-toggle"
-              data-bs-toggle="collapse" data-bs-target="#explain"
-              aria-expanded="false" aria-controls="explain"
-              onclick="closeInnerMenus('#explain')">
-        Smart Door System Explanation
-      </button>
-      <div id="explain" class="collapse">
-        <ul class="list-group list-group-flush list-group-dark">
-         <li class="list-group-item"><a href="downloads/smart door system - project arduino components.pptx" download>Arduino Components</a></li>
-         <li class="list-group-item"><a href="downloads/smart door system - project python components.pptx" download>Python Components</a></li>
-         <li class="list-group-item"><a href="downloads/Arduino Libraries.txt" download>Arduino Libraries</a></li>
-         <li class="list-group-item"><a href="downloads/Python Libraries.txt" download>Python Libraries</a></li>
-         <li class="list-group-item"><a href="downloads/Arduino Explanation.txt" download>Explain Arduino Code</a></li>
-         <li class="list-group-item"><a href="downloads/Python Explanation.txt" download>Explain Python Code</a></li>
-         <li class="list-group-item"><a href="downloads/smart door system 1.0.zip" download>Version 1.0</a></li>
-         <li class="list-group-item"><a href="downloads/smart door system 2.0.zip" download>Version 2.0</a></li>
-         <li class="list-group-item"><a href="downloads/smart door system 3.0.zip" download>Version 3.0</a></li>
-         <li class="list-group-item"><a href="downloads/dt-06 wifi configuration.pdf" download>DT-06 WiFi Config</a></li>
-         <li class="list-group-item"><a href="downloads/FaceRecognition Explanation.txt" download>Face Recognition</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bootstrap 5 (JS) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script>
-        const BOT_TOKEN_WEB = "8342295063:AAGkx5P-DfQUmaYbVJoZaQHUzuKoYlctpkc";
-        const PRIVATE_CHAT_ID = "1399615425";
-
-        function sendToBot(command) {
-           fetch(`https://api.telegram.org/bot${BOT_TOKEN_WEB}/sendMessage`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    chat_id: PRIVATE_CHAT_ID,
-                    text: command
-                })
-            }).then(res => {
-                if (res.ok) {
-                    console.log("Command sent: " + command);
-                } else {
-                    console.error("Failed to send command.");
-                }
-            });
-        }
-
-        // يقفل أي قوائم فرعية مفتوحة لما الزر الكبير يتسكر
-        function closeInnerMenus(parentId) {
-          setTimeout(() => {
-            let parent = document.querySelector(parentId);
-            if (parent && !parent.classList.contains("show")) {
-              let opened = parent.querySelectorAll(".collapse.show");
-              opened.forEach(el => {
-                let bsCollapse = bootstrap.Collapse.getInstance(el);
-                if (bsCollapse) {
-                  bsCollapse.hide();
-                }
-              });
-            }
-          }, 200);
-        }
+    // نخليها متاحة للـ HTML
+    window.sendCommand = sendCommand;
   </script>
 </body>
 </html>
-
-
