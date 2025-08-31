@@ -48,7 +48,8 @@
     <div class="card control-card">
       <button type="button" class="btn-toggle"
               data-bs-toggle="collapse" data-bs-target="#sdsOptions"
-              aria-expanded="false" aria-controls="sdsOptions">
+              aria-expanded="false" aria-controls="sdsOptions"
+              onclick="closeInnerMenus('#sdsOptions')">
         Smart Door System Options
       </button>
 
@@ -62,7 +63,7 @@
                     aria-expanded="false" aria-controls="openDoorMenu">
               Open Door
             </button>
-            <div id="openDoorMenu" class="collapse">
+            <div id="openDoorMenu" class="collapse" data-bs-parent="#sdsOptions">
               <ul class="list-group list-group-flush list-group-dark ms-3">
                 <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('normal_door')">Open Door & Close It</button></li>
                 <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('door_openn')">Open door only</button></li>
@@ -78,7 +79,7 @@
                     aria-expanded="false" aria-controls="cameraMenu">
               Toggle Camera
             </button>
-            <div id="cameraMenu" class="collapse">
+            <div id="cameraMenu" class="collapse" data-bs-parent="#sdsOptions">
               <ul class="list-group list-group-flush list-group-dark ms-3">
                 <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('start camera')">Start camera</button></li>
                 <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('stop camera')">Stop camera</button></li>
@@ -93,7 +94,7 @@
                     aria-expanded="false" aria-controls="systemMenu">
               Toggle of the System
             </button>
-            <div id="systemMenu" class="collapse">
+            <div id="systemMenu" class="collapse" data-bs-parent="#sdsOptions">
               <ul class="list-group list-group-flush list-group-dark ms-3">
                 <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('sys_loc')">Lock system</button></li>
                 <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('sys_unloc')">Unlock system</button></li>
@@ -108,7 +109,7 @@
                     aria-expanded="false" aria-controls="penaltyMenu">
               Penalty Activate
             </button>
-            <div id="penaltyMenu" class="collapse">
+            <div id="penaltyMenu" class="collapse" data-bs-parent="#sdsOptions">
               <ul class="list-group list-group-flush list-group-dark ms-3">
                 <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('sys_pen')">The system penalty</button></li>
                 <li class="list-group-item"><button class="cmd-btn" onclick="sendToBot('sys_pen30')">Extended to 30 seconds</button></li>
@@ -128,7 +129,8 @@
     <div class="card control-card">
       <button type="button" class="btn-toggle"
               data-bs-toggle="collapse" data-bs-target="#addonOptions"
-              aria-expanded="false" aria-controls="addonOptions">
+              aria-expanded="false" aria-controls="addonOptions"
+              onclick="closeInnerMenus('#addonOptions')">
         Smart Door System Add-on Options
       </button>
       <div id="addonOptions" class="collapse">
@@ -142,22 +144,23 @@
     <div class="card control-card mb-5">
       <button type="button" class="btn-toggle"
               data-bs-toggle="collapse" data-bs-target="#explain"
-              aria-expanded="false" aria-controls="explain">
+              aria-expanded="false" aria-controls="explain"
+              onclick="closeInnerMenus('#explain')">
         Smart Door System Explanation
       </button>
       <div id="explain" class="collapse">
         <ul class="list-group list-group-flush list-group-dark">
          <li class="list-group-item"><a href="downloads/smart door system - project arduino components.pptx" download>Arduino Components</a></li>
-                <li class="list-group-item"><a href="downloads/smart door system - project python components.pptx" download>Python Components</a></li>
-                <li class="list-group-item"><a href="downloads/Arduino Libraries.txt" download>Arduino Libraries</a></li>
-                <li class="list-group-item"><a href="downloads/Python Libraries.txt" download>Python Libraries</a></li>
-                <li class="list-group-item"><a href="downloads/Arduino Explanation.txt" download>Explain Arduino Code</a></li>
-                <li class="list-group-item"><a href="downloads/Python Explanation.txt" download>Explain Python Code</a></li>
-                <li class="list-group-item"><a href="downloads/smart door system 1.0.zip" download>Version 1.0</a></li>
-                <li class="list-group-item"><a href="downloads/smart door system 2.0.zip" download>Version 2.0</a></li>
-                <li class="list-group-item"><a href="downloads/smart door system 3.0.zip" download>Version 3.0</a></li>
-                <li class="list-group-item"><a href="downloads/dt-06 wifi configuration.pdf" download>DT-06 WiFi Config</a></li>
-                <li class="list-group-item"><a href="downloads/FaceRecognition Explanation.txt" download>Face Recognition</a></li>
+         <li class="list-group-item"><a href="downloads/smart door system - project python components.pptx" download>Python Components</a></li>
+         <li class="list-group-item"><a href="downloads/Arduino Libraries.txt" download>Arduino Libraries</a></li>
+         <li class="list-group-item"><a href="downloads/Python Libraries.txt" download>Python Libraries</a></li>
+         <li class="list-group-item"><a href="downloads/Arduino Explanation.txt" download>Explain Arduino Code</a></li>
+         <li class="list-group-item"><a href="downloads/Python Explanation.txt" download>Explain Python Code</a></li>
+         <li class="list-group-item"><a href="downloads/smart door system 1.0.zip" download>Version 1.0</a></li>
+         <li class="list-group-item"><a href="downloads/smart door system 2.0.zip" download>Version 2.0</a></li>
+         <li class="list-group-item"><a href="downloads/smart door system 3.0.zip" download>Version 3.0</a></li>
+         <li class="list-group-item"><a href="downloads/dt-06 wifi configuration.pdf" download>DT-06 WiFi Config</a></li>
+         <li class="list-group-item"><a href="downloads/FaceRecognition Explanation.txt" download>Face Recognition</a></li>
         </ul>
       </div>
     </div>
@@ -172,7 +175,6 @@
 
         function sendToBot(command) {
            fetch(`https://api.telegram.org/bot${BOT_TOKEN_WEB}/sendMessage`, {
-
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -187,9 +189,22 @@
                 }
             });
         }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        // يقفل أي قوائم فرعية مفتوحة لما الزر الكبير يتسكر
+        function closeInnerMenus(parentId) {
+          setTimeout(() => {
+            let parent = document.querySelector(parentId);
+            if (parent && !parent.classList.contains("show")) {
+              let opened = parent.querySelectorAll(".collapse.show");
+              opened.forEach(el => {
+                let bsCollapse = bootstrap.Collapse.getInstance(el);
+                if (bsCollapse) {
+                  bsCollapse.hide();
+                }
+              });
+            }
+          }, 200);
+        }
+  </script>
 </body>
 </html>
-
-
