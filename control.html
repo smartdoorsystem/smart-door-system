@@ -1,124 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SMART DOOR SYSTEM</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <title>Smart Door System Control</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   <style>
     body {
-      background: #121212;
-      color: #fff;
       font-family: Arial, sans-serif;
+      background: #1c1c1c;
+      color: white;
+      text-align: center;
     }
-    .accordion-button {
-      background: #1f1f1f;
-      color: #fff;
-    }
-    .accordion-button:not(.collapsed) {
-      background: #333;
-      color: #fff;
-    }
-    .accordion-body button {
-      display: block;
-      width: 100%;
-      margin: 5px 0;
-      border-radius: 10px;
-      padding: 10px;
-    }
-    .live-card {
-      background: #1f1f1f;
-      border-radius: 12px;
-      padding: 15px;
+    h1 {
       margin-top: 20px;
+      color: cyan;
+    }
+    .button {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: #333;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .button:hover {
+      background: #555;
     }
     video {
-      width: 100%;
-      border-radius: 12px;
+      margin-top: 20px;
+      width: 640px;
+      height: 360px;
       background: black;
+      border: 2px solid white;
+      border-radius: 10px;
+    }
+    .section {
+      margin: 25px 0;
     }
   </style>
 </head>
 <body>
-  <div class="container py-4">
-    <h1 class="text-center mb-4">SMART DOOR SYSTEM</h1>
+  <h1>Smart Door System Control</h1>
 
-    <div class="accordion" id="accordionPanelsStayOpenExample">
+  <!-- قسم التحكم -->
+  <div class="section">
+    <h2>⚙️ Door & System Control</h2>
+    <div class="button" onclick="sendAction('normal_door')">Open & Close Door</div>
+    <div class="button" onclick="sendAction('door_openn')">Open Door Only</div>
+    <div class="button" onclick="sendAction('door_closee')">Close Door Only</div>
+    <div class="button" onclick="sendAction('sys_unloc')">Unlock System</div>
+    <div class="button" onclick="sendAction('sys_loc')">Lock System</div>
+    <div class="button" onclick="sendAction('sys_pen')">Penalty</div>
+    <div class="button" onclick="sendAction('sys_pen30')">Penalty 30s</div>
+    <div class="button" onclick="sendAction('sys_pen60')">Penalty 60s</div>
+  </div>
 
-      <!-- ========== Smart Door Options ========== -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel1" aria-expanded="true">
-            Smart Door System Options
-          </button>
-        </h2>
-        <div id="panel1" class="accordion-collapse collapse show">
-          <div class="accordion-body">
-            <h5>Open Door</h5>
-            <button class="btn btn-primary" onclick="sendCommand('open door all')">Open door & close it</button>
-            <button class="btn btn-success" onclick="sendCommand('open door')">Open door only</button>
-            <button class="btn btn-danger" onclick="sendCommand('close door')">Close door only</button>
-
-            <h5 class="mt-3">Toggle Camera</h5>
-            <button class="btn btn-info" onclick="sendCommand('start camera')">Start camera</button>
-            <button class="btn btn-warning" onclick="sendCommand('stop camera')">Stop camera</button>
-
-            <h5 class="mt-3">Toggle of the System</h5>
-            <button class="btn btn-secondary" onclick="sendCommand('lock system')">Lock system</button>
-            <button class="btn btn-light" onclick="sendCommand('unlock system')">Unlock system</button>
-
-            <h5 class="mt-3">Penalty</h5>
-            <button class="btn btn-danger" onclick="sendCommand('penalty activate')">Penalty Activate</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ========== Extra Options ========== -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panel2">
-            Smart Door System Add-on Options
-          </button>
-        </h2>
-        <div id="panel2" class="accordion-collapse collapse">
-          <div class="accordion-body">
-            <button class="btn btn-outline-primary" onclick="sendCommand('light on')">Light On</button>
-            <button class="btn btn-outline-secondary" onclick="sendCommand('light off')">Light Off</button>
-            <button class="btn btn-outline-info" onclick="sendCommand('fan on')">Fan On</button>
-            <button class="btn btn-outline-dark" onclick="sendCommand('fan off')">Fan Off</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ========== Explanation ========== -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panel3">
-            Smart Door System Explanation
-          </button>
-        </h2>
-        <div id="panel3" class="accordion-collapse collapse">
-          <div class="accordion-body">
-            This is the smart door system control panel with camera, lock system, and add-on features.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========== Live Stream Section ========== -->
-    <div class="live-card">
-      <h3>📹 Live Stream</h3>
-      <video id="remoteVideo" autoplay playsinline></video>
-      <button id="liveBtn" class="btn btn-success mt-3">Start Live Stream</button>
+  <!-- قسم البث المباشر -->
+  <div class="section">
+    <h2>📡 Live Stream</h2>
+    <video id="liveVideo" autoplay playsinline></video>
+    <div>
+      <div class="button" onclick="startLiveStream()">Start Stream</div>
+      <div class="button" onclick="stopLiveStream()">Stop Stream</div>
     </div>
   </div>
 
-  <!-- Firebase + Logic -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
-
-    // ✅ firebaseConfig متاعك
+  <script>
+    // === Firebase Config ===
     const firebaseConfig = {
       apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
       authDomain: "smart-door-system-project.firebaseapp.com",
@@ -129,52 +80,57 @@
       appId: "1:298920936811:web:033b6b7af47d93d52f382e",
       measurementId: "G-HY1Y22VZJT"
     };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // إرسال أوامر عادية
-    async function sendCommand(cmd) {
-      await set(ref(db, "commands/last"), {
-        action: cmd,
-        timestamp: Date.now()
-      });
+    // === أزرار التحكم ===
+    function sendAction(action) {
+      db.ref("/control").set({ action: action });
+      console.log("➡️ Sent:", action);
     }
-    window.sendCommand = sendCommand;
 
-    // ========== WebRTC ==========
-    let pc;
+    // === WebRTC للبث ===
+    let pc = null;
+    let liveVideo = document.getElementById('liveVideo');
 
-    async function startStream() {
+    async function startLiveStream() {
       pc = new RTCPeerConnection();
 
       pc.ontrack = (event) => {
-        document.getElementById("remoteVideo").srcObject = event.streams[0];
+        liveVideo.srcObject = event.streams[0];
       };
 
       const offer = await pc.createOffer();
       await pc.setLocalDescription(offer);
 
-      // نبعث offer للبايثون عبر Firebase
-      await set(ref(db, "webrtc_offer"), {
-        sdp: offer.sdp,
-        timestamp: Date.now()
+      // نبعث الـ offer للفايربيس
+      db.ref("/control").set({
+        action: "webrtc_offer",
+        sdp: offer.sdp
       });
 
-      // نستقبل الـ answer من بايثون
-      onValue(ref(db, "webrtc_answer"), async (snapshot) => {
+      // نستقبل الـ answer من البايتون
+      db.ref("/webrtc_answer").on("value", async (snapshot) => {
         const data = snapshot.val();
-        if (data && data.sdp && !pc.currentRemoteDescription) {
-          const answer = new RTCSessionDescription({
+        if (data && data.sdp) {
+          const answer = {
             type: "answer",
             sdp: data.sdp
-          });
+          };
           await pc.setRemoteDescription(answer);
+          console.log("✅ Stream started");
         }
       });
     }
 
-    document.getElementById("liveBtn").addEventListener("click", startStream);
+    function stopLiveStream() {
+      if (pc) {
+        pc.close();
+        pc = null;
+        liveVideo.srcObject = null;
+        console.log("🛑 Stream stopped");
+      }
+    }
   </script>
 </body>
 </html>
