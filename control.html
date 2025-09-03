@@ -1,75 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Smart Door System Control</title>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Door System — Control</title>
+
+  <!-- Bootstrap 5 (CSS) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #1c1c1c;
-      color: white;
-      text-align: center;
+    :root{
+      --bg1:#2c2c2c; --bg2:#1a1a1a;
+      --card:#2f2f2f; --list:#3a3a3a; --list-hover:#4a4a4a; --text:#fff;
     }
-    h1 {
-      margin-top: 20px;
-      color: cyan;
+    body{
+      background: linear-gradient(120deg,var(--bg1),var(--bg2));
+      color:var(--text);
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,"Plus Jakarta Sans",Arial,sans-serif;
     }
-    .button {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 20px;
-      border-radius: 10px;
-      background: #333;
-      color: white;
-      cursor: pointer;
-      transition: 0.2s;
+    h1{
+      text-align:center; font-weight:800; letter-spacing:.05em;
+      margin:40px 0 24px;
     }
-    .button:hover {
-      background: #555;
+    .control-card{
+      background:var(--card); border:0; border-radius:16px; overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,.35); margin-bottom:16px;
     }
-    video {
-      margin-top: 20px;
-      width: 640px;
-      height: 360px;
-      background: black;
-      border: 2px solid white;
-      border-radius: 10px;
+    .btn-toggle{
+      width:100%; text-align:left; padding:16px 20px; font-weight:700; color:#fff;
+      background:transparent; border:0;
     }
-    .section {
-      margin: 25px 0;
+    .btn-toggle:hover{ background:rgba(255,255,255,.05); }
+    .list-group-dark .list-group-item{
+      background:var(--list); color:#fff; border-color:rgba(255,255,255,.05);
     }
+    .list-group-dark .list-group-item:hover{ background:var(--list-hover); }
+    .ms-3{ margin-left:1rem !important; }
+    button.cmd-btn {background:none;border:none;color:white;text-align:left;width:100%;}
+    button.cmd-btn:hover {text-decoration:underline;}
+    video {width:100%;border-radius:12px;background:#000;}
   </style>
 </head>
 <body>
-  <h1>Smart Door System Control</h1>
+  <div class="container py-3">
+    <h1>SMART DOOR SYSTEM</h1>
 
-  <!-- قسم التحكم -->
-  <div class="section">
-    <h2>⚙️ Door & System Control</h2>
-    <div class="button" onclick="sendAction('normal_door')">Open & Close Door</div>
-    <div class="button" onclick="sendAction('door_openn')">Open Door Only</div>
-    <div class="button" onclick="sendAction('door_closee')">Close Door Only</div>
-    <div class="button" onclick="sendAction('sys_unloc')">Unlock System</div>
-    <div class="button" onclick="sendAction('sys_loc')">Lock System</div>
-    <div class="button" onclick="sendAction('sys_pen')">Penalty</div>
-    <div class="button" onclick="sendAction('sys_pen30')">Penalty 30s</div>
-    <div class="button" onclick="sendAction('sys_pen60')">Penalty 60s</div>
-  </div>
+    <!-- ========== OPTIONS ========== -->
+    <div class="card control-card">
+      <button type="button" class="btn-toggle"
+              data-bs-toggle="collapse" data-bs-target="#sdsOptions"
+              aria-expanded="false" aria-controls="sdsOptions"
+              onclick="closeInnerMenus('#sdsOptions')">
+        Smart Door System Options
+      </button>
 
-  <!-- قسم البث المباشر -->
-  <div class="section">
-    <h2>📡 Live Stream</h2>
-    <video id="liveVideo" autoplay playsinline></video>
-    <div>
-      <div class="button" onclick="startLiveStream()">Start Stream</div>
-      <div class="button" onclick="stopLiveStream()">Stop Stream</div>
+      <div id="sdsOptions" class="collapse">
+        <ul class="list-group list-group-flush list-group-dark">
+
+          <!-- Open Door -->
+          <li class="list-group-item">
+            <button type="button" class="btn-toggle ps-0"
+                    data-bs-toggle="collapse" data-bs-target="#openDoorMenu"
+                    aria-expanded="false" aria-controls="openDoorMenu">
+              Open Door
+            </button>
+            <div id="openDoorMenu" class="collapse" data-bs-parent="#sdsOptions">
+              <ul class="list-group list-group-flush list-group-dark ms-3">
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('normal_door')">open door & close it</button></li>
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('door_openn')">open door only</button></li>
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('door_closee')">close door only</button></li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Toggle Camera -->
+          <li class="list-group-item">
+            <button type="button" class="btn-toggle ps-0"
+                    data-bs-toggle="collapse" data-bs-target="#cameraMenu"
+                    aria-expanded="false" aria-controls="cameraMenu">
+              Toggle Camera
+            </button>
+            <div id="cameraMenu" class="collapse" data-bs-parent="#sdsOptions">
+              <ul class="list-group list-group-flush list-group-dark ms-3">
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('start camera')">start camera</button></li>
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('stop camera')">stop camera</button></li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Toggle of the System -->
+          <li class="list-group-item">
+            <button type="button" class="btn-toggle ps-0"
+                    data-bs-toggle="collapse" data-bs-target="#systemMenu"
+                    aria-expanded="false" aria-controls="systemMenu">
+              Toggle of the System
+            </button>
+            <div id="systemMenu" class="collapse" data-bs-parent="#sdsOptions">
+              <ul class="list-group list-group-flush list-group-dark ms-3">
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_loc')">lock system</button></li>
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_unloc')">unlock system</button></li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Penalty Activate -->
+          <li class="list-group-item">
+            <button type="button" class="btn-toggle ps-0"
+                    data-bs-toggle="collapse" data-bs-target="#penaltyMenu"
+                    aria-expanded="false" aria-controls="penaltyMenu">
+              Penalty Activate
+            </button>
+            <div id="penaltyMenu" class="collapse" data-bs-parent="#sdsOptions">
+              <ul class="list-group list-group-flush list-group-dark ms-3">
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_pen')">the system penalty</button></li>
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_pen30')">extended to 30 seconds</button></li>
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_pen60')">extended to 1 minutes</button></li>
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_buzzcof')">penalty with coffin dance buzzer</button></li>
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_buzzpoc')">penalty with pirates of the caribbean</button></li>
+                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_buzztok')">penalty with tokyo</button></li>
+              </ul>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+    <!-- ========== LIVE STREAM ========== -->
+    <div class="card control-card">
+      <button type="button" class="btn-toggle"
+              data-bs-toggle="collapse" data-bs-target="#liveStreamMenu"
+              aria-expanded="false" aria-controls="liveStreamMenu"
+              onclick="closeInnerMenus('#liveStreamMenu')">
+        📡 Live Stream
+      </button>
+      <div id="liveStreamMenu" class="collapse">
+        <ul class="list-group list-group-flush list-group-dark">
+          <li class="list-group-item text-center">
+            <video id="liveVideo" autoplay playsinline></video>
+          </li>
+          <li class="list-group-item"><button class="cmd-btn" onclick="startLiveStream()">▶️ Start Stream</button></li>
+          <li class="list-group-item"><button class="cmd-btn" onclick="stopLiveStream()">⏹ Stop Stream</button></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ========== ADD-ON OPTIONS ========== -->
+    <div class="card control-card">
+      <button type="button" class="btn-toggle"
+              data-bs-toggle="collapse" data-bs-target="#addonOptions"
+              aria-expanded="false" aria-controls="addonOptions"
+              onclick="closeInnerMenus('#addonOptions')">
+        Smart Door System Add-on Options
+      </button>
+      <div id="addonOptions" class="collapse">
+        <ul class="list-group list-group-flush list-group-dark">
+          <li class="list-group-item"><a href="downloads/colors.png" download>TKinter Color Chart</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ========== EXPLANATION ========== -->
+    <div class="card control-card mb-5">
+      <button type="button" class="btn-toggle"
+              data-bs-toggle="collapse" data-bs-target="#explain"
+              aria-expanded="false" aria-controls="explain"
+              onclick="closeInnerMenus('#explain')">
+        Smart Door System Explanation
+      </button>
+      <div id="explain" class="collapse">
+        <ul class="list-group list-group-flush list-group-dark">
+         <li class="list-group-item"><a href="downloads/smart door system - project arduino components.pptx" download>Arduino Components</a></li>
+         <li class="list-group-item"><a href="downloads/smart door system - project python components.pptx" download>Python Components</a></li>
+         <li class="list-group-item"><a href="downloads/Arduino Libraries.txt" download>Arduino Libraries</a></li>
+         <li class="list-group-item"><a href="downloads/Python Libraries.txt" download>Python Libraries</a></li>
+         <li class="list-group-item"><a href="downloads/Arduino Explanation.txt" download>Explain Arduino Code</a></li>
+         <li class="list-group-item"><a href="downloads/Python Explanation.txt" download>Explain Python Code</a></li>
+         <li class="list-group-item"><a href="downloads/smart door system 1.0.zip" download>Version 1.0</a></li>
+         <li class="list-group-item"><a href="downloads/smart door system 2.0.zip" download>Version 2.0</a></li>
+         <li class="list-group-item"><a href="downloads/smart door system 3.0.zip" download>Version 3.0</a></li>
+         <li class="list-group-item"><a href="downloads/dt-06 wifi configuration.pdf" download>DT-06 WiFi Config</a></li>
+         <li class="list-group-item"><a href="downloads/FaceRecognition Explanation.txt" download>Face Recognition</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 
-  <script>
-    // === Firebase Config ===
+  <!-- Bootstrap 5 (JS) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Firebase + Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
     const firebaseConfig = {
       apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
       authDomain: "smart-door-system-project.firebaseapp.com",
@@ -80,22 +204,42 @@
       appId: "1:298920936811:web:033b6b7af47d93d52f382e",
       measurementId: "G-HY1Y22VZJT"
     };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
 
-    // === أزرار التحكم ===
-    function sendAction(action) {
-      db.ref("/control").set({ action: action });
-      console.log("➡️ Sent:", action);
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // send command
+    function sendCommand(command) {
+      set(ref(db, "commands/last"), {
+        action: command,
+        timestamp: Date.now()
+      });
+      alert("✅ Sent: " + command);
     }
+    window.sendCommand = sendCommand;
 
-    // === WebRTC للبث ===
+    // close inner menus
+    window.closeInnerMenus = function (parentId) {
+      setTimeout(() => {
+        let parent = document.querySelector(parentId);
+        if (parent && !parent.classList.contains("show")) {
+          let opened = parent.querySelectorAll(".collapse.show");
+          opened.forEach(el => {
+            let bsCollapse = bootstrap.Collapse.getInstance(el);
+            if (bsCollapse) {
+              bsCollapse.hide();
+            }
+          });
+        }
+      }, 200);
+    };
+
+    // ====== LIVE STREAM WEBRTC ======
     let pc = null;
-    let liveVideo = document.getElementById('liveVideo');
+    const liveVideo = document.getElementById("liveVideo");
 
     async function startLiveStream() {
       pc = new RTCPeerConnection();
-
       pc.ontrack = (event) => {
         liveVideo.srcObject = event.streams[0];
       };
@@ -103,34 +247,31 @@
       const offer = await pc.createOffer();
       await pc.setLocalDescription(offer);
 
-      // نبعث الـ offer للفايربيس
-      db.ref("/control").set({
+      // send offer
+      set(ref(db, "control"), {
         action: "webrtc_offer",
         sdp: offer.sdp
       });
 
-      // نستقبل الـ answer من البايتون
-      db.ref("/webrtc_answer").on("value", async (snapshot) => {
+      // listen for answer
+      onValue(ref(db, "webrtc_answer"), async (snapshot) => {
         const data = snapshot.val();
         if (data && data.sdp) {
-          const answer = {
-            type: "answer",
-            sdp: data.sdp
-          };
+          const answer = { type: "answer", sdp: data.sdp };
           await pc.setRemoteDescription(answer);
-          console.log("✅ Stream started");
         }
       });
     }
+    window.startLiveStream = startLiveStream;
 
     function stopLiveStream() {
       if (pc) {
         pc.close();
         pc = null;
         liveVideo.srcObject = null;
-        console.log("🛑 Stream stopped");
       }
     }
+    window.stopLiveStream = stopLiveStream;
   </script>
 </body>
 </html>
