@@ -3,66 +3,117 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Smart Door System Control</title>
+  <title>SMART DOOR SYSTEM</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
     body {
-      background: #f4f6f9;
+      background: #121212;
+      color: #fff;
       font-family: Arial, sans-serif;
     }
-    .control-card {
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-      background: #fff;
+    .accordion-button {
+      background: #1f1f1f;
+      color: #fff;
     }
-    .control-card h3 {
-      border-bottom: 1px solid #ddd;
-      padding: 12px;
-      margin: 0;
+    .accordion-button:not(.collapsed) {
+      background: #333;
+      color: #fff;
     }
-    .btn {
+    .accordion-body button {
+      display: block;
+      width: 100%;
+      margin: 5px 0;
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .live-card {
+      background: #1f1f1f;
       border-radius: 12px;
-      padding: 10px 20px;
-      margin: 5px;
+      padding: 15px;
+      margin-top: 20px;
+    }
+    video {
+      width: 100%;
+      border-radius: 12px;
+      background: black;
     }
   </style>
 </head>
 <body>
   <div class="container py-4">
-    <h1 class="text-center mb-4">🚪 Smart Door System Control</h1>
+    <h1 class="text-center mb-4">SMART DOOR SYSTEM</h1>
 
-    <!-- ========== CONTROL BUTTONS ========== -->
-    <div class="card control-card">
-      <h3 class="p-3">🔘 Options</h3>
-      <div class="p-3">
-        <button class="btn btn-primary" onclick="sendCommand('open door')">Open Door</button>
-        <button class="btn btn-danger" onclick="sendCommand('close door')">Close Door</button>
-        <button class="btn btn-success" onclick="sendCommand('start camera')">Start Camera</button>
-        <button class="btn btn-warning" onclick="sendCommand('stop camera')">Stop Camera</button>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+
+      <!-- ========== Smart Door Options ========== -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel1" aria-expanded="true">
+            Smart Door System Options
+          </button>
+        </h2>
+        <div id="panel1" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            <h5>Open Door</h5>
+            <button class="btn btn-primary" onclick="sendCommand('open door all')">Open door & close it</button>
+            <button class="btn btn-success" onclick="sendCommand('open door')">Open door only</button>
+            <button class="btn btn-danger" onclick="sendCommand('close door')">Close door only</button>
+
+            <h5 class="mt-3">Toggle Camera</h5>
+            <button class="btn btn-info" onclick="sendCommand('start camera')">Start camera</button>
+            <button class="btn btn-warning" onclick="sendCommand('stop camera')">Stop camera</button>
+
+            <h5 class="mt-3">Toggle of the System</h5>
+            <button class="btn btn-secondary" onclick="sendCommand('lock system')">Lock system</button>
+            <button class="btn btn-light" onclick="sendCommand('unlock system')">Unlock system</button>
+
+            <h5 class="mt-3">Penalty</h5>
+            <button class="btn btn-danger" onclick="sendCommand('penalty activate')">Penalty Activate</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== Extra Options ========== -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panel2">
+            Smart Door System Add-on Options
+          </button>
+        </h2>
+        <div id="panel2" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            <button class="btn btn-outline-primary" onclick="sendCommand('light on')">Light On</button>
+            <button class="btn btn-outline-secondary" onclick="sendCommand('light off')">Light Off</button>
+            <button class="btn btn-outline-info" onclick="sendCommand('fan on')">Fan On</button>
+            <button class="btn btn-outline-dark" onclick="sendCommand('fan off')">Fan Off</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== Explanation ========== -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panel3">
+            Smart Door System Explanation
+          </button>
+        </h2>
+        <div id="panel3" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            This is the smart door system control panel with camera, lock system, and add-on features.
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- ========== EXTRA FEATURES (من ملفك الأصلي) ========== -->
-    <div class="card control-card">
-      <h3 class="p-3">⚙️ Extra Controls</h3>
-      <div class="p-3">
-        <button class="btn btn-secondary" onclick="sendCommand('light on')">Light On</button>
-        <button class="btn btn-dark" onclick="sendCommand('light off')">Light Off</button>
-        <button class="btn btn-info" onclick="sendCommand('fan on')">Fan On</button>
-        <button class="btn btn-outline-info" onclick="sendCommand('fan off')">Fan Off</button>
-      </div>
-    </div>
-
-    <!-- ========== LIVE CAMERA STREAM (الجديد) ========== -->
-    <div class="card control-card">
-      <h3 class="p-3">📹 Live Camera</h3>
-      <video id="remoteVideo" autoplay playsinline style="width:100%; border-radius:12px;"></video>
-      <button class="btn btn-success m-3" onclick="startStream()">Start Live</button>
+    <!-- ========== Live Stream Section ========== -->
+    <div class="live-card">
+      <h3>📹 Live Stream</h3>
+      <video id="remoteVideo" autoplay playsinline></video>
+      <button class="btn btn-success mt-3" onclick="startStream()">Start Live</button>
     </div>
   </div>
 
-  <!-- ========== FIREBASE + LOGIC ========== -->
+  <!-- Firebase + Logic -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
@@ -81,7 +132,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // ========== SEND COMMAND ==========
+    // إرسال أوامر
     async function sendCommand(cmd) {
       await set(ref(db, "commands/last"), {
         action: cmd,
@@ -90,7 +141,7 @@
     }
     window.sendCommand = sendCommand;
 
-    // ========== WEBRTC PART ==========
+    // ========== WebRTC ==========
     let pc;
 
     async function startStream() {
@@ -100,18 +151,17 @@
         document.getElementById("remoteVideo").srcObject = event.streams[0];
       };
 
-      // نعمل offer
       const offer = await pc.createOffer();
       await pc.setLocalDescription(offer);
 
-      // نبعث الـ offer للبايثون عبر Firebase
+      // نبعث offer للبايثون عبر Firebase
       await set(ref(db, "commands/last"), {
         action: "webrtc_offer",
         sdp: offer.sdp,
         timestamp: Date.now()
       });
 
-      // نستقبل الـ answer من البايثون
+      // نستقبل الـ answer من بايثون
       onValue(ref(db, "webrtc_answer"), async (snapshot) => {
         const data = snapshot.val();
         if (data && data.sdp && !pc.currentRemoteDescription) {
