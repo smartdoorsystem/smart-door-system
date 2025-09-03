@@ -38,7 +38,7 @@
     .ms-3{ margin-left:1rem !important; }
     button.cmd-btn {background:none;border:none;color:white;text-align:left;width:100%;}
     button.cmd-btn:hover {text-decoration:underline;}
-    video {width:100%;border-radius:12px;background:#000;}
+    video {width:100%;border-radius:12px;background:#000;max-height:60vh;}
   </style>
 </head>
 <body>
@@ -137,7 +137,7 @@
       <div id="liveStreamMenu" class="collapse">
         <ul class="list-group list-group-flush list-group-dark">
           <li class="list-group-item text-center">
-            <video id="liveVideo" autoplay playsinline></video>
+            <video id="liveVideo" autoplay playsinline muted></video>
           </li>
           <li class="list-group-item"><button class="cmd-btn" onclick="startLiveStream()">▶️ Start Stream</button></li>
           <li class="list-group-item"><button class="cmd-btn" onclick="stopLiveStream()">⏹ Stop Stream</button></li>
@@ -192,7 +192,7 @@
   <!-- Firebase + Logic -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+    import { getDatabase, ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
@@ -208,7 +208,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // send command
+    // ====== COMMANDS ======
     function sendCommand(command) {
       set(ref(db, "commands/last"), {
         action: command,
@@ -218,7 +218,7 @@
     }
     window.sendCommand = sendCommand;
 
-    // close inner menus
+    // ====== CLOSE INNER MENUS ======
     window.closeInnerMenus = function (parentId) {
       setTimeout(() => {
         let parent = document.querySelector(parentId);
@@ -226,9 +226,7 @@
           let opened = parent.querySelectorAll(".collapse.show");
           opened.forEach(el => {
             let bsCollapse = bootstrap.Collapse.getInstance(el);
-            if (bsCollapse) {
-              bsCollapse.hide();
-            }
+            if (bsCollapse) bsCollapse.hide();
           });
         }
       }, 200);
@@ -237,39 +235,86 @@
     // ====== LIVE STREAM WEBRTC ======
     let pc = null;
     const liveVideo = document.getElementById("liveVideo");
+    let answerUnsub = null;
+
+    function waitForIceGatheringComplete(pc) {
+      return new Promise(resolve => {
+        if (pc.iceGatheringState === "complete") {
+          resolve();
+        } else {
+          function checkState() {
+            if (pc.iceGatheringState === "complete") {
+              pc.removeEventListener("icegatheringstatechange", checkState);
+              resolve();
+            }
+          }
+          pc.addEventListener("icegatheringstatechange", checkState);
+        }
+      });
+    }
 
     async function startLiveStream() {
-      pc = new RTCPeerConnection();
+      // نظّف أي جلسة سابقة
+      stopLiveStream();
+
+      pc = new RTCPeerConnection({
+        iceServers: [
+          { urls: "stun:stun.l.google.com:19302" },
+          // TURN تجريبي؛ للأمان العالي استعمل سيرفر TURN مدفوع خاصّك
+          {
+            urls: "turn:relay1.expressturn.com:3478",
+            username: "efY7wY4H8C5M0lN4mV",
+            credential: "1hT8qE7pX2mS6fU2dL"
+          }
+        ]
+      });
+
       pc.ontrack = (event) => {
         liveVideo.srcObject = event.streams[0];
       };
 
-      const offer = await pc.createOffer();
-      await pc.setLocalDescription(offer);
+      pc.onconnectionstatechange = () => {
+        if (pc && ["failed","disconnected","closed"].includes(pc.connectionState)) {
+          console.warn("Peer connection state:", pc.connectionState);
+        }
+      };
 
-      // send offer
-      set(ref(db, "control"), {
+      // حضّر العرض (Offer) وكمّل تجميع ICE قبل الإرسال (non-trickle)
+      const offer = await pc.createOffer({ offerToReceiveVideo: true, offerToReceiveAudio: false });
+      await pc.setLocalDescription(offer);
+      await waitForIceGatheringComplete(pc);
+
+      // امسح جواب قديم وتوقع جواب جديد
+      await remove(ref(db, "webrtc_answer")).catch(()=>{});
+
+      // ابعت الـ offer بنفس الصيغة اللي الكود البايثون يسمعها
+      await set(ref(db, "control"), {
         action: "webrtc_offer",
-        sdp: offer.sdp
+        sdp: pc.localDescription.sdp,
+        ts: Date.now()
       });
 
-      // listen for answer
-      onValue(ref(db, "webrtc_answer"), async (snapshot) => {
+      // استنى الـ answer من البايثون
+      const ansRef = ref(db, "webrtc_answer");
+      answerUnsub = onValue(ansRef, async (snapshot) => {
         const data = snapshot.val();
-        if (data && data.sdp) {
-          const answer = { type: "answer", sdp: data.sdp };
-          await pc.setRemoteDescription(answer);
-        }
+        if (!data || !data.sdp || !pc) return;
+        const answer = { type: "answer", sdp: data.sdp };
+        if (pc.signalingState === "stable") return; // اتطبّق قبل
+        await pc.setRemoteDescription(answer).catch(console.error);
       });
     }
     window.startLiveStream = startLiveStream;
 
     function stopLiveStream() {
+      if (answerUnsub) { answerUnsub(); answerUnsub = null; }
       if (pc) {
-        pc.close();
+        try { pc.getSenders().forEach(s => s.track && s.track.stop()); } catch(e){}
+        try { pc.getReceivers().forEach(r => r.track && r.track.stop()); } catch(e){}
+        try { pc.close(); } catch(e){}
         pc = null;
-        liveVideo.srcObject = null;
       }
+      if (liveVideo) liveVideo.srcObject = null;
     }
     window.stopLiveStream = stopLiveStream;
   </script>
