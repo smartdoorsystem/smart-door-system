@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Smart Door System — Control</title>
 
+  <!-- Bootstrap 5 (CSS) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
   <style>
@@ -43,6 +44,7 @@
   <div class="container py-3">
     <h1>SMART DOOR SYSTEM</h1>
 
+    <!-- ========== OPTIONS ========== -->
     <div class="card control-card">
       <button type="button" class="btn-toggle"
               data-bs-toggle="collapse" data-bs-target="#sdsOptions"
@@ -54,6 +56,7 @@
       <div id="sdsOptions" class="collapse">
         <ul class="list-group list-group-flush list-group-dark">
 
+          <!-- Open Door -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#openDoorMenu"
@@ -69,6 +72,7 @@
             </div>
           </li>
 
+          <!-- Toggle Camera -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#cameraMenu"
@@ -83,6 +87,7 @@
             </div>
           </li>
 
+          <!-- Toggle of the System -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#systemMenu"
@@ -97,6 +102,7 @@
             </div>
           </li>
 
+          <!-- Penalty Activate -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#penaltyMenu"
@@ -119,6 +125,7 @@
       </div>
     </div>
 
+    <!-- ========== ADD-ON OPTIONS ========== -->
     <div class="card control-card">
       <button type="button" class="btn-toggle"
               data-bs-toggle="collapse" data-bs-target="#addonOptions"
@@ -133,6 +140,7 @@
       </div>
     </div>
 
+    <!-- ========== EXPLANATION ========== -->
     <div class="card control-card mb-5">
       <button type="button" class="btn-toggle"
               data-bs-toggle="collapse" data-bs-target="#explain"
@@ -156,30 +164,17 @@
         </ul>
       </div>
     </div>
-
-    <div class="card control-card mb-5">
-      <button type="button" class="btn-toggle"
-              data-bs-toggle="collapse" data-bs-target="#liveStream"
-              aria-expanded="false" aria-controls="liveStream"
-              onclick="closeInnerMenus('#liveStream')">
-        📹 Live Stream
-      </button>
-      <div id="liveStream" class="collapse">
-        <div class="p-3">
-          <video id="remoteVideo" autoplay playsinline style="width:100%;border-radius:12px;background:black;"></video>
-          <button class="btn btn-success mt-3" onclick="startStream()">Start Live</button>
-        </div>
-      </div>
-    </div>
-
   </div>
 
+  <!-- Bootstrap 5 (JS) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+  <!-- Firebase + Logic -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
+    // إعدادات مشروعك
     const firebaseConfig = {
       apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
       authDomain: "smart-door-system-project.firebaseapp.com",
@@ -191,10 +186,11 @@
       measurementId: "G-HY1Y22VZJT"
     };
 
+    // تهيئة Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // send command
+    // دالة تبعت الأمر لفايربيز
     function sendCommand(command) {
       set(ref(db, "commands/last"), {
         action: command,
@@ -202,9 +198,11 @@
       });
       alert("✅ Sent: " + command);
     }
+
+    // نخليها متاحة للـ HTML
     window.sendCommand = sendCommand;
 
-    // close submenus
+    // يقفل أي قوائم فرعية مفتوحة لما الزر الكبير يتسكر
     window.closeInnerMenus = function (parentId) {
       setTimeout(() => {
         let parent = document.querySelector(parentId);
@@ -219,61 +217,7 @@
         }
       }, 200);
     };
-
-    // ======= WebRTC part for Live Stream =======
-    let pc;
-    const servers = {
-      iceServers: [
-        {
-          urls: "stun:stun.l.google.com:19302" // Free public STUN server
-        }
-      ]
-    };
-
-    async function startStream() {
-      // Create new peer connection with STUN server configuration
-      pc = new RTCPeerConnection(servers);
-
-      pc.ontrack = (event) => {
-        document.getElementById("remoteVideo").srcObject = event.streams[0];
-      };
-
-      // Listen for ICE candidates from the Python side
-      onValue(ref(db, "webrtc_candidate"), (snapshot) => {
-        snapshot.forEach((child) => {
-          const candidateData = child.val();
-          if (candidateData) {
-            pc.addIceCandidate(candidateData).catch(e => console.error("Error adding received ICE candidate:", e));
-          }
-        });
-        // Clear candidates after use to avoid issues
-        set(ref(db, "webrtc_candidate"), null);
-      });
-
-      const offer = await pc.createOffer();
-      await pc.setLocalDescription(offer);
-
-      // Send the offer and clear the previous answer
-      await set(ref(db, "commands/last"), {
-        action: "webrtc_offer",
-        sdp: offer.sdp,
-        timestamp: Date.now()
-      });
-      await set(ref(db, "webrtc_answer"), null);
-
-      onValue(ref(db, "webrtc_answer"), async (snapshot) => {
-        const data = snapshot.val();
-        if (data && data.sdp && !pc.currentRemoteDescription) {
-          const answer = new RTCSessionDescription({
-            type: "answer",
-            sdp: data.sdp
-          });
-          await pc.setRemoteDescription(answer);
-        }
-      });
-    }
-    window.startStream = startStream;
   </script>
 </body>
-  </html>
-  
+</html>
+
