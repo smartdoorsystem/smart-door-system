@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Smart Door System — Control</title>
 
-  <!-- Bootstrap 5 (CSS) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
   <style>
@@ -38,14 +37,12 @@
     .ms-3{ margin-left:1rem !important; }
     button.cmd-btn {background:none;border:none;color:white;text-align:left;width:100%;}
     button.cmd-btn:hover {text-decoration:underline;}
-    video {width:100%;border-radius:12px;background:#000;max-height:60vh;}
   </style>
 </head>
 <body>
   <div class="container py-3">
     <h1>SMART DOOR SYSTEM</h1>
 
-    <!-- ========== OPTIONS ========== -->
     <div class="card control-card">
       <button type="button" class="btn-toggle"
               data-bs-toggle="collapse" data-bs-target="#sdsOptions"
@@ -57,7 +54,6 @@
       <div id="sdsOptions" class="collapse">
         <ul class="list-group list-group-flush list-group-dark">
 
-          <!-- Open Door -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#openDoorMenu"
@@ -73,7 +69,6 @@
             </div>
           </li>
 
-          <!-- Toggle Camera -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#cameraMenu"
@@ -88,7 +83,6 @@
             </div>
           </li>
 
-          <!-- Toggle of the System -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#systemMenu"
@@ -103,7 +97,6 @@
             </div>
           </li>
 
-          <!-- Penalty Activate -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#penaltyMenu"
@@ -126,26 +119,6 @@
       </div>
     </div>
 
-    <!-- ========== LIVE STREAM ========== -->
-    <div class="card control-card">
-      <button type="button" class="btn-toggle"
-              data-bs-toggle="collapse" data-bs-target="#liveStreamMenu"
-              aria-expanded="false" aria-controls="liveStreamMenu"
-              onclick="closeInnerMenus('#liveStreamMenu')">
-        📡 Live Stream
-      </button>
-      <div id="liveStreamMenu" class="collapse">
-        <ul class="list-group list-group-flush list-group-dark">
-          <li class="list-group-item text-center">
-            <video id="liveVideo" autoplay playsinline muted></video>
-          </li>
-          <li class="list-group-item"><button class="cmd-btn" onclick="startLiveStream()">▶️ Start Stream</button></li>
-          <li class="list-group-item"><button class="cmd-btn" onclick="stopLiveStream()">⏹ Stop Stream</button></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ========== ADD-ON OPTIONS ========== -->
     <div class="card control-card">
       <button type="button" class="btn-toggle"
               data-bs-toggle="collapse" data-bs-target="#addonOptions"
@@ -160,7 +133,6 @@
       </div>
     </div>
 
-    <!-- ========== EXPLANATION ========== -->
     <div class="card control-card mb-5">
       <button type="button" class="btn-toggle"
               data-bs-toggle="collapse" data-bs-target="#explain"
@@ -184,15 +156,29 @@
         </ul>
       </div>
     </div>
+
+    <div class="card control-card mb-5">
+      <button type="button" class="btn-toggle"
+              data-bs-toggle="collapse" data-bs-target="#liveStream"
+              aria-expanded="false" aria-controls="liveStream"
+              onclick="closeInnerMenus('#liveStream')">
+        📹 Live Stream
+      </button>
+      <div id="liveStream" class="collapse">
+        <div class="p-3">
+          <video id="remoteVideo" autoplay playsinline style="width:100%;border-radius:12px;background:black;"></video>
+          <button class="btn btn-success mt-3" onclick="startStream()">Start Live</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Bootstrap 5 (JS) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Firebase + Logic -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getDatabase, ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
@@ -208,7 +194,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // ====== COMMANDS ======
+    // send command
     function sendCommand(command) {
       set(ref(db, "commands/last"), {
         action: command,
@@ -218,7 +204,7 @@
     }
     window.sendCommand = sendCommand;
 
-    // ====== CLOSE INNER MENUS ======
+    // close submenus
     window.closeInnerMenus = function (parentId) {
       setTimeout(() => {
         let parent = document.querySelector(parentId);
@@ -226,97 +212,68 @@
           let opened = parent.querySelectorAll(".collapse.show");
           opened.forEach(el => {
             let bsCollapse = bootstrap.Collapse.getInstance(el);
-            if (bsCollapse) bsCollapse.hide();
+            if (bsCollapse) {
+              bsCollapse.hide();
+            }
           });
         }
       }, 200);
     };
 
-    // ====== LIVE STREAM WEBRTC ======
-    let pc = null;
-    const liveVideo = document.getElementById("liveVideo");
-    let answerUnsub = null;
-
-    function waitForIceGatheringComplete(pc) {
-      return new Promise(resolve => {
-        if (pc.iceGatheringState === "complete") {
-          resolve();
-        } else {
-          function checkState() {
-            if (pc.iceGatheringState === "complete") {
-              pc.removeEventListener("icegatheringstatechange", checkState);
-              resolve();
-            }
-          }
-          pc.addEventListener("icegatheringstatechange", checkState);
+    // ======= WebRTC part for Live Stream =======
+    let pc;
+    const servers = {
+      iceServers: [
+        {
+          urls: "stun:stun.l.google.com:19302" // Free public STUN server
         }
-      });
-    }
+      ]
+    };
 
-    async function startLiveStream() {
-      // نظّف أي جلسة سابقة
-      stopLiveStream();
-
-      pc = new RTCPeerConnection({
-        iceServers: [
-          { urls: "stun:stun.l.google.com:19302" },
-          // TURN تجريبي؛ للأمان العالي استعمل سيرفر TURN مدفوع خاصّك
-          {
-            urls: "turn:relay1.expressturn.com:3478",
-            username: "efY7wY4H8C5M0lN4mV",
-            credential: "1hT8qE7pX2mS6fU2dL"
-          }
-        ]
-      });
+    async function startStream() {
+      // Create new peer connection with STUN server configuration
+      pc = new RTCPeerConnection(servers);
 
       pc.ontrack = (event) => {
-        liveVideo.srcObject = event.streams[0];
+        document.getElementById("remoteVideo").srcObject = event.streams[0];
       };
 
-      pc.onconnectionstatechange = () => {
-        if (pc && ["failed","disconnected","closed"].includes(pc.connectionState)) {
-          console.warn("Peer connection state:", pc.connectionState);
-        }
-      };
+      // Listen for ICE candidates from the Python side
+      onValue(ref(db, "webrtc_candidate"), (snapshot) => {
+        snapshot.forEach((child) => {
+          const candidateData = child.val();
+          if (candidateData) {
+            pc.addIceCandidate(candidateData).catch(e => console.error("Error adding received ICE candidate:", e));
+          }
+        });
+        // Clear candidates after use to avoid issues
+        set(ref(db, "webrtc_candidate"), null);
+      });
 
-      // حضّر العرض (Offer) وكمّل تجميع ICE قبل الإرسال (non-trickle)
-      const offer = await pc.createOffer({ offerToReceiveVideo: true, offerToReceiveAudio: false });
+      const offer = await pc.createOffer();
       await pc.setLocalDescription(offer);
-      await waitForIceGatheringComplete(pc);
 
-      // امسح جواب قديم وتوقع جواب جديد
-      await remove(ref(db, "webrtc_answer")).catch(()=>{});
-
-      // ابعت الـ offer بنفس الصيغة اللي الكود البايثون يسمعها
-      await set(ref(db, "control"), {
+      // Send the offer and clear the previous answer
+      await set(ref(db, "commands/last"), {
         action: "webrtc_offer",
-        sdp: pc.localDescription.sdp,
-        ts: Date.now()
+        sdp: offer.sdp,
+        timestamp: Date.now()
       });
+      await set(ref(db, "webrtc_answer"), null);
 
-      // استنى الـ answer من البايثون
-      const ansRef = ref(db, "webrtc_answer");
-      answerUnsub = onValue(ansRef, async (snapshot) => {
+      onValue(ref(db, "webrtc_answer"), async (snapshot) => {
         const data = snapshot.val();
-        if (!data || !data.sdp || !pc) return;
-        const answer = { type: "answer", sdp: data.sdp };
-        if (pc.signalingState === "stable") return; // اتطبّق قبل
-        await pc.setRemoteDescription(answer).catch(console.error);
+        if (data && data.sdp && !pc.currentRemoteDescription) {
+          const answer = new RTCSessionDescription({
+            type: "answer",
+            sdp: data.sdp
+          });
+          await pc.setRemoteDescription(answer);
+        }
       });
     }
-    window.startLiveStream = startLiveStream;
-
-    function stopLiveStream() {
-      if (answerUnsub) { answerUnsub(); answerUnsub = null; }
-      if (pc) {
-        try { pc.getSenders().forEach(s => s.track && s.track.stop()); } catch(e){}
-        try { pc.getReceivers().forEach(r => r.track && r.track.stop()); } catch(e){}
-        try { pc.close(); } catch(e){}
-        pc = null;
-      }
-      if (liveVideo) liveVideo.srcObject = null;
-    }
-    window.stopLiveStream = stopLiveStream;
+    window.startStream = startStream;
   </script>
 </body>
-</html>
+  </html>
+  
