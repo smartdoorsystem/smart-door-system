@@ -9,9 +9,9 @@
 
         :root {
             --primary-color: #f0f0f0;
-            --secondary-color: #ffb84d; /* لون الأزرار والعناوين الفرعية */
-            --background-color: #1a1a1a; /* لون الخلفية الرئيسية (الأسود الغامق) */
-            --card-background: #1a1a1a; /* لون خلفية الكارد (نفس الخلفية لتوحيد اللون) */
+            --secondary-color: #ffb84d;
+            --background-color: #1a1a1a; 
+            --card-background: #1a1a1a; 
             --text-color: #ccc;
             --heading-color: #fff;
             --border-radius: 8px;
@@ -23,21 +23,22 @@
             padding: 0;
         }
 
-        body {
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: var(--background-color); /* نفس لون الخلفية */
             font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
-            background: var(--background-color);
-            padding: 0; /* Remove padding */
-            margin: 0; /* Remove margin */
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: var(--card-background);
+            background: transparent; /* خليه شفاف */
             border-radius: var(--border-radius);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: none; /* نشيل الظل */
             padding: 30px;
         }
 
@@ -149,7 +150,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid #333;
+            border-bottom: none; /* حذف الخط الرقيق */
         }
         .navbar-brand-image {
             height: 30px;
