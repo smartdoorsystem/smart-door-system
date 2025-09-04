@@ -27,15 +27,15 @@
             font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
-            background: var(--background-color); /* تطبيق الخلفية على الـ body بالكامل */
-            /* أزل الـ padding من هنا أو اجعله 0 إذا كان موجوداً */
-            padding: 0; /* تم إزالة الـ padding ليحتل الـ body الشاشة بالكامل */
+            background: var(--background-color);
+            padding: 0; /* Remove padding */
+            margin: 0; /* Remove margin */
         }
 
         .container {
             max-width: 900px;
-            margin: 0 auto; /* تم تعديل الـ margin ليكون 0 auto */
-            background: var(--card-background); /* الخلفية الموحدة */
+            margin: 0 auto;
+            background: var(--card-background);
             border-radius: var(--border-radius);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             padding: 30px;
@@ -44,7 +44,7 @@
         header {
             text-align: center;
             margin-bottom: 30px;
-            padding-top: 80px; /* تم إضافة مسافة علوية لدفع المحتوى لأسفل */
+            padding-top: 80px;
         }
 
         header h1 {
@@ -143,17 +143,16 @@
             color: var(--secondary-color);
         }
 
-        /* Navbar specific styles for better integration */
         .navbar {
-            background-color: var(--background-color); /* لضمان أن الشريط العلوي بنفس لون الخلفية */
-            position: fixed; /* لتثبيت شريط التنقل في الأعلى */
-            width: 100%; /* ليأخذ عرض الشاشة بالكامل */
-            top: 0; /* لتثبيته في أعلى الشاشة */
-            z-index: 1000; /* لضمان ظهوره فوق المحتوى الآخر */
-            border-bottom: 1px solid #333; /* خط فاصل بسيط */
+            background-color: var(--background-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
         }
         .navbar-brand-image {
-            height: 30px; /* Adjust as needed */
+            height: 30px;
             margin-right: 10px;
         }
         .navbar-brand {
@@ -178,7 +177,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">                
-        <div class="container">
+        <div class="container-fluid" style="background-color: var(--background-color);">
             <a class="navbar-brand d-flex align-items-center me-3" href="index.html">
                 <img src="images/smart door system.png" class="navbar-brand-image img-fluid" alt="Smart Door System Logo">
                 Smart Door System
