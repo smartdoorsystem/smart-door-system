@@ -4,12 +4,13 @@
   "description": "Control your Smart Door System from anywhere.",
   "start_url": "/smart-door-system/index.html",
   "display": "standalone",
+  "background_color": "#2c2c2c",
+  "theme_color": "#2c2c2c",
   "icons": [
     {
       "src": "https://raw.githubusercontent.com/smartdoorsystem/smart-door-system/main/smartdoorsystem.jpg",
       "sizes": "312x312",
-      "type": "image/jpg"
+      "type": "image/jpeg"
     }
   ]
 }
-
