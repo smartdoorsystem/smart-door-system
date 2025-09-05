@@ -670,16 +670,18 @@ strong {
 }
 
 .team-block-info {
-  background-color: var(--primary-color); /* هذا سيستخدم اللون الأزرق الداكن المحدد في المتغيرات */
-  color: var(--white-color); /* للتأكد أن النص يظهر جيداً */
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 30px;
+    /* سنستخدم تدرجًا لونيًا شبيهًا بما في الفيديو، لكن مع التأكيد على اللون الأساسي */
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), var(--primary-color));
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 30px;
+    color: var(--white-color); /* لضمان وضوح النص */
 }
+
 
 .team-block-info .badge {
   margin: auto;
@@ -1204,6 +1206,7 @@ strong {
     top: 13px;
   }
 }
+
 
 
 
