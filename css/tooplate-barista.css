@@ -536,7 +536,7 @@ strong {
 }
 
 .hero-section::after {
-  background-color: rgba(60, 60, 60, 0.8); /* رمادي داكن شبه شفاف */
+  background-color: rgba(39, 102, 186, 0.8); /* رمادي داكن شبه شفاف */
   border-radius: var(--border-radius-medium);
   content: "";
   position: absolute;
@@ -1203,6 +1203,7 @@ strong {
     top: 13px;
   }
 }
+
 
 
 
