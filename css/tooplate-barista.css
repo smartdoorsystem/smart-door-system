@@ -670,18 +670,15 @@ strong {
 }
 
 .team-block-info {
-    /* سنستخدم تدرجًا لونيًا شبيهًا بما في الفيديو، لكن مع التأكيد على اللون الأساسي */
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), var(--primary-color));
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 30px;
-    color: var(--white-color); /* لضمان وضوح النص */
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(188, 108, 37, 1));
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 30px;
 }
-
 
 .team-block-info .badge {
   margin: auto;
@@ -1206,8 +1203,6 @@ strong {
     top: 13px;
   }
 }
-
-
 
 
 
