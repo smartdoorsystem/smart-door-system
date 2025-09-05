@@ -86,7 +86,7 @@
             }
 
             .small-text {
-                color: var(--secondary-color); /* Light Blue */
+                color: var(--white-color); /* Change to white */
             }
 
             /* About Section Colors */
@@ -260,6 +260,36 @@
                 background-color: var(--white-color);
                 border: 5px solid var(--secondary-color); /* Light Blue border */
             }
+
+            /* Team Block Specific Styles for background */
+            .team-block-wrap {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .team-block-wrap .team-block-info {
+                background-color: var(--primary-color); /* Deep Blue for the info background */
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 15px; /* Adjust padding as needed */
+                z-index: 2; /* Make sure it's above the image but below text */
+                color: var(--white-color); /* Text color on this background */
+            }
+             /* Learn More button style - revert to default/original */
+            .barista-section .btn {
+                background-color: #000; /* Black for Learn More button, or your original color */
+                color: #fff;
+                border-radius: 8px;
+            }
+
+            /* Overwrite the inline style if it exists */
+            .barista-section .btn[style] {
+                background-color: #000 !important;
+                color: #fff !important;
+            }
+
         </style>
     </head>
     
@@ -312,7 +342,7 @@
                             <div class="row align-items-center">
 
                                 <div class="col-lg-6 col-12 mx-auto">
-                                    <em class="small-text">Your Gateway to Advanced Security</em>
+                                    <em class="small-text" style="color: var(--white-color);">Your Gateway to Advanced Security</em>
                                     
                                     <h1>SMART DOOR SYSTEM</h1>
 
@@ -378,7 +408,7 @@
 
                                 <div class="col-lg-3 col-md-6 col-12 mb-4 text-center">
                                     <div class="team-block-wrap">
-                                        <div class="team-block-info d-flex flex-column" style="padding-top: 30px;">
+                                        <div class="team-block-info d-flex flex-column" style="padding-top: 30px; background-color: var(--primary-color);">
                                             <div class="d-flex flex-column text-center mt-auto mb-3">
                                                 <h4 class="text-white mb-2">Abdelraouf</h4>
                                             </div>
@@ -392,14 +422,14 @@
                                     </div>
                                     <a href="profile-abdelraouf.html" 
                                             class="btn mt-3" 
-                                            style="background:#000; color:#fff; border-radius:8px;">
+                                            style="background: #000; color: #fff; border-radius: 8px;">
                                         Learn More
                                     </a>
                                 </div>
 
                                 <div class="col-lg-3 col-md-6 col-12 mb-4 text-center">
                                     <div class="team-block-wrap">
-                                        <div class="team-block-info d-flex flex-column" style="padding-top: 30px;">
+                                        <div class="team-block-info d-flex flex-column" style="padding-top: 30px; background-color: var(--primary-color);">
                                             <div class="d-flex flex-column text-center mt-auto mb-3">
                                                 <h4 class="text-white mb-2">Abdulali</h4>
                                             </div>
@@ -413,14 +443,14 @@
                                     </div>
                                     <a href="profile-abdulali.html" 
                                             class="btn mt-3" 
-                                            style="background:#000; color:#fff; border-radius:8px;">
+                                            style="background: #000; color: #fff; border-radius: 8px;">
                                         Learn More
                                     </a>
                                 </div>
 
                                 <div class="col-lg-3 col-md-6 col-12 mb-4 text-center">
                                     <div class="team-block-wrap">
-                                        <div class="team-block-info d-flex flex-column" style="padding-top: 30px;">
+                                        <div class="team-block-info d-flex flex-column" style="padding-top: 30px; background-color: var(--primary-color);">
                                             <div class="d-flex flex-column text-center mt-auto mb-3">
                                                 <h4 class="text-white mb-2">Dr.ahmed</h4>
                                             </div>
@@ -434,7 +464,7 @@
                                     </div>
                                     <a href="profile-dr-ahmed.html" 
                                             class="btn mt-3" 
-                                            style="background:#000; color:#fff; border-radius:8px;">
+                                            style="background: #000; color: #fff; border-radius: 8px;">
                                         Learn More
                                     </a>
                                 </div>
@@ -507,7 +537,6 @@
                                                     </div>
                                                     <div class="menu-block">
                                                         <div class="border-top mt-2 pt-2 d-flex">
-                                                            
                                                             
                                                               
                                                                 <h6>Buzzer</h6>
