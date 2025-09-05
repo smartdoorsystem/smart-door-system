@@ -58,9 +58,15 @@
                 color: var(--white-color);
             }
             /* Give Meet The People section same gradient effect */
-#barista-team {
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), var(--primary-color));
-    padding: 80px 0; /* باش يخلي مساحة واضحة */
+/* Override for Meet The People section background */
+section#barista-team.barista-section {
+  background: linear-gradient(
+    to top, 
+    var(--primary-color) 0%, 
+    rgba(0, 51, 102, 0.6) 60%, 
+    rgba(0, 0, 0, 0.2) 100%
+  ) !important;
+  padding: 80px 0 !important;
 }
 
             .navbar-nav .nav-link.active, 
@@ -873,6 +879,7 @@
     document.addEventListener("DOMContentLoaded", generateCaptcha);
 </script>
 </html>
+
 
 
 
