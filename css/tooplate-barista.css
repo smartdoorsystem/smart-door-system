@@ -629,7 +629,7 @@ strong {
 }
 
 .about-video-info {
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(188, 108, 37, 1));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(29, 132, 221, 1));
   border-radius: var(--border-radius-medium);
   bottom: 0;
   height: auto;
@@ -1203,6 +1203,7 @@ strong {
     top: 13px;
   }
 }
+
 
 
 
