@@ -11,8 +11,8 @@ body {
 }
 
 .frame {
-  height: 575px;
-  width: 430px;
+  height: 650px; /* تم تكبير الصندوق */
+  width: 500px; /* تم تكبير الصندوق */
   background: #fff; /* أبيض */
   margin-left: auto;
   margin-right: auto;
@@ -24,7 +24,7 @@ body {
 }
 
 .frame-long {
-  height: 615px;
+  height: 700px;
 }
 
 .frame-short {
@@ -90,7 +90,7 @@ li {
 }
 
 .form-signin {
-  width: 430px;
+  width: 100%;
   height: 375px;
   font-size: 16px;
   font-weight: 300;
@@ -101,12 +101,12 @@ li {
 }
 
 .form-signin-left {
-  transform: translateX(-400px);
+  transform: translateX(-500px); /* تم تعديل القيمة لتناسب الحجم الجديد */
   opacity: .0;
 }
 
 .form-signup {
-  width: 430px;
+  width: 100%;
   height: 375px;
   font-size: 16px;
   font-weight: 300;
@@ -115,13 +115,13 @@ li {
   padding-top: 55px;
   position: relative;
   top: -375px;
-  left: 400px;
+  left: 500px; /* تم تعديل القيمة لتناسب الحجم الجديد */
   opacity: 0;
   transition: all .5s ease;
 }
 
 .form-signup-left {
-  transform: translateX(-399px);
+  transform: translateX(-500px); /* تم تعديل القيمة لتناسب الحجم الجديد */
   opacity: 1;
 }
 
@@ -184,7 +184,7 @@ li {
   border: none;
   border-radius: 20px;
   margin-bottom: 20px;
-  background: rgba(0,0,0,.2);
+  background: #eee;
   color: #000;
 }
 
@@ -194,7 +194,7 @@ label {
   font-size: 13px;
   padding-left: 15px;
   padding-bottom: 10px;
-  color: rgba(0,0,0,.7);
+  color: #000;
   display: block;
 }
 
@@ -202,7 +202,7 @@ label {
 }
 
 .form-signin input:focus, textarea:focus, .form-signup input:focus, textarea:focus {
-    background: rgba(0,0,0,.3);
+    background: #e0e0e0;
     border: none; 
     padding-right: 40px;
     transition: background .5s ease;
@@ -221,7 +221,7 @@ label {
   padding-top: 2px;
   cursor: pointer;
   margin-top: 8px;
-  color: #000; /* نص أبيض في الخلفية السوداء */
+  color: #000; /* نص أسود */
 }
 
 [type="checkbox"]:not(:checked) + label:before,
@@ -236,7 +236,7 @@ label {
 [type="checkbox"]:checked + label:before {
   width: 65px; 
   height: 30px;
-  background: rgba(0,0,0,.2);
+  background: #ccc;
   border-radius: 15px;
   left: 0; 
   top: -3px;
@@ -247,7 +247,7 @@ label {
 [type="checkbox"]:checked + label:after {
   width: 10px; 
   height: 10px;
-  background: rgba(0,0,0,.7);
+  background: #000;
   border-radius: 50%;
   top: 7px; 
   left: 10px;
@@ -281,7 +281,7 @@ label {
 [type="checkbox"]:not(:checked) + label .ui:before {
   content: "no";
   left: 32px;
-  color: rgba(0,0,0,.7);
+  color: #000;
 }
 
 [type="checkbox"]:checked + label .ui:after {
@@ -300,7 +300,7 @@ label {
   text-transform: uppercase;
   font-size: 13px;
   text-align: center;
-  color: #000; /* نص أبيض في الخلفية السوداء */
+  color: #000; /* نص أسود */
   padding-top: 8px;
   width: 100%;
   height: 35px;
@@ -351,8 +351,9 @@ label {
 
 a.btn-signup:hover, a.btn-signin:hover {
     cursor: pointer; 
-    background-color: #000; /* تحويل لون الزر إلى الأسود عند الوقوف عليه */
+    background-color: #000;
     transition: background-color .5s; 
+    color: #fff; /* لون النص في الزر لما توقف عليه بالماوس */
 }
 
 .forgot {
@@ -368,7 +369,7 @@ a.btn-signup:hover, a.btn-signin:hover {
 }
 
 .forgot-left {
-  transform: translateX(-400px);
+  transform: translateX(-500px); /* تم تعديل القيمة لتناسب الحجم الجديد */
   opacity: 0;
 }
 
@@ -377,7 +378,7 @@ a.btn-signup:hover, a.btn-signin:hover {
 }
 
 .forgot a {
-  color: rgba(0,0,0,.3); /* لون نص "هل نسيت كلمة المرور؟" */
+  color: #000;
   font-weight: 400;
   font-size: 13px;
   text-decoration: none;
@@ -454,9 +455,9 @@ h1 {
   text-transform: uppercase;
   font-size: 13px;
   text-align: center;
-  color: #fff;
+  color: #000;
   margin-top: -8px;
-  border: solid 1px #fff;
+  border: solid 1px #000;
   opacity: 0;
   transition: top 1.5s ease 0.35s, opacity .75s ease .5s;
 }
@@ -468,9 +469,9 @@ h1 {
 
 a.btn-goback:hover {
     cursor: pointer; 
-    background-color: #fff;
+    background-color: #000;
     transition: all .5s; 
-    color: #000;
+    color: #fff;
 }
 
 #refresh {
@@ -513,5 +514,5 @@ a.btn-goback:hover {
 
 .btn-signin {
     color: rgba(0,0,0, 1);
-}
-
+  }
+  
