@@ -18,7 +18,6 @@ $(function() {
   $("#jobForm").on("submit", function(e) {
     e.preventDefault();
 
-    // تحقق إن كل الحقول معمرة
     let valid = true;
     $("#jobForm input").each(function() {
       if ($(this).val().trim() === "") {
@@ -31,13 +30,13 @@ $(function() {
       return;
     }
 
-    // أنيميشن
+    // Animation
     $(".nav").addClass("nav-up");
     $(".form-signup-left").addClass("form-signup-down");
     $(".success").addClass("success-left");
     $(".frame").addClass("frame-short");
 
-    // إرسال البيانات لـ Formspree
+    // Send data to Formspree
     $.ajax({
       url: $("#jobForm").attr("action"),
       method: "POST",
@@ -64,7 +63,7 @@ $(function() {
     let password = $("input[name='password']").val().trim();
 
     if (username === "smart_door_system" && password === "1037") {
-      // أنيميشن sign in
+      // Animation
       $(".btn-animate").addClass("btn-animate-grow");
       $(".welcome").addClass("welcome-left");
       $(".cover-photo").addClass("cover-photo-down");
@@ -73,7 +72,7 @@ $(function() {
       $(".btn-goback").addClass("btn-goback-up");
       $(".forgot").addClass("forgot-fade");
 
-      // بعد ثانيتين يفتح صفحة التحكم
+      // Redirect after 2s
       setTimeout(function() {
         window.location.href = "dist/profile-abdelraouf.html";
       }, 2000);
