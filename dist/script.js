@@ -74,7 +74,7 @@ $(function() {
 
       // Redirect after 2s
       setTimeout(function() {
-        window.location.href = "dist/profile-abdelraouf.html";
+        href = "dist/profile-abdelraouf.html";
       }, 2000);
     } else {
       alert("❌ Wrong username or password!");
