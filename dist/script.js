@@ -74,8 +74,9 @@ $(function() {
 
       // Redirect after 2s
       setTimeout(function() {
-        href = "dist/profile-abdelraouf.html";
-      }, 2000);
+  window.location.href = "https://smartdoorsystem.github.io/smart-door-system/dist/profile-abdelraouf.html";
+}, 2000);
+      
     } else {
       alert("❌ Wrong username or password!");
     }
