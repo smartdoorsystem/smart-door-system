@@ -29,7 +29,7 @@ $(function() {
 
   if (username === "smart_door_system" && password === "1037") {
     // Correct credentials, redirect to abdelraouf.html
-    window.location.href = "control.html";
+    window.location.href = "abdelraouf.html";
   } else {
     // Incorrect credentials, show an alert
     alert("Incorrect username or password. Please try again.");
