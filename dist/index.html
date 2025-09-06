@@ -19,7 +19,7 @@
 
     <div ng-app ng-init="checked = false">
       <!-- Sign in form -->
-      <form class="form-signin" action="#" method="post" name="form">
+      <form class="form-signin" onsubmit="return false;">
         <label for="username">Username</label>
         <input class="form-styling" type="text" name="username" placeholder=""/>
         <label for="password">Password</label>
@@ -59,7 +59,7 @@
     </div>
 
     <div class="forgot">
-      <a href="dist/profile-abdelraouf.html">Forgot your password?</a>
+      <a href="profile-abdelraouf.html">Forgot your password?</a>
     </div>
 
     <div>
@@ -86,34 +86,5 @@
 <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js'></script>
 <script src="./script.js"></script>
-
-<script>
-// Sign in redirect after animation
-$(document).on("click", ".btn-signin", function(e){
-  e.preventDefault();
-  $(".success").fadeIn(500);
-  setTimeout(function(){
-    window.location.href = "control.html";
-  }, 2000); // وقت بعد الأنيميشن
-});
-
-// Job application form submission + animation
-$("#jobForm").on("submit", function(e){
-  e.preventDefault();
-  var form = $(this);
-  $.ajax({
-    url: form.attr("action"),
-    method: form.attr("method"),
-    data: form.serialize(),
-    dataType: "json",
-    success: function(){
-      $(".success").fadeIn(500);
-    },
-    error: function(){
-      $(".success").fadeIn(500);
-    }
-  });
-});
-</script>
 </body>
 </html>
