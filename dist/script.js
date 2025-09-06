@@ -75,7 +75,7 @@ $(function() {
 
       // بعد ثانيتين يفتح صفحة التحكم
       setTimeout(function() {
-        window.location.href = "smart-door-system/control.html";
+        window.location.href = "dist/profile-abdelraouf.html";
       }, 2000);
     } else {
       alert("❌ Wrong username or password!");
