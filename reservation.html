@@ -344,17 +344,20 @@
             #aiLoading {
                 text-align: center;
             }
-            /* تظبيط أماكن الكروت والصورة بس */
+/* إجبار الصورة والكروت يطلعوا وسط */
 .booking-form-image-wrap img {
-  display: block;
-  margin: 0 auto 20px auto; /* وسط */
-  max-width: 300px; /* حجم مناسب */
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-bottom: 20px !important;
+  max-width: 300px !important;
 }
 
 .control-card {
-  margin: 16px auto; /* يخلي الكروت وسط */
-  width: 95%;
-  max-width: 700px; /* ما يكبرش أكثر */
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 95% !important;
+  max-width: 700px !important;
 }
 
         </style>
@@ -732,6 +735,7 @@
         </script>
     </body>
 </html>
+
 
 
 
