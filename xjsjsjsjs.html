@@ -40,6 +40,20 @@ Bootstrap 5 HTML CSS Template
       --bg1:#2c2c2c; --bg2:#1a1a1a;
       --card:#2f2f2f; --list:#3a3a3a; --list-hover:#4a4a4a; --text:#fff;
     }
+             /* Custom Colors */
+            :root {
+                --primary-color: #003366; /* Deep Blue */
+                --secondary-color: #6699CC; /* Light Blue */
+                --section-bg-color: #003366; /* Deep Blue */
+                --custom-btn-bg-color: #6699CC; /* Light Blue */
+                --custom-btn-bg-hover-color: #003366; /* Deep Blue */
+                --dark-color: #000000;
+                --p-color: #333333; /* Dark Gray for text */
+                --border-color: #ADD8E6; /* Light Blue */
+                --link-hover-color: #003366; /* Deep Blue */
+                --white-color: #ffffff;
+            }
+      
     body{
       background: linear-gradient(120deg,var(--bg1),var(--bg2));
       color:var(--text);
@@ -231,7 +245,7 @@ Bootstrap 5 HTML CSS Template
 
     <!-- LIVESTREAM VIDEO BOX -->
     <div id="livestreamBox" style="display:none; margin-top:20px;" class="card control-card">
-      <h3 class="p-3">📺 Livestream</h3>
+      <h3 class="p-3">ðº Livestream</h3>
       <div class="ratio ratio-16x9">
         <iframe id="twitchStream"
            src="https://player.twitch.tv/?channel=jq7v444&parent=smartdoorsystem.github.io"
@@ -364,7 +378,7 @@ Bootstrap 5 HTML CSS Template
                             </div>
 
                             <div class="col-lg-8 col-12 mt-4">
-                                <p class="copyright-text mb-0">Copyright � Barista Cafe 2048 
+                                <p class="copyright-text mb-0">Copyright © Barista Cafe 2048 
                                     - Design: <a rel="sponsored" href="https://www.tooplate.com" target="_blank">Tooplate</a></p>
                             </div>
                             
@@ -398,7 +412,7 @@ Bootstrap 5 HTML CSS Template
         action: command,
         timestamp: Date.now()
       });
-      alert("✅ Sent: " + command);
+      alert("â Sent: " + command);
 
       if (command === "start_stream") {
         document.getElementById("livestreamBox").style.display = "block";
@@ -425,5 +439,6 @@ Bootstrap 5 HTML CSS Template
   </script>
 </body>
 </html>
+
 
 
