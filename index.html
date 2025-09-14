@@ -887,12 +887,12 @@
             <div class="p-4">
                 <h4 class="mb-4 text-center" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight:600; color: #7cb3f2;">Login</h4>
 
-                <label for="username" class="form-label" style="color: #adb5bd;">Username</label>
-                <input type="text" id="username" class="form-control mb-3" style="background-color: #2e3b52; border: 1px solid #4a5a73; color: #e9ecef;">
+                <label for="username1" class="form-label" style="color: #adb5bd;">Username</label>
+                <input type="text" id="username1" class="form-control mb-3" style="background-color: #2e3b52; border: 1px solid #4a5a73; color: #e9ecef;">
 
-                <label for="password" class="form-label" style="color: #adb5bd;">Password</label>
+                <label for="password1" class="form-label" style="color: #adb5bd;">Password</label>
                 <div class="input-group mb-3">
-                    <input type="password" id="password" class="form-control" style="background-color: #2e3b52; border: 1px solid #4a5a73; color: #e9ecef;">
+                    <input type="password" id="password1" class="form-control" style="background-color: #2e3b52; border: 1px solid #4a5a73; color: #e9ecef;">
                     <button class="btn btn-outline-secondary" type="button" onclick="togglePassword1()" style="border: 1px solid #4a5a73; color: #adb5bd; background-color: #2e3b52;">👁</button>
                 </div>
 
@@ -908,8 +908,10 @@
     </div>
 </div>
 
+
 <script>
-    let correctAnswer1;
+        let correctAnswer1;
+
     function generateCaptcha1() {
         let a = Math.floor(Math.random() * 10) + 1;
         let b = Math.floor(Math.random() * 10) + 1;
@@ -918,13 +920,13 @@
     }
 
     function togglePassword1() {
-        const pass = document.getElementById("password");
+        const pass = document.getElementById("password1");
         pass.type = pass.type === "password" ? "text" : "password";
     }
 
     function checkLogin1() {
-        const user = document.getElementById("username").value;
-        const pass = document.getElementById("password").value;
+        const user = document.getElementById("username1").value;
+        const pass = document.getElementById("password1").value;
         const captcha = document.getElementById("captchaAnswer1").value;
 
         if (parseInt(captcha) !== correctAnswer1) {
@@ -940,11 +942,10 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", generateCaptcha1);
-</script>
 
     
 </html>
+
 
 
 
