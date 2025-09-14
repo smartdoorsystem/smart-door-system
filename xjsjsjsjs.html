@@ -154,31 +154,67 @@ Bootstrap 5 HTML CSS Template
                         </div>
                     </div>
                 </nav>
-<body>
-    <script>
-        // Define the correct username and password
-        const correctUsername = "smart_door_system";
-        const correctPassword = "1037";
+<body onload="showLoginModal()">
+<div class="modal fade" id="ideasModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: linear-gradient(135deg,#555,#333); color: white; border-radius: 15px;">
+            <div class="p-4">
+                <h4 class="mb-4 text-center" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight:600;">Login</h4>
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" class="form-control mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group mb-3">
+                    <input type="password" id="password" class="form-control">
+                    <button class="btn btn-outline-light" type="button" onclick="togglePassword()">👁</button>
+                </div>
+                <div class="mb-3">
+                    <label id="captchaQuestion" class="form-label"></label>
+                    <input type="text" id="captchaAnswer" class="form-control" placeholder="">
+                </div>
+                <button class="btn w-100 mb-2" style="background:#777; border:none; color:white;" onclick="checkLogin()">Login</button>
+                <p id="error" class="text-danger mt-2"></p>
+            </div>
+        </div>
+    </div>
+</div>
 
-        function showLoginPrompt() {
-            let username = prompt("Please enter the username:");
-            let password = prompt("Please enter the password:");
-
-            if (username === correctUsername && password === correctPassword) {
-                // If login is successful, do nothing. The page content will be visible.
-                alert("Login successful!");
-            } else {
-                // If login fails, hide the content and show an alert.
-                document.body.style.display = 'none';
-                alert("Incorrect username or password. Please try again.");
-                // Re-run the function to prompt again
-                showLoginPrompt();
-            }
+<script>
+    let correctAnswer;
+    function generateCaptcha() {
+        let a = Math.floor(Math.random()*10)+1;
+        let b = Math.floor(Math.random()*10)+1;
+        correctAnswer = a + b;
+        document.getElementById("captchaQuestion").textContent = `solve the equation: ${a} + ${b} = ?`;
+    }
+    function togglePassword() {
+        const pass = document.getElementById("password");
+        pass.type = pass.type === "password" ? "text" : "password";
+    }
+    function showLoginModal() {
+        const loginModal = new bootstrap.Modal(document.getElementById('ideasModal'), {
+            backdrop: 'static',
+            keyboard: false
+        });
+        loginModal.show();
+    }
+    function checkLogin() {
+        const user = document.getElementById("username").value;
+        const pass = document.getElementById("password").value;
+        const captcha = document.getElementById("captchaAnswer").value;
+        if (parseInt(captcha) !== correctAnswer) {
+            document.getElementById("error").textContent = "Verification answer is wrong!";
+            generateCaptcha();
+            return;
         }
+        if (user === "smart_door_system" && pass === "1037") {
+            window.location.href = "xjsjsjsjs.html";
+        } else {
+            document.getElementById("error").textContent = "Invalid username or password!";
+        }
+    }
+    document.addEventListener("DOMContentLoaded", generateCaptcha);
+</script>
 
-        // Run the function when the page loads
-        showLoginPrompt();
-    </script>
 
     <main>
     ...
@@ -453,6 +489,7 @@ Bootstrap 5 HTML CSS Template
   </script>
 </body>
 </html>
+
 
 
 
