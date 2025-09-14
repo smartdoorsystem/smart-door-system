@@ -40,6 +40,10 @@ Bootstrap 5 HTML CSS Template
       --bg1:#2c2c2c; --bg2:#1a1a1a;
       --card:#2f2f2f; --list:#3a3a3a; --list-hover:#4a4a4a; --text:#fff;
     }
+      body.locked {
+    display: none;
+      }
+      
              /* Custom Colors */
             :root {
                 --primary-color: #003366; /* Deep Blue */
@@ -154,7 +158,7 @@ Bootstrap 5 HTML CSS Template
                         </div>
                     </div>
                 </nav>
-<body onload="showLoginModal()">
+<body class="locked">
 <div class="modal fade" id="ideasModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="background: linear-gradient(135deg,#555,#333); color: white; border-radius: 15px;">
@@ -197,19 +201,27 @@ Bootstrap 5 HTML CSS Template
         });
         loginModal.show();
     }
-    function checkLogin() {
-        const user = document.getElementById("username").value;
-        const pass = document.getElementById("password").value;
-        const captcha = document.getElementById("captchaAnswer").value;
-        if (parseInt(captcha) !== correctAnswer) {
-            document.getElementById("error").textContent = "Verification answer is wrong!";
-            generateCaptcha();
-            return;
-        }
-        if (user === "smart_door_system" && pass === "1037") {
-            window.location.href = "xjsjsjsjs.html";
-        } else {
-            document.getElementById("error").textContent = "Invalid username or password!";
+function checkLogin() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    const captcha = document.getElementById("captchaAnswer").value;
+
+    if (parseInt(captcha) !== correctAnswer) {
+        document.getElementById("error").textContent = "Verification answer is wrong!";
+        generateCaptcha();
+        return;
+    }
+
+    if (user === "smart_door_system" && pass === "1037") {
+        // إخفاء المودال وإزالة الكلاس لإظهار محتوى الصفحة
+        document.body.classList.remove('locked');
+        const loginModal = bootstrap.Modal.getInstance(document.getElementById('ideasModal'));
+        loginModal.hide();
+    } else {
+        document.getElementById("error").textContent = "Invalid username or password!";
+    }
+}
+
         }
     }
     document.addEventListener("DOMContentLoaded", generateCaptcha);
@@ -489,6 +501,7 @@ Bootstrap 5 HTML CSS Template
   </script>
 </body>
 </html>
+
 
 
 
