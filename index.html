@@ -881,28 +881,27 @@
 
     
 
-</body>
 <div class="modal fade" id="ideasModal1" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="background: linear-gradient(135deg,#555,#333); color: white; border-radius: 15px;">
+        <div class="modal-content" style="background: linear-gradient(135deg, #1f2a40, #0a111a); color: #e9ecef; border-radius: 15px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);">
             <div class="p-4">
-                <h4 class="mb-4 text-center" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight:600;">Login</h4>
+                <h4 class="mb-4 text-center" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight:600; color: #7cb3f2;">Login</h4>
 
-                <label for="username" class="form-label">Username</label>
-                <input type="text" id="username" class="form-control mb-3">
+                <label for="username" class="form-label" style="color: #adb5bd;">Username</label>
+                <input type="text" id="username" class="form-control mb-3" style="background-color: #2e3b52; border: 1px solid #4a5a73; color: #e9ecef;">
 
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label" style="color: #adb5bd;">Password</label>
                 <div class="input-group mb-3">
-                    <input type="password" id="password" class="form-control">
-                    <button class="btn btn-outline-light" type="button" onclick="togglePassword1()">👁</button>
+                    <input type="password" id="password" class="form-control" style="background-color: #2e3b52; border: 1px solid #4a5a73; color: #e9ecef;">
+                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword1()" style="border: 1px solid #4a5a73; color: #adb5bd; background-color: #2e3b52;">👁</button>
                 </div>
 
                 <div class="mb-3">
-                    <label id="captchaQuestion" class="form-label"></label>
-                    <input type="text" id="captchaAnswer" class="form-control" placeholder="">
+                    <label id="captchaQuestion" class="form-label" style="color: #adb5bd;"></label>
+                    <input type="text" id="captchaAnswer" class="form-control" placeholder="" style="background-color: #2e3b52; border: 1px solid #4a5a73; color: #e9ecef;">
                 </div>
 
-                <button class="btn w-100 mb-2" style="background:#777; border:none; color:white;" onclick="checkLogin1()">Login</button>
+                <button class="btn w-100 mb-2" style="background: #1e88e5; border:none; color:white; font-weight: bold; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#1565c0'" onmouseout="this.style.backgroundColor='#1e88e5'" onclick="checkLogin1()">Login</button>
                 <p id="error" class="text-danger mt-2"></p>
             </div>
         </div>
@@ -928,24 +927,25 @@
         const pass = document.getElementById("password").value;
         const captcha = document.getElementById("captchaAnswer").value;
 
-        if (parseInt(captcha) !== correctAnswer1) {
+        if (parseInt(captcha) !== correctAnswer) {
             document.getElementById("error").textContent = "Verification answer is wrong!";
-            generateCaptcha();
+            generateCaptcha1();
             return;
         }
 
         if (user === "smart_door_system_job" && pass === "1037") {
-            window.location.href = "companies-job.html";  
+            window.location.href = "companies-job.html";
         } else {
             document.getElementById("error").textContent = "Invalid username or password!";
         }
     }
 
-    // أول ما يفتح المودال يولد سؤال
     document.addEventListener("DOMContentLoaded", generateCaptcha1);
 </script>
+
     
 </html>
+
 
 
 
