@@ -7,9 +7,8 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Barista Cafe - HTML Reservation Form</title>
+        <title>Smart Door System</title>
 
-        <!-- CSS FILES -->                
         <link rel="preconnect" href="https://fonts.googleapis.com">
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,17 +22,7 @@
         <link href="css/vegas.min.css" rel="stylesheet">
 
         <link href="css/tooplate-barista.css" rel="stylesheet">
-<!--
-
-Tooplate 2137 Barista
-
-https://www.tooplate.com/view/2137-barista-cafe
-
-Bootstrap 5 HTML CSS Template
-
--->
-  <!-- Bootstrap 5 (CSS) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
   <style>
     :root{
@@ -159,13 +148,19 @@ Bootstrap 5 HTML CSS Template
                     </div>
                 </nav>
 
-
-
-
+<footer class="site-footer">
+                    <div class="container">
+                        <div class="row">
+  <div class="container py-3 text-center">
+    <h1>SMART DOOR SYSTEM</h1>
+      <div class="col-lg-5 col-12 p-0">
+                                        <div class="booking-form-image-wrap">
+                                            
+                                            <img src="images/reviews/JudyFoodIndustriesCompany.jpg" class="booking-form-image img-fluid mx-auto d-block" alt="">
+                                        </div>
 
 
           
-    <!-- ========== OPTIONS ========== -->
     <div class="card control-card">
       <button type="button" class="btn-toggle"
               data-bs-toggle="collapse" data-bs-target="#sdsOptions"
@@ -177,7 +172,6 @@ Bootstrap 5 HTML CSS Template
       <div id="sdsOptions" class="collapse">
         <ul class="list-group list-group-flush list-group-dark">
 
-          <!-- Open Door -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#openDoorMenu"
@@ -193,7 +187,6 @@ Bootstrap 5 HTML CSS Template
             </div>
           </li>
 
-          <!-- Toggle Camera -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#cameraMenu"
@@ -208,7 +201,6 @@ Bootstrap 5 HTML CSS Template
             </div>
           </li>
 
-          <!-- Toggle of the System -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#systemMenu"
@@ -223,7 +215,6 @@ Bootstrap 5 HTML CSS Template
             </div>
           </li>
 
-          <!-- Penalty Activate -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#penaltyMenu"
@@ -242,7 +233,6 @@ Bootstrap 5 HTML CSS Template
             </div>
           </li>
 
-          <!-- Toggle Livestream -->
           <li class="list-group-item">
             <button type="button" class="btn-toggle ps-0"
                     data-bs-toggle="collapse" data-bs-target="#streamMenu"
@@ -261,7 +251,6 @@ Bootstrap 5 HTML CSS Template
       </div>
     </div>
 
-    <!-- LIVESTREAM VIDEO BOX -->
     <div id="livestreamBox" style="display:none; margin-top:20px;" class="card control-card">
       <h3 class="p-3">Livestream</h3>
       <div class="ratio ratio-16x9">
@@ -272,7 +261,6 @@ Bootstrap 5 HTML CSS Template
       </div>
     </div>
 
-    <!-- ========== ADD-ON OPTIONS ========== -->
     <div class="card control-card">
       <button type="button" class="btn-toggle"
               data-bs-toggle="collapse" data-bs-target="#addonOptions"
@@ -289,7 +277,6 @@ Bootstrap 5 HTML CSS Template
 
 
 
-    <!-- ========== EXPLANATION ========== -->
     <div class="card control-card mb-5">
       <button type="button" class="btn-toggle"
               data-bs-toggle="collapse" data-bs-target="#explain"
@@ -314,7 +301,7 @@ Bootstrap 5 HTML CSS Template
       </div>
                      </div>
                     </div>
-                
+                </section>
         
 <footer class="site-footer">
                                     <div class="container">
@@ -368,10 +355,9 @@ Bootstrap 5 HTML CSS Template
     </div>
   </div>
   
-  <!-- Bootstrap 5 (JS) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<div class="modal fade" id="ideasModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="ideasModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="background: linear-gradient(135deg,#555,#333); color: white; border-radius: 15px;">
             <div class="p-4">
@@ -394,149 +380,96 @@ Bootstrap 5 HTML CSS Template
     </div>
 </div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
+        const firebaseConfig = {
+            apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
+            authDomain: "smart-door-system-project.firebaseapp.com",
+            databaseURL: "https://smart-door-system-project-default-rtdb.firebaseio.com",
+            projectId: "smart-door-system-project",
+            storageBucket: "smart-door-system-project.firebasestorage.app",
+            messagingSenderId: "298920936811",
+            appId: "1:298920936811:web:033b6b7af47d93d52f382e",
+            measurementId: "G-HY1Y22VZJT"
+        };
 
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
+        function sendCommand(command) {
+            set(ref(db, "commands/last"), {
+                action: command,
+                timestamp: Date.now()
+            });
+            alert("✅ Sent: " + command);
 
-    
-
-
-
-
-
-
-
-    
-        
-    
-          <footer class="site-footer">
-                    <div class="container">
-                        <div class="row">
-  <div class="container py-3 text-center">
-    <h1>SMART DOOR SYSTEM</h1>
-      <div class="col-lg-5 col-12 p-0">
-                                        <div class="booking-form-image-wrap">
-                                            
-                                            <img src="images/reviews/JudyFoodIndustriesCompany.jpg" class="booking-form-image img-fluid mx-auto d-block" alt="">
-                                        </div>
-
-
-<script>
-    let correctAnswer;
-    function generateCaptcha() {
-        let a = Math.floor(Math.random()*10)+1;
-        let b = Math.floor(Math.random()*10)+1;
-        correctAnswer = a + b;
-        document.getElementById("captchaQuestion").textContent = `solve the equation: ${a} + ${b} = ?`;
-    }
-    function togglePassword() {
-        const pass = document.getElementById("password");
-        pass.type = pass.type === "password" ? "text" : "password";
-    }
-    function showLoginModal() {
-        const loginModal = new bootstrap.Modal(document.getElementById('ideasModal'), {
-            backdrop: 'static',
-            keyboard: false
-        });
-        loginModal.show();
-    }
-    function checkLogin() {
-        const user = document.getElementById("username").value;
-        const pass = document.getElementById("password").value;
-        const captcha = document.getElementById("captchaAnswer").value;
-
-        if (parseInt(captcha) !== correctAnswer) {
-            document.getElementById("error").textContent = "Verification answer is wrong!";
-            generateCaptcha();
-            return;
-        }
-
-        if (user === "smart_door_system" && pass === "1037") {
-            document.body.classList.remove('locked');
-            const loginModal = bootstrap.Modal.getInstance(document.getElementById('ideasModal'));
-            loginModal.hide();
-        } else {
-            document.getElementById("error").textContent = "Invalid username or password!";
-        }
-    }
-    document.addEventListener("DOMContentLoaded", () => {
-        showLoginModal();
-        generateCaptcha();
-    });
-</script>
-          
-
-    
-  <!-- Firebase + Logic -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
-      authDomain: "smart-door-system-project.firebaseapp.com",
-      databaseURL: "https://smart-door-system-project-default-rtdb.firebaseio.com",
-      projectId: "smart-door-system-project",
-      storageBucket: "smart-door-system-project.firebasestorage.app",
-      messagingSenderId: "298920936811",
-      appId: "1:298920936811:web:033b6b7af47d93d52f382e",
-      measurementId: "G-HY1Y22VZJT"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    function sendCommand(command) {
-      set(ref(db, "commands/last"), {
-        action: command,
-        timestamp: Date.now()
-      });
-      alert("â Sent: " + command);
-
-      if (command === "start_stream") {
-        document.getElementById("livestreamBox").style.display = "block";
-      } else if (command === "stop_stream") {
-        document.getElementById("livestreamBox").style.display = "none";
-      }
-    }
-    window.sendCommand = sendCommand;
-
-    window.closeInnerMenus = function (parentId) {
-      setTimeout(() => {
-        let parent = document.querySelector(parentId);
-        if (parent && !parent.classList.contains("show")) {
-          let opened = parent.querySelectorAll(".collapse.show");
-          opened.forEach(el => {
-            let bsCollapse = bootstrap.Collapse.getInstance(el);
-            if (bsCollapse) {
-              bsCollapse.hide();
+            if (command === "start_stream") {
+                document.getElementById("livestreamBox").style.display = "block";
+            } else if (command === "stop_stream") {
+                document.getElementById("livestreamBox").style.display = "none";
             }
-          });
         }
-      }, 200);
-    };
-  </script>
+        window.sendCommand = sendCommand;
+
+        window.closeInnerMenus = function (parentId) {
+            setTimeout(() => {
+                let parent = document.querySelector(parentId);
+                if (parent && !parent.classList.contains("show")) {
+                    let opened = parent.querySelectorAll(".collapse.show");
+                    opened.forEach(el => {
+                        let bsCollapse = bootstrap.Collapse.getInstance(el);
+                        if (bsCollapse) {
+                            bsCollapse.hide();
+                        }
+                    });
+                }
+            }, 200);
+        };
+        
+        // Login functions
+        let correctAnswer;
+        function generateCaptcha() {
+            let a = Math.floor(Math.random()*10)+1;
+            let b = Math.floor(Math.random()*10)+1;
+            correctAnswer = a + b;
+            document.getElementById("captchaQuestion").textContent = `solve the equation: ${a} + ${b} = ?`;
+        }
+        function togglePassword() {
+            const pass = document.getElementById("password");
+            pass.type = pass.type === "password" ? "text" : "password";
+        }
+        function showLoginModal() {
+            const loginModal = new bootstrap.Modal(document.getElementById('ideasModal'), {
+                backdrop: 'static',
+                keyboard: false
+            });
+            loginModal.show();
+        }
+        function checkLogin() {
+            const user = document.getElementById("username").value;
+            const pass = document.getElementById("password").value;
+            const captcha = document.getElementById("captchaAnswer").value;
+
+            if (parseInt(captcha) !== correctAnswer) {
+                document.getElementById("error").textContent = "Verification answer is wrong!";
+                generateCaptcha();
+                return;
+            }
+
+            if (user === "smart_door_system" && pass === "1037") {
+                document.body.classList.remove('locked');
+                const loginModal = bootstrap.Modal.getInstance(document.getElementById('ideasModal'));
+                loginModal.hide();
+            } else {
+                document.getElementById("error").textContent = "Invalid username or password!";
+            }
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            showLoginModal();
+            generateCaptcha();
+        });
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
