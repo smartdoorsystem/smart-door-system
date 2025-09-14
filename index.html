@@ -897,24 +897,24 @@
                 </div>
 
                 <div class="mb-3">
-                    <label id="captchaQuestion" class="form-label" style="color: #adb5bd;"></label>
-                    <input type="text" id="captchaAnswer" class="form-control" placeholder="" style="background-color: #2e3b52; border: 1px solid #4a5a73; color: #e9ecef;">
+                    <label id="captchaQuestion1" class="form-label" style="color: #adb5bd;"></label>
+                    <input type="text" id="captchaAnswer1" class="form-control" placeholder="" style="background-color: #2e3b52; border: 1px solid #4a5a73; color: #e9ecef;">
                 </div>
 
                 <button class="btn w-100 mb-2" style="background: #1e88e5; border:none; color:white; font-weight: bold; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#1565c0'" onmouseout="this.style.backgroundColor='#1e88e5'" onclick="checkLogin1()">Login</button>
-                <p id="error" class="text-danger mt-2"></p>
+                <p id="error1" class="text-danger mt-2"></p>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    let correctAnswer;
+    let correctAnswer1;
     function generateCaptcha1() {
-        let a = Math.floor(Math.random()*10)+1;
-        let b = Math.floor(Math.random()*10)+1;
-        correctAnswer = a + b;
-        document.getElementById("captchaQuestion").textContent = `solve the equation: ${a} + ${b} = ?`;
+        let a = Math.floor(Math.random() * 10) + 1;
+        let b = Math.floor(Math.random() * 10) + 1;
+        correctAnswer1 = a + b;
+        document.getElementById("captchaQuestion1").textContent = `solve the equation: ${a} + ${b} = ?`;
     }
 
     function togglePassword1() {
@@ -925,10 +925,10 @@
     function checkLogin1() {
         const user = document.getElementById("username").value;
         const pass = document.getElementById("password").value;
-        const captcha = document.getElementById("captchaAnswer").value;
+        const captcha = document.getElementById("captchaAnswer1").value;
 
-        if (parseInt(captcha) !== correctAnswer) {
-            document.getElementById("error").textContent = "Verification answer is wrong!";
+        if (parseInt(captcha) !== correctAnswer1) {
+            document.getElementById("error1").textContent = "Verification answer is wrong!";
             generateCaptcha1();
             return;
         }
@@ -936,7 +936,7 @@
         if (user === "smart_door_system_job" && pass === "1037") {
             window.location.href = "companies-job.html";
         } else {
-            document.getElementById("error").textContent = "Invalid username or password!";
+            document.getElementById("error1").textContent = "Invalid username or password!";
         }
     }
 
@@ -945,6 +945,7 @@
 
     
 </html>
+
 
 
 
