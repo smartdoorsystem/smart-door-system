@@ -295,30 +295,44 @@
               font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,"Plus Jakarta Sans",Arial,sans-serif;
             }
             /* From Uiverse.io by zjssun */ 
+/* From Uiverse.io by CristianMontoya98 */ 
 button {
-  padding: 10px 20px;
-  text-transform: uppercase;
-  border-radius: 8px;
-  font-size: 17px;
-  font-weight: 500;
-  color: #ffffff80;
-  text-shadow: none;
-  background: transparent;
-  cursor: pointer;
-  box-shadow: transparent;
-  border: 1px solid #ffffff80;
-  transition: 0.5s ease;
-  user-select: none;
+ width: 6.5em;
+ height: 2.3em;
+ margin: 0.5em;
+ background: black;
+ color: white;
+ border: none;
+ border-radius: 0.625em;
+ font-size: 20px;
+ font-weight: bold;
+ cursor: pointer;
+ position: relative;
+ z-index: 1;
+ overflow: hidden;
 }
 
-#btn:hover,
-:focus {
-  color: #ffffff;
-  background: #008cff;
-  border: 1px solid #008cff;
-  text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
-  box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff,
-    0 0 100px #008cff;
+button:hover {
+ color: black;
+}
+
+button:after {
+ content: "";
+ background: white;
+ position: absolute;
+ z-index: -1;
+ left: -20%;
+ right: -20%;
+ top: 0;
+ bottom: 0;
+ transform: skewX(-45deg) scale(0, 1);
+ transition: all 0.5s;
+}
+
+button:hover:after {
+ transform: skewX(-45deg) scale(1, 1);
+ -webkit-transition: all 0.5s;
+ transition: all 0.5s;
 }
             
             h1{
@@ -445,8 +459,7 @@ button {
     <button class="button"><a href=control.html>Company 2</a></button>
     <button class="button"><a href=control.html>Company 3</a></button>
     <button class="button"><a href=control.html>Company 4</a></button>
-    <button class="button"><a href=control.html>Company 5</a></button>
-    <button class="button"><a href=control.html>Company 6</a></button>
+
   </div>
  </div>
 
@@ -581,6 +594,7 @@ button {
         </script>
     </body>
 </html>
+
 
 
 
