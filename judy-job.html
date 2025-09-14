@@ -269,6 +269,34 @@
     </head>
     
     <body>
+
+    <script>
+        // Define the correct username and password
+        const correctUsername = "judy";
+        const correctPassword = "1037";
+
+        function showLoginPrompt() {
+            let username = prompt("Please enter the username:");
+            let password = prompt("Please enter the password:");
+
+            if (username === correctUsername && password === correctPassword) {
+                // If login is successful, do nothing. The page content will be visible.
+                alert("Login successful!");
+            } else {
+                // If login fails, hide the content and show an alert.
+                document.body.style.display = 'none';
+                alert("Incorrect username or password. Please try again.");
+                // Re-run the function to prompt again
+                showLoginPrompt();
+            }
+        }
+
+        // Run the function when the page loads
+        showLoginPrompt();
+    </script>
+
+    <main>
+    ...
                 
             <main>
                 <nav class="navbar navbar-expand-lg">                 
@@ -444,6 +472,7 @@
 
     </body>
 </html>
+
 
 
 
