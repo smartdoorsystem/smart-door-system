@@ -16,6 +16,7 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
       transition: all 0.3s ease-in-out;
     }
+    #mainContent { display: none; } /* حماية: الصفحة مخفية لين تسجيل الدخول */
     h1 {
       text-align: center;
       font-weight: 800;
@@ -36,32 +37,21 @@
     .navbar {
       background: rgba(0, 51, 102, 0.9);
     }
-    .navbar .nav-link {
-      color: #fff !important;
-      font-weight: 500;
-    }
-    .navbar .nav-link:hover {
-      color: #ADD8E6 !important;
-    }
+    .navbar .nav-link { color: #fff !important; font-weight: 500; }
+    .navbar .nav-link:hover { color: #ADD8E6 !important; }
 
     /* Light Mode */
-    body.light-mode {
-      background: #f8f9fa;
-      color: #212529;
-    }
-    body.light-mode .control-card {
-      background: #ffffff;
-      color: #212529;
-    }
-    body.light-mode .navbar {
-      background: #e3f2fd;
-    }
-    body.light-mode .navbar .nav-link {
-      color: #000 !important;
-    }
+    body.light-mode { background: #f8f9fa; color: #212529; }
+    body.light-mode .control-card { background: #ffffff; color: #212529; }
+    body.light-mode .navbar { background: #e3f2fd; }
+    body.light-mode .navbar .nav-link { color: #000 !important; }
+    body.light-mode footer { background: #e3f2fd; color:#000; }
   </style>
 </head>
 <body>
+
+<!-- محتوى الصفحة كله -->
+<div id="mainContent">
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
@@ -82,9 +72,7 @@
         <li class="nav-item"><a class="nav-link" href="#section_5">Contact</a></li>
         <li class="nav-item"><a class="nav-link" href="download.html">App</a></li>
         <li class="nav-item">
-          <button id="themeToggle" class="btn btn-sm btn-light ms-3">
-            🌙 Dark Mode
-          </button>
+          <button id="themeToggle" class="btn btn-sm btn-light ms-3">🌙 Dark Mode</button>
         </li>
       </ul>
     </div>
@@ -96,109 +84,42 @@
   <img src="images/companies.pics/College of Electronic Technology - Tripoli.jpg" class="img-fluid mx-auto d-block mb-4" alt="">
 </div>
 
-<!-- ========== OPTIONS ========== -->
-<div class="card control-card">
-  <button type="button" class="btn btn-secondary w-100" data-bs-toggle="collapse" data-bs-target="#sdsOptions">
-    ⚙️ Smart Door System Options
-  </button>
-  <div id="sdsOptions" class="collapse">
-    <ul class="list-group list-group-flush bg-dark text-white">
+<!-- ===== باقي الكروت (Door, Camera, System, Penalty, Livestream, Add-ons, Explanation) زي النسخة السابقة ===== -->
+<!-- (هنا نفس الكود اللي عطيتك قبل بالضبط، ما تغيرش) -->
 
-      <!-- Open Door -->
-      <li class="list-group-item bg-dark">
-        <button class="btn btn-primary w-100 my-1" onclick="sendCommand('normal_door')">🚪 Open & Close Door</button>
-        <button class="btn btn-outline-light w-100 my-1" onclick="sendCommand('door_openn')">🔓 Open Door Only</button>
-        <button class="btn btn-outline-light w-100 my-1" onclick="sendCommand('door_closee')">🔒 Close Door Only</button>
-      </li>
+<!-- Footer -->
+<footer class="site-footer bg-dark text-white mt-5 py-4">
+  <div class="container">
+    <div class="row">
 
-      <!-- Camera -->
-      <li class="list-group-item bg-dark">
-        <button class="btn btn-primary w-100 my-1" onclick="sendCommand('start camera')">📷 Start Camera</button>
-        <button class="btn btn-outline-light w-100 my-1" onclick="sendCommand('stop camera')">🛑 Stop Camera</button>
-      </li>
+      <div class="col-lg-4 col-12 me-auto mb-3">
+        <em class="d-block mb-2">Where to find us?</em>
+        <strong>
+          <i class="bi-geo-alt me-2"></i>
+          College Of Electronic Technology, Al Jraba Street, Tripoli, Libya
+        </strong>
+        <ul class="social-icon list-unstyled d-flex mt-3">
+          <li class="me-3"><a href="https://www.facebook.com/share/167Fq9bmrP/" target="_blank" class="text-white fs-4"><i class="bi-facebook"></i></a></li>
+          <li><a href="https://t.me/smart_door_system" target="_blank" class="text-white fs-4"><i class="bi-telegram"></i></a></li>
+        </ul>
+      </div>
 
-      <!-- System Lock -->
-      <li class="list-group-item bg-dark">
-        <button class="btn btn-primary w-100 my-1" onclick="sendCommand('sys_loc')">🔒 Lock System</button>
-        <button class="btn btn-outline-light w-100 my-1" onclick="sendCommand('sys_unloc')">🔓 Unlock System</button>
-      </li>
+      <div class="col-lg-3 col-12 mb-3">
+        <em class="d-block mb-2">Contact Us</em>
+        <p><strong>Email:</strong> <a href="mailto:smart.door.system.project@gmail.com" class="text-white">smart.door.system.project@gmail.com</a></p>
+      </div>
 
-      <!-- Penalty -->
-      <li class="list-group-item bg-dark">
-        <button class="btn btn-danger w-100 my-1" onclick="sendCommand('sys_pen')">⚠️ Penalty</button>
-        <button class="btn btn-outline-danger w-100 my-1" onclick="sendCommand('sys_pen30')">⏱️ Penalty 30s</button>
-        <button class="btn btn-outline-danger w-100 my-1" onclick="sendCommand('sys_pen60')">⏱️ Penalty 1m</button>
-        <button class="btn btn-outline-warning w-100 my-1" onclick="sendCommand('sys_buzzcof')">🎶 Coffin Dance</button>
-        <button class="btn btn-outline-warning w-100 my-1" onclick="sendCommand('sys_buzzpoc')">🎶 Pirates of the Caribbean</button>
-        <button class="btn btn-outline-warning w-100 my-1" onclick="sendCommand('sys_buzztok')">🎶 Tokyo Drift</button>
-      </li>
-
-      <!-- Livestream -->
-      <li class="list-group-item bg-dark">
-        <button class="btn btn-success w-100 my-1" onclick="sendCommand('start_stream')">📺 Start Livestream</button>
-        <button class="btn btn-outline-light w-100 my-1" onclick="sendCommand('stop_stream')">🛑 Stop Livestream</button>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- LIVESTREAM VIDEO BOX -->
-<div id="livestreamBox" style="display:none; margin-top:20px;" class="card control-card">
-  <h3 class="p-3">📡 Livestream</h3>
-  <div class="ratio ratio-16x9">
-    <iframe id="twitchStream"
-      src="https://player.twitch.tv/?channel=jq7v444&parent=smartdoorsystem.github.io"
-      frameborder="0" allowfullscreen="true" scrolling="no">
-    </iframe>
-  </div>
-</div>
-
-<!-- ADD-ONS -->
-<div class="card control-card">
-  <button type="button" class="btn btn-secondary w-100" data-bs-toggle="collapse" data-bs-target="#addonOptions">
-    ➕ Smart Door System Add-ons
-  </button>
-  <div id="addonOptions" class="collapse">
-    <ul class="list-group list-group-flush bg-dark text-white">
-      <li class="list-group-item bg-dark"><a href="downloads/colors.png" class="text-white" download>🎨 TKinter Color Chart</a></li>
-    </ul>
-  </div>
-</div>
-
-<!-- EXPLANATION -->
-<div class="card control-card mb-5">
-  <button type="button" class="btn btn-secondary w-100" data-bs-toggle="collapse" data-bs-target="#explain">
-    📖 Smart Door System Explanation
-  </button>
-  <div id="explain" class="collapse">
-    <ul class="list-group list-group-flush bg-dark text-white">
-      <li class="list-group-item bg-dark"><a href="downloads/smart door system - project arduino components.pptx" class="text-white" download>Arduino Components</a></li>
-      <li class="list-group-item bg-dark"><a href="downloads/smart door system - project python components.pptx" class="text-white" download>Python Components</a></li>
-      <li class="list-group-item bg-dark"><a href="downloads/Arduino Libraries.txt" class="text-white" download>Arduino Libraries</a></li>
-      <li class="list-group-item bg-dark"><a href="downloads/Python Libraries.txt" class="text-white" download>Python Libraries</a></li>
-      <li class="list-group-item bg-dark"><a href="downloads/Arduino Explanation.txt" class="text-white" download>Explain Arduino Code</a></li>
-      <li class="list-group-item bg-dark"><a href="downloads/Python Explanation.txt" class="text-white" download>Explain Python Code</a></li>
-      <li class="list-group-item bg-dark"><a href="downloads/smart door system 1.0.zip" class="text-white" download>Version 1.0</a></li>
-      <li class="list-group-item bg-dark"><a href="downloads/smart door system 2.0.zip" class="text-white" download>Version 2.0</a></li>
-      <li class="list-group-item bg-dark"><a href="downloads/smart door system 3.0.zip" class="text-white" download>Version 3.0</a></li>
-      <li class="list-group-item bg-dark"><a href="downloads/dt-06 wifi configuration.pdf" class="text-white" download>DT-06 WiFi Config</a></li>
-      <li class="list-group-item bg-dark"><a href="downloads/FaceRecognition Explanation.txt" class="text-white" download>Face Recognition</a></li>
-    </ul>
-  </div>
-</div>
-
-<!-- Toast -->
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
-  <div id="toastMessage" class="toast align-items-center text-bg-success border-0" role="alert">
-    <div class="d-flex">
-      <div class="toast-body">✅ Command Sent!</div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      <div class="col-lg-8 col-12">
+        <p class="mb-0">© Smart Door System - Python Project 2025</p>
+      </div>
     </div>
   </div>
-</div>
+</footer>
+
+</div><!-- /mainContent -->
 
 <!-- Login Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1">
+<div class="modal fade" id="loginModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-white">
       <div class="modal-header"><h5 class="modal-title">Login</h5></div>
@@ -216,22 +137,12 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Firebase + Logic -->
 <script type="module">
+  // Firebase (نفس الإعدادات متاعك)
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
   import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
-    authDomain: "smart-door-system-project.firebaseapp.com",
-    databaseURL: "https://smart-door-system-project-default-rtdb.firebaseio.com",
-    projectId: "smart-door-system-project",
-    storageBucket: "smart-door-system-project.firebasestorage.app",
-    messagingSenderId: "298920936811",
-    appId: "1:298920936811:web:033b6b7af47d93d52f382e",
-    measurementId: "G-HY1Y22VZJT"
-  };
-
+  const firebaseConfig = { /* نفس config اللي عندك */ };
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
@@ -250,7 +161,7 @@
   }
   window.sendCommand = sendCommand;
 
-  // Login Modal Logic
+  // ===== Login Logic (مخفي المحتوى لين يسجل الدخول) =====
   const correctUsername = "cet";
   const correctPassword = "1037";
 
@@ -258,6 +169,7 @@
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
     if (username === correctUsername && password === correctPassword) {
+      document.getElementById("mainContent").style.display = "block";
       bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
     } else {
       alert("❌ Incorrect username or password");
