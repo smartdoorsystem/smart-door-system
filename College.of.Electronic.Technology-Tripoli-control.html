@@ -69,13 +69,28 @@ Bootstrap 5 HTML CSS Template
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,.35);
-  margin-bottom: 16px;
 
-  /* أهم حاجات للتوسيط */
-  width: 430px;          /* العرض اللي تحبه */
-  margin-left: auto;     /* هذي تحطه في النص */
-  margin-right: auto;
+  /* مسافة تحت كل كارت */
+  margin-bottom: 24px;
+
+  /* هنا التغيير المهم: */
+  width: 100%;           /* عرض كامل على الشاشات الصغيرة */
+  max-width: 430px;       /* أقصى عرض على الشاشات الكبيرة */
+  margin-left: auto;      /* توسيط */
+  margin-right: auto;     /* توسيط */
+
+  /* padding داخلي بسيط */
+  padding: 15px;
 }
+
+
+      .booking-form-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 24px;    /* هذه تضيف مسافة تحت الصورة */
+  max-width: 300px;       /* اختياري لتصغير الصورة شوية */
+      }
 
       
   /* ... your existing CSS code ... */
@@ -189,7 +204,11 @@ Bootstrap 5 HTML CSS Template
                         <div class="row">
   <div class="container py-3 text-center">
     <h1>College of Electronic Technology Tripoli - Control Page</h1>
-      <div class="col-lg-5 col-12 p-0">
+
+      
+      
+<div class="container text-center">
+
                                         <div class="booking-form-image-wrap">
                                             
                                             <img src="images/companies.pics/College of Electronic Technology - Tripoli.jpg" class="booking-form-image img-fluid mx-auto d-block" alt="">
@@ -453,6 +472,7 @@ Bootstrap 5 HTML CSS Template
   </script>
 </body>
 </html>
+
 
 
 
