@@ -189,14 +189,14 @@
           <button class="list-item" onclick="sendCommand('stop_stream')">stop livestream</button>
 
           <!-- Twitch Box -->
-          <div id="twitchBox" class="mt-3" style="display:none;">
-            <iframe
-              src="https://player.twitch.tv/?channel=jq7v444&parent=smartdoorsystem.github.io"
-              height="400"
-              width="100%"
-              allowfullscreen>
-            </iframe>
-          </div>
+          <div id="twitchBox" class="mt-3" style="display:none; margin-top:20px;">
+            <h3 class="p-3">📺 Livestream</h3>
+      <div class="ratio ratio-16x9">
+        <iframe id="twitchStream"
+           src="https://player.twitch.tv/?channel=jq7v444&parent=smartdoorsystem.github.io"
+          frameborder="0" allowfullscreen="true" scrolling="no">
+        </iframe>
+      </div>
         </div>
       </div>
     </div>
@@ -350,6 +350,7 @@
 </script>
 </body>
 </html>
+
 
 
 
