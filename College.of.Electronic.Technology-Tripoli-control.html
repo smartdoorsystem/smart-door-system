@@ -1,469 +1,356 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Door System - College of Electronic Technology Tripoli Control Page</title>
 
-        <meta name="description" content="">
-        <meta name="author" content="">
-
-         <title>College of Electronic Technology Tripoli - control Page</title>
-
-        <!-- CSS FILES -->                
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,400;0,600;0,700;1,200;1,700&display=swap" rel="stylesheet">
-            
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <link href="css/bootstrap-icons.css" rel="stylesheet">
-
-        <link href="css/vegas.min.css" rel="stylesheet">
-
-        <link href="css/tooplate-barista.css" rel="stylesheet">
-<!--
-
-Tooplate 2137 Barista
-
-https://www.tooplate.com/view/2137-barista-cafe
-
-Bootstrap 5 HTML CSS Template
-
--->
-  <!-- Bootstrap 5 (CSS) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
 
   <style>
-    :root{
-      --bg1:#2c2c2c; --bg2:#1a1a1a;
-      --card:#2f2f2f; --list:#3a3a3a; --list-hover:#4a4a4a; --text:#fff;
+    :root {
+      --blue-1: #003366;
+      --blue-2: #001a33;
+      --card-bg: #16242f;
+      --panel: #1f3946;
+      --panel-hover: #2b4a5e;
+      --text: #f7fbff;
+      --nav-bg: rgba(0,51,102,0.9);
+      --footer-bg: rgba(0,51,102,0.9);
     }
-             /* Custom Colors */
-            :root {
-                --primary-color: #003366; /* Deep Blue */
-                --secondary-color: #6699CC; /* Light Blue */
-                --section-bg-color: #003366; /* Deep Blue */
-                --custom-btn-bg-color: #6699CC; /* Light Blue */
-                --custom-btn-bg-hover-color: #003366; /* Deep Blue */
-                --dark-color: #000000;
-                --p-color: #333333; /* Dark Gray for text */
-                --border-color: #ADD8E6; /* Light Blue */
-                --link-hover-color: #003366; /* Deep Blue */
-                --white-color: #ffffff;
-            }
-      
-    body{
-      background: linear-gradient(120deg,var(--bg1),var(--bg2));
-      color:var(--text);
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,"Plus Jakarta Sans",Arial,sans-serif;
+    body {
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      color: var(--text);
+      background: linear-gradient(130deg, var(--blue-1), var(--blue-2));
+      transition: background .35s ease, color .35s ease;
     }
-    h1{
-      text-align:center; font-weight:800; letter-spacing:.05em;
-      margin:40px 0 24px;
+    body.dark-mode {
+      --card-bg: #1a1a1a;
+      --panel: #2a2a2a;
+      --panel-hover: #3a3a3a;
+      --text: #ffffff;
+      --nav-bg: #2a2a2a;
+      --footer-bg: #2a2a2a;
+      background: linear-gradient(130deg, #0d0d0d, #1a1a1a);
     }
-.control-card {
-  background: var(--card);
-  border: 0;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
-  margin-bottom: 16px;
+    .wrap { max-width:880px; margin:28px auto; padding:22px; }
+    .main-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 18px 60px rgba(2,8,20,0.45);
+    }
+    .brand-title { text-align:center; font-size:22px; font-weight:800; margin-bottom:12px; }
+    .brand-img { width:210px; display:block; margin:0 auto 20px; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.4); }
+    .panel { margin-top:18px; }
+    .btn-toggle {
+      display:flex; align-items:center; justify-content:space-between;
+      width:100%; padding:12px 14px;
+      font-weight:700; border-radius:8px; border:none;
+      background: var(--panel); color:var(--text); cursor:pointer;
+      transition: background .22s ease;
+    }
+    .btn-toggle:hover { background: var(--panel-hover); }
+    .list-item {
+      display:block; width:100%; padding:10px 12px; margin:6px 0;
+      border-radius:8px; background: transparent; color:var(--text);
+      border:1px solid rgba(255,255,255,0.05);
+      transition: background .18s ease;
+      text-align:left;
+    }
+    .list-item:hover { background: rgba(255,255,255,0.05); }
+    .chev { transition: transform .28s ease; }
+    .chev.open { transform:rotate(90deg); }
+    .sublist { padding:10px 20px; }
+    nav.navbar { background: var(--nav-bg) !important; transition: background .35s ease; }
+    footer { background: var(--footer-bg); color:#fff; margin-top:40px; padding:20px 0; transition: background .35s ease; }
 
-  /* أهم حاجات للتوسيط */
-  width: 430px;          /* العرض اللي تحبه */
-  margin-left: auto;     /* هذي تحطه في النص */
-  margin-right: auto;
-}
-
-      
-  /* ... your existing CSS code ... */
-
-  .navbar-brand {
-    color: #fff;
-  }
-
-        
-    .btn-toggle{
-  display:block;
-      width:100%;
+    /* Login overlay */
+    #loginOverlay {
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.85);
+      display:flex; align-items:center; justify-content:center;
+      z-index: 2000;
+    }
+    #loginBox {
+      background:#fff; color:#000; padding:20px; border-radius:12px; width:300px;
       text-align:center;
-      padding:16px 20px;
-      font-weight:700;
-      color:#fff;
-      background:transparent;
-      border:0;
     }
-    .btn-toggle:hover{ background:rgba(255,255,255,.05); }
-    .list-group-dark .list-group-item{
-      background:var(--list); color:#fff; border-color:rgba(255,255,255,.05);
-    }
-    .list-group-dark .list-group-item:hover{ background:var(--list-hover); }
-    .ms-3{ margin-left:1rem !important; }
-    button.cmd-btn {background:none;border:none;color:white;text-align:center;width:100%;}
-    button.cmd-btn:hover {text-decoration:underline;}
-
-    #aiResponse, #aiLoading {
-        padding: 16px;
-        margin-top: 16px;
-        background-color: #4a4a4a;
-        border-radius: 8px;
-        font-family: monospace;
-        white-space: pre-wrap;
-    }
-    #aiLoading {
-        text-align: center;
-    }
+    #loginBox input { width:100%; padding:10px; margin:8px 0; border-radius:8px; border:1px solid #ccc; }
+    #loginBox button { width:100%; padding:10px; background:#003366; color:#fff; border:none; border-radius:8px; }
   </style>
 </head>
-      <main>
-<nav class="navbar navbar-expand-lg">                 
-                    <div class="container">
-                        <a class="navbar-brand d-flex align-items-center me-3" href="index.html">
-                            <img src="images/smart door system.png" class="navbar-brand-image img-fluid" alt="Smart Door System Logo">
-                            Smart Door System
-                        </a>
-            
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-            
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav ms-lg-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link click-scroll" href="#section_1">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link click-scroll" href="#section_2">Our Story</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link click-scroll" href="#section_3">Components</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link click-scroll" href="#section_4">Previous Versions</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link click-scroll" href="#section_5">Contact</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link click-scroll" href="download.html">App</a>
-                                </li>
-                            </ul>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
 <body>
-    <script>
-        // Define the correct username and password
-        const correctUsername = "cet";
-        const correctPassword = "1037";
 
-        function showLoginPrompt() {
-            let username = prompt("Please enter the username:");
-            let password = prompt("Please enter the password:");
+<!-- Login Overlay -->
+<div id="loginOverlay">
+  <div id="loginBox">
+    <h4>Login</h4>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkLogin()">Login</button>
+    <p id="loginError" style="color:red; display:none; margin-top:8px;">Wrong credentials!</p>
+  </div>
+</div>
 
-            if (username === correctUsername && password === correctPassword) {
-                // If login is successful, do nothing. The page content will be visible.
-                alert("Login successful!");
-            } else {
-                // If login fails, hide the content and show an alert.
-                document.body.style.display = 'none';
-                alert("Incorrect username or password. Please try again.");
-                // Re-run the function to prompt again
-                showLoginPrompt();
-            }
-        }
-
-        // Run the function when the page loads
-        showLoginPrompt();
-    </script>
-
-    <main>
-    ...
-        
-    
-          <footer class="site-footer">
-                    <div class="container">
-                        <div class="row">
-  <div class="container py-3 text-center">
-     <h1>College of Electronic Technology Tripoli - Control Page</h1>
-      <div class="col-lg-5 col-12 p-0">
-                                        <div class="booking-form-image-wrap">
-                                            
-                                            <img src="images/companies.pics/College of Electronic Technology - Tripoli.jpg" class="booking-form-image img-fluid mx-auto d-block" alt="">
-                                        </div>
-
-                            
-    <!-- ========== OPTIONS ========== -->
-    <div class="card control-card">
-      <button type="button" class="btn-toggle"
-              data-bs-toggle="collapse" data-bs-target="#sdsOptions"
-              aria-expanded="false" aria-controls="sdsOptions"
-              onclick="closeInnerMenus('#sdsOptions')">
-        Smart Door System Options
-      </button>
-
-      <div id="sdsOptions" class="collapse">
-        <ul class="list-group list-group-flush list-group-dark">
-
-          <!-- Open Door -->
-          <li class="list-group-item">
-            <button type="button" class="btn-toggle ps-0"
-                    data-bs-toggle="collapse" data-bs-target="#openDoorMenu"
-                    aria-expanded="false" aria-controls="openDoorMenu">
-              Open Door
-            </button>
-            <div id="openDoorMenu" class="collapse" data-bs-parent="#sdsOptions">
-              <ul class="list-group list-group-flush list-group-dark ms-3">
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('normal_door')">open door & close it</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('door_openn')">open door only</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('door_closee')">close door only</button></li>
-              </ul>
-            </div>
-          </li>
-
-          <!-- Toggle Camera -->
-          <li class="list-group-item">
-            <button type="button" class="btn-toggle ps-0"
-                    data-bs-toggle="collapse" data-bs-target="#cameraMenu"
-                    aria-expanded="false" aria-controls="cameraMenu">
-              Toggle Camera
-            </button>
-            <div id="cameraMenu" class="collapse" data-bs-parent="#sdsOptions">
-              <ul class="list-group list-group-flush list-group-dark ms-3">
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('start camera')">start camera</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('stop camera')">stop camera</button></li>
-              </ul>
-            </div>
-          </li>
-
-          <!-- Toggle of the System -->
-          <li class="list-group-item">
-            <button type="button" class="btn-toggle ps-0"
-                    data-bs-toggle="collapse" data-bs-target="#systemMenu"
-                    aria-expanded="false" aria-controls="systemMenu">
-              Toggle of the System
-            </button>
-            <div id="systemMenu" class="collapse" data-bs-parent="#sdsOptions">
-              <ul class="list-group list-group-flush list-group-dark ms-3">
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_loc')">lock system</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_unloc')">unlock system</button></li>
-              </ul>
-            </div>
-          </li>
-
-          <!-- Penalty Activate -->
-          <li class="list-group-item">
-            <button type="button" class="btn-toggle ps-0"
-                    data-bs-toggle="collapse" data-bs-target="#penaltyMenu"
-                    aria-expanded="false" aria-controls="penaltyMenu">
-              Penalty Activate
-            </button>
-            <div id="penaltyMenu" class="collapse" data-bs-parent="#sdsOptions">
-              <ul class="list-group list-group-flush list-group-dark ms-3">
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_pen')">the system penalty</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_pen30')">extended to 30 seconds</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_pen60')">extended to 1 minutes</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_buzzcof')">penalty with coffin dance buzzer</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_buzzpoc')">penalty with pirates of the caribbean</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_buzztok')">penalty with tokyo</button></li>
-              </ul>
-            </div>
-          </li>
-
-          <!-- Toggle Livestream -->
-          <li class="list-group-item">
-            <button type="button" class="btn-toggle ps-0"
-                    data-bs-toggle="collapse" data-bs-target="#streamMenu"
-                    aria-expanded="false" aria-controls="streamMenu">
-              Toggle Livestream
-            </button>
-            <div id="streamMenu" class="collapse" data-bs-parent="#sdsOptions">
-              <ul class="list-group list-group-flush list-group-dark ms-3">
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('start_stream')">start livestream</button></li>
-                <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('stop_stream')">stop livestream</button></li>
-              </ul>
-            </div>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-
-    <!-- LIVESTREAM VIDEO BOX -->
-    <div id="livestreamBox" style="display:none; margin-top:20px;" class="card control-card">
-      <h3 class="p-3">Livestream</h3>
-      <div class="ratio ratio-16x9">
-        <iframe id="twitchStream"
-           src="https://player.twitch.tv/?channel=jq7v444&parent=smartdoorsystem.github.io"
-          frameborder="0" allowfullscreen="true" scrolling="no">
-        </iframe>
-      </div>
-    </div>
-
-    <!-- ========== ADD-ON OPTIONS ========== -->
-    <div class="card control-card">
-      <button type="button" class="btn-toggle"
-              data-bs-toggle="collapse" data-bs-target="#addonOptions"
-              aria-expanded="false" aria-controls="addonOptions"
-              onclick="closeInnerMenus('#addonOptions')">
-        Smart Door System Add-on Options
-      </button>
-      <div id="addonOptions" class="collapse">
-        <ul class="list-group list-group-flush list-group-dark">
-          <li class="list-group-item"><a href="downloads/colors.png" download>TKinter Color Chart</a></li>
-        </ul>
-      </div>
-    </div>
-
-
-
-    <!-- ========== EXPLANATION ========== -->
-    <div class="card control-card mb-5">
-      <button type="button" class="btn-toggle"
-              data-bs-toggle="collapse" data-bs-target="#explain"
-              aria-expanded="false" aria-controls="explain"
-              onclick="closeInnerMenus('#explain')">
-        Smart Door System Explanation
-      </button>
-      <div id="explain" class="collapse">
-        <ul class="list-group list-group-flush list-group-dark">
-         <li class="list-group-item"><a href="downloads/smart door system - project arduino components.pptx" download>Arduino Components</a></li>
-         <li class="list-group-item"><a href="downloads/smart door system - project python components.pptx" download>Python Components</a></li>
-         <li class="list-group-item"><a href="downloads/Arduino Libraries.txt" download>Arduino Libraries</a></li>
-         <li class="list-group-item"><a href="downloads/Python Libraries.txt" download>Python Libraries</a></li>
-         <li class="list-group-item"><a href="downloads/Arduino Explanation.txt" download>Explain Arduino Code</a></li>
-         <li class="list-group-item"><a href="downloads/Python Explanation.txt" download>Explain Python Code</a></li>
-         <li class="list-group-item"><a href="downloads/smart door system 1.0.zip" download>Version 1.0</a></li>
-         <li class="list-group-item"><a href="downloads/smart door system 2.0.zip" download>Version 2.0</a></li>
-         <li class="list-group-item"><a href="downloads/smart door system 3.0.zip" download>Version 3.0</a></li>
-         <li class="list-group-item"><a href="downloads/dt-06 wifi configuration.pdf" download>DT-06 WiFi Config</a></li>
-         <li class="list-group-item"><a href="downloads/FaceRecognition Explanation.txt" download>Face Recognition</a></li>
-        </ul>
-      </div>
-                     </div>
-                    </div>
-                </section>
-          </footer>
-<footer class="site-footer">
-                                    <div class="container">
-                                        <div class="row">
-
-                                            <div class="col-lg-4 col-12 me-auto">
-                                                <em class="text-white d-block mb-4">Where to find us?</em>
-
-                                                <strong class="text-white">
-                                                    <i class="bi-geo-alt me-2"></i>
-                                                    College Of Electronic Technology, Al Jraba Street, Tripoli, Libya
-                                                </strong>
-
-                                                <ul class="social-icon mt-4">
-                                                    <li class="social-icon-item">
-                                                        <a href="https://www.facebook.com/share/167Fq9bmrP/" target="_new" class="social-icon-link bi-facebook">
-                                                        </a>
-                                                    </li>
-                                    
-
-                                                    <li class="social-icon-item">
-                                                        <a href="https://t.me/smart_door_system" target="_new" class="social-icon-link bi-telegram">
-                                                        </a>
-                                                    </li>
-                                    
-                                                </ul>
-                                            </div>
-
-                                            <div class="col-lg-3 col-12 mt-4 mb-3 mt-lg-0 mb-lg-0">
-                                                <em class="text-white d-block mb-4">Contact Us</em>
-
-
-                                                <p class="d-flex">
-                                                    <strong class="me-2">Email:</strong>
-
-                                                    <a href="mailto:free.prince92@gmail.com" class="site-footer-link">
-                                                        smart.door.system.project@gmail.com
-                                                    </a>
-                                                </p>
-                                            </div>
-
-
-                                            <div class="col-lg-8 col-12 mt-4">
-                                                <p class="copyright-text mb-0">smart door system - python project 2025
-                                                
-                                                </p>
-                
-
-                            </div>
-                            
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center me-3 text-white fw-bold" href="index.html">
+      <img src="images/smart door system.png" alt="Logo" style="height:40px; margin-right:8px;">
+      Smart Door System
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-lg-auto">
+        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_1">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_2">Our Story</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_3">Components</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_4">Versions</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_5">Contact</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="download.html">App</a></li>
+      </ul>
     </div>
   </div>
+</nav>
+
+<!-- Main Content -->
+<div class="wrap">
+  <div class="main-card">
+    <h2 class="brand-title">College of Electronic Technology Tripoli - Control Page</h2>
+    <img src="images/companies.pics/College of Electronic Technology - Tripoli.jpg" alt="College Logo" class="brand-img">
+
+    <!-- Smart Door System Options -->
+    <div class="panel">
+      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+        <span><i class="bi bi-list"></i> Smart Door System Options</span>
+        <i class="bi bi-chevron-right chev"></i>
+      </button>
+      <div id="mainMenu" class="collapse sublist">
+
+        <!-- Door Control -->
+        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#doorMenu">
+          <span><i class="bi bi-door-closed-fill"></i> Door Control</span>
+          <i class="bi bi-chevron-right chev"></i>
+        </button>
+        <div id="doorMenu" class="collapse sublist">
+          <button class="list-item" onclick="sendCommand('normal_door')">Open & Close Door</button>
+          <button class="list-item" onclick="sendCommand('door_openn')">Open Door Only</button>
+          <button class="list-item" onclick="sendCommand('door_closee')">Close Door Only</button>
+        </div>
+
+        <!-- Camera -->
+        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#cameraMenu">
+          <span><i class="bi bi-camera-video-fill"></i> Camera</span>
+          <i class="bi bi-chevron-right chev"></i>
+        </button>
+        <div id="cameraMenu" class="collapse sublist">
+          <button class="list-item" onclick="sendCommand('start camera')">Start Camera</button>
+          <button class="list-item" onclick="sendCommand('stop camera')">Stop Camera</button>
+        </div>
+
+        <!-- System -->
+        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#systemMenu">
+          <span><i class="bi bi-shield-lock-fill"></i> System</span>
+          <i class="bi bi-chevron-right chev"></i>
+        </button>
+        <div id="systemMenu" class="collapse sublist">
+          <button class="list-item" onclick="sendCommand('sys_loc')">Lock System</button>
+          <button class="list-item" onclick="sendCommand('sys_unloc')">Unlock System</button>
+        </div>
+
+        <!-- Penalties -->
+        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#penaltyMenu">
+          <span><i class="bi bi-exclamation-triangle-fill"></i> Penalties</span>
+          <i class="bi bi-chevron-right chev"></i>
+        </button>
+        <div id="penaltyMenu" class="collapse sublist">
+          <button class="list-item" onclick="sendCommand('sys_pen')">Penalty</button>
+          <button class="list-item" onclick="sendCommand('sys_pen30')">Penalty 30s</button>
+          <button class="list-item" onclick="sendCommand('sys_pen60')">Penalty 1m</button>
+          <button class="list-item" onclick="sendCommand('sys_buzzcof')">Coffin Dance</button>
+          <button class="list-item" onclick="sendCommand('sys_buzzpoc')">Pirates of the Caribbean</button>
+          <button class="list-item" onclick="sendCommand('sys_buzztok')">Tokyo Drift</button>
+        </div>
+
+       <!-- Livestream -->
+<button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#streamMenu">
+  <span><i class="bi bi-tv-fill"></i> Livestream</span>
+  <i class="bi bi-chevron-right chev"></i>
+</button>
+<div id="streamMenu" class="collapse sublist">
+  <button class="list-item" onclick="startStream()">Start Livestream</button>
+  <button class="list-item" onclick="stopStream()">Stop Livestream</button>
+
+  <!-- Twitch Box -->
+  <div id="twitchBox" class="mt-3" style="display:none; margin-top:20px;">
+    <h3 class="p-3">📺 Livestream</h3>
+    <div class="ratio ratio-16x9">
+      <iframe id="twitchStream"
+        src="https://player.twitch.tv/?channel=jq7v444&parent=smartdoorsystem.github.io"
+        frameborder="0" allowfullscreen="true" scrolling="no">
+      </iframe>
+    </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add-ons -->
+    <div class="panel">
+      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#addonMenu">
+        <span><i class="bi bi-plus-circle-fill"></i> Smart Door System Add-ons Options</span>
+        <i class="bi bi-chevron-right chev"></i>
+      </button>
+      <div id="addonMenu" class="collapse sublist">
+        <a href="downloads/colors.png" class="list-item" download>TKinter Color Chart</a>
+      </div>
+    </div>
+
+    <!-- Explanation -->
+    <div class="panel">
+      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#explainMenu">
+        <span><i class="bi bi-book-fill"></i> Smart Door System Explanation</span>
+        <i class="bi bi-chevron-right chev"></i>
+      </button>
+      <div id="explainMenu" class="collapse sublist">
+        <a href="downloads/smart door system - project arduino components.pptx" class="list-item" download>Arduino Components</a>
+        <a href="downloads/smart door system - project python components.pptx" class="list-item" download>Python Components</a>
+        <a href="downloads/Arduino Libraries.txt" class="list-item" download>Arduino Libraries</a>
+        <a href="downloads/Python Libraries.txt" class="list-item" download>Python Libraries</a>
+        <a href="downloads/Arduino Explanation.txt" class="list-item" download>Explain Arduino Code</a>
+        <a href="downloads/Python Explanation.txt" class="list-item" download>Explain Python Code</a>
+        <a href="downloads/smart door system 1.0.zip" class="list-item" download>Version 1.0</a>
+        <a href="downloads/smart door system 2.0.zip" class="list-item" download>Version 2.0</a>
+        <a href="downloads/smart door system 3.0.zip" class="list-item" download>Version 3.0</a>
+        <a href="downloads/dt-06 wifi configuration.pdf" class="list-item" download>DT-06 WiFi Config</a>
+        <a href="downloads/FaceRecognition Explanation.txt" class="list-item" download>Face Recognition</a>
+      </div>
+    </div>
+
+    <!-- Mode Toggle -->
+    <div class="panel">
+      <button class="btn-toggle" id="themeToggle">
+        <span><i class="bi bi-sun-fill"></i> Light / Dark Mode</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-12 me-auto mb-3">
+        <em class="d-block mb-2">Where to find us?</em>
+        <strong><i class="bi-geo-alt me-2"></i> College Of Electronic Technology, Al Jraba Street, Tripoli, Libya</strong>
+        <ul class="social-icon list-unstyled d-flex mt-3">
+          <li class="me-3"><a href="https://www.facebook.com/share/167Fq9bmrP/" target="_blank" class="text-white fs-4"><i class="bi-facebook"></i></a></li>
+          <li><a href="https://t.me/smart_door_system" target="_blank" class="text-white fs-4"><i class="bi-telegram"></i></a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-12 mb-3">
+        <em class="d-block mb-2">Contact Us</em>
+        <p><strong>Email:</strong> <a href="mailto:smart.door.system.project@gmail.com" class="text-white">smart.door.system.project@gmail.com</a></p>
+      </div>
+      <div class="col-lg-8 col-12">
+        <p class="mb-0">© Smart Door System - Python Project 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Firebase + Commands -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
+    authDomain: "smart-door-system-project.firebaseapp.com",
+    databaseURL: "https://smart-door-system-project-default-rtdb.firebaseio.com",
+    projectId: "smart-door-system-project",
+    storageBucket: "smart-door-system-project.firebasestorage.app",
+    messagingSenderId: "298920936811",
+    appId: "1:298920936811:web:033b6b7af47d93d52f382e",
+    measurementId: "G-HY1Y22VZJT"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  function showToast(message) {
+    const container = document.getElementById('toastContainer');
+    const toastEl = document.createElement('div');
+    toastEl.className = 'toast align-items-center text-bg-primary border-0 show mb-2';
+    toastEl.role = 'alert';
+    toastEl.innerHTML = `<div class="d-flex"><div class="toast-body">${message}</div></div>`;
+    container.appendChild(toastEl);
+    setTimeout(()=>toastEl.remove(), 3000);
+  }
+
+  function sendCommand(command) {
+    set(ref(db, "commands/last"), { action: command, timestamp: Date.now() });
+    showToast("✅ Sent: " + command);
+  }
+  window.sendCommand = sendCommand;
+
+// Livestream controls
+window.startStream = function() {
+  sendCommand("start_stream");
+  document.getElementById("twitchBox").style.display = "block";
+}
+window.stopStream = function() {
+  sendCommand("stop_stream");
+  document.getElementById("twitchBox").style.display = "none";
+}
+
+</script>
+
+<script>
+  // Login system (hidden credentials)
+  function _0x2d83(_0x33181a,_0x2b6fdb){const _0x126565=_0x1265();return _0x2d83=function(_0x2d83f7,_0xd9e43c){_0x2d83f7=_0x2d83f7-0x141;let _0x2b919a=_0x126565[_0x2d83f7];return _0x2b919a;},_0x2d83(_0x33181a,_0x2b6fdb);}const _0x54dac9=_0x2d83;(function(_0x1953c5,_0x4f8bfd){const _0x3383ab=_0x2d83,_0x4e1f83=_0x1953c5();while(!![]){try{const _0x3d62f1=-parseInt(_0x3383ab(0x14f))/0x1*(parseInt(_0x3383ab(0x14b))/0x2)+-parseInt(_0x3383ab(0x142))/0x3+-parseInt(_0x3383ab(0x145))/0x4*(parseInt(_0x3383ab(0x152))/0x5)+parseInt(_0x3383ab(0x148))/0x6+-parseInt(_0x3383ab(0x146))/0x7+-parseInt(_0x3383ab(0x143))/0x8*(parseInt(_0x3383ab(0x14c))/0x9)+-parseInt(_0x3383ab(0x154))/0xa*(-parseInt(_0x3383ab(0x147))/0xb);if(_0x3d62f1===_0x4f8bfd)break;else _0x4e1f83['push'](_0x4e1f83['shift']());}catch(_0x4df00b){_0x4e1f83['push'](_0x4e1f83['shift']());}}}(_0x1265,0xdd820));const _user=_0x54dac9(0x14a),_pass=_0x54dac9(0x151);function _0x1265(){const _0x420bf9=['2944799HJwRFu','4254564iVRiqA','password','cet','467404eFTAnD','207oNAfUk','getElementById','loginOverlay','1OEysjR','style','1037','35PMdhvE','loginError','140JcEtQK','display','1354035AXcsPM','608872drMsxU','value','177428rULIct','5625697brTdKG'];_0x1265=function(){return _0x420bf9;};return _0x1265();}function checkLogin(){const _0x518664=_0x54dac9;let _0xbc34e7=document[_0x518664(0x14d)]('username')[_0x518664(0x144)],_0x49ae8b=document['getElementById'](_0x518664(0x149))[_0x518664(0x144)];_0xbc34e7===_user&&_0x49ae8b===_pass?document[_0x518664(0x14d)](_0x518664(0x14e))['style']['display']='none':document[_0x518664(0x14d)](_0x518664(0x153))[_0x518664(0x150)][_0x518664(0x141)]='block';}
+</script>
+
   
-  <!-- Bootstrap 5 (JS) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Firebase + Logic -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
-      authDomain: "smart-door-system-project.firebaseapp.com",
-      databaseURL: "https://smart-door-system-project-default-rtdb.firebaseio.com",
-      projectId: "smart-door-system-project",
-      storageBucket: "smart-door-system-project.firebasestorage.app",
-      messagingSenderId: "298920936811",
-      appId: "1:298920936811:web:033b6b7af47d93d52f382e",
-      measurementId: "G-HY1Y22VZJT"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    function sendCommand(command) {
-      set(ref(db, "commands/last"), {
-        action: command,
-        timestamp: Date.now()
-      });
-      alert("â Sent: " + command);
-
-      if (command === "start_stream") {
-        document.getElementById("livestreamBox").style.display = "block";
-      } else if (command === "stop_stream") {
-        document.getElementById("livestreamBox").style.display = "none";
-      }
+<script>
+  // Theme toggle
+  const themeBtn = document.getElementById('themeToggle');
+  themeBtn.addEventListener('click', ()=>{
+    document.body.classList.toggle('dark-mode');
+    let icon = themeBtn.querySelector('i');
+    if(document.body.classList.contains('dark-mode')){
+      icon.classList.remove('bi-sun-fill');
+      icon.classList.add('bi-moon-fill');
+    } else {
+      icon.classList.remove('bi-moon-fill');
+      icon.classList.add('bi-sun-fill');
     }
-    window.sendCommand = sendCommand;
+  });
 
-    window.closeInnerMenus = function (parentId) {
-      setTimeout(() => {
-        let parent = document.querySelector(parentId);
-        if (parent && !parent.classList.contains("show")) {
-          let opened = parent.querySelectorAll(".collapse.show");
-          opened.forEach(el => {
-            let bsCollapse = bootstrap.Collapse.getInstance(el);
-            if (bsCollapse) {
-              bsCollapse.hide();
-            }
-          });
-        }
-      }, 200);
-    };
-  </script>
+  // Chevron animation
+  document.querySelectorAll('.btn-toggle[data-bs-toggle="collapse"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const chev = btn.querySelector('.chev');
+      const target = document.querySelector(btn.dataset.bsTarget);
+      target.addEventListener('shown.bs.collapse', ()=> chev.classList.add('open'));
+      target.addEventListener('hidden.bs.collapse', ()=> chev.classList.remove('open'));
+    });
+  });
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
