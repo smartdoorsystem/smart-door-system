@@ -16,7 +16,7 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
       transition: all 0.3s ease-in-out;
     }
-    #mainContent { display: none; } /* نخفي المحتوى لين يدخل */
+    #mainContent { display: none; } /* المحتوى مخفي لين يدخل */
     h1 {
       text-align: center;
       font-weight: 800;
@@ -83,7 +83,85 @@
     <img src="images/companies.pics/College of Electronic Technology - Tripoli.jpg" class="img-fluid mx-auto d-block mb-4" alt="">
   </div>
 
-  <!-- هنا باقي الكروت (Door, Camera, System, Penalty, Livestream, Add-ons, Explanation) -->
+  <!-- ========== OPTIONS ========== -->
+  <div class="card control-card">
+    <button type="button" class="btn btn-secondary w-100" data-bs-toggle="collapse" data-bs-target="#sdsOptions">
+      ⚙️ Smart Door System Options
+    </button>
+    <div id="sdsOptions" class="collapse">
+      <ul class="list-group list-group-flush bg-dark text-white">
+        <li class="list-group-item bg-dark">
+          <button class="btn btn-primary w-100 my-1" onclick="sendCommand('normal_door')">🚪 Open & Close Door</button>
+          <button class="btn btn-outline-light w-100 my-1" onclick="sendCommand('door_openn')">🔓 Open Door Only</button>
+          <button class="btn btn-outline-light w-100 my-1" onclick="sendCommand('door_closee')">🔒 Close Door Only</button>
+        </li>
+        <li class="list-group-item bg-dark">
+          <button class="btn btn-primary w-100 my-1" onclick="sendCommand('start camera')">📷 Start Camera</button>
+          <button class="btn btn-outline-light w-100 my-1" onclick="sendCommand('stop camera')">🛑 Stop Camera</button>
+        </li>
+        <li class="list-group-item bg-dark">
+          <button class="btn btn-primary w-100 my-1" onclick="sendCommand('sys_loc')">🔒 Lock System</button>
+          <button class="btn btn-outline-light w-100 my-1" onclick="sendCommand('sys_unloc')">🔓 Unlock System</button>
+        </li>
+        <li class="list-group-item bg-dark">
+          <button class="btn btn-danger w-100 my-1" onclick="sendCommand('sys_pen')">⚠️ Penalty</button>
+          <button class="btn btn-outline-danger w-100 my-1" onclick="sendCommand('sys_pen30')">⏱️ Penalty 30s</button>
+          <button class="btn btn-outline-danger w-100 my-1" onclick="sendCommand('sys_pen60')">⏱️ Penalty 1m</button>
+          <button class="btn btn-outline-warning w-100 my-1" onclick="sendCommand('sys_buzzcof')">🎶 Coffin Dance</button>
+          <button class="btn btn-outline-warning w-100 my-1" onclick="sendCommand('sys_buzzpoc')">🎶 Pirates of the Caribbean</button>
+          <button class="btn btn-outline-warning w-100 my-1" onclick="sendCommand('sys_buzztok')">🎶 Tokyo Drift</button>
+        </li>
+        <li class="list-group-item bg-dark">
+          <button class="btn btn-success w-100 my-1" onclick="sendCommand('start_stream')">📺 Start Livestream</button>
+          <button class="btn btn-outline-light w-100 my-1" onclick="sendCommand('stop_stream')">🛑 Stop Livestream</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- LIVESTREAM VIDEO BOX -->
+  <div id="livestreamBox" style="display:none; margin-top:20px;" class="card control-card">
+    <h3 class="p-3">📡 Livestream</h3>
+    <div class="ratio ratio-16x9">
+      <iframe id="twitchStream"
+        src="https://player.twitch.tv/?channel=jq7v444&parent=smartdoorsystem.github.io"
+        frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
+    </div>
+  </div>
+
+  <!-- ADD-ONS -->
+  <div class="card control-card">
+    <button type="button" class="btn btn-secondary w-100" data-bs-toggle="collapse" data-bs-target="#addonOptions">
+      ➕ Smart Door System Add-ons
+    </button>
+    <div id="addonOptions" class="collapse">
+      <ul class="list-group list-group-flush bg-dark text-white">
+        <li class="list-group-item bg-dark"><a href="downloads/colors.png" class="text-white" download>🎨 TKinter Color Chart</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EXPLANATION -->
+  <div class="card control-card mb-5">
+    <button type="button" class="btn btn-secondary w-100" data-bs-toggle="collapse" data-bs-target="#explain">
+      📖 Smart Door System Explanation
+    </button>
+    <div id="explain" class="collapse">
+      <ul class="list-group list-group-flush bg-dark text-white">
+        <li class="list-group-item bg-dark"><a href="downloads/smart door system - project arduino components.pptx" class="text-white" download>Arduino Components</a></li>
+        <li class="list-group-item bg-dark"><a href="downloads/smart door system - project python components.pptx" class="text-white" download>Python Components</a></li>
+        <li class="list-group-item bg-dark"><a href="downloads/Arduino Libraries.txt" class="text-white" download>Arduino Libraries</a></li>
+        <li class="list-group-item bg-dark"><a href="downloads/Python Libraries.txt" class="text-white" download>Python Libraries</a></li>
+        <li class="list-group-item bg-dark"><a href="downloads/Arduino Explanation.txt" class="text-white" download>Explain Arduino Code</a></li>
+        <li class="list-group-item bg-dark"><a href="downloads/Python Explanation.txt" class="text-white" download>Explain Python Code</a></li>
+        <li class="list-group-item bg-dark"><a href="downloads/smart door system 1.0.zip" class="text-white" download>Version 1.0</a></li>
+        <li class="list-group-item bg-dark"><a href="downloads/smart door system 2.0.zip" class="text-white" download>Version 2.0</a></li>
+        <li class="list-group-item bg-dark"><a href="downloads/smart door system 3.0.zip" class="text-white" download>Version 3.0</a></li>
+        <li class="list-group-item bg-dark"><a href="downloads/dt-06 wifi configuration.pdf" class="text-white" download>DT-06 WiFi Config</a></li>
+        <li class="list-group-item bg-dark"><a href="downloads/FaceRecognition Explanation.txt" class="text-white" download>Face Recognition</a></li>
+      </ul>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="site-footer bg-dark text-white mt-5 py-4">
