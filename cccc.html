@@ -10,10 +10,19 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
 
   <style>
+    :root {
+      --bg1:#003366; /* أزرق غامق */
+      --bg2:#001a33; /* أزرق داكن */
+      --card:#1c2a3a;
+      --list:#2a3f55;
+      --list-hover:#34516d;
+      --text:#fff;
+    }
+
     body {
-      background: linear-gradient(120deg, #2c2c2c, #1a1a1a);
-      color: #fff;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      background: linear-gradient(120deg, var(--bg1), var(--bg2));
+      color: var(--text);
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
     }
 
     h1 {
@@ -23,12 +32,12 @@
     }
 
     .main-card {
-      background: #2f2f2f;
+      background: var(--card);
       border-radius: 18px;
       box-shadow: 0 10px 30px rgba(0,0,0,.35);
       padding: 30px;
       margin: 30px auto;
-      max-width: 600px;
+      max-width: 650px;
     }
 
     .main-card img {
@@ -46,24 +55,24 @@
       font-weight: 600;
       padding: 12px 16px;
       border: none;
-      background: #444;
+      background: #34516d;
       color: #fff;
       border-radius: 8px;
       margin-bottom: 6px;
     }
 
     .btn-toggle:hover {
-      background: #555;
+      background: #44688c;
     }
 
     .list-group-dark .list-group-item {
-      background: #3a3a3a;
+      background: var(--list);
       color: #fff;
       border: none;
     }
 
     .list-group-dark .list-group-item:hover {
-      background: #4a4a4a;
+      background: var(--list-hover);
     }
 
     button.cmd-btn {
@@ -78,16 +87,51 @@
     button.cmd-btn:hover {
       text-decoration: underline;
     }
+
+    footer {
+      background: rgba(0,51,102,0.9);
+      color:#fff;
+      margin-top: 40px;
+      padding: 20px 0;
+    }
+    footer a { color:#fff; }
   </style>
 </head>
 <body>
 
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg" style="background: rgba(0,51,102,0.9);">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center me-3 text-white fw-bold" href="index.html">
+      <img src="images/smart door system.png" class="navbar-brand-image img-fluid me-2" alt="Logo" style="height:40px;">
+      Smart Door System
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-lg-auto">
+        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_1">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_2">Our Story</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_3">Components</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_4">Versions</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_5">Contact</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="download.html">App</a></li>
+        <li class="nav-item">
+          <button id="themeToggle" class="btn btn-sm btn-light ms-3">🌙 Dark Mode</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
 <div class="container">
   <div class="main-card">
     <h1>College of Electronic Technology Tripoli</h1>
     <img src="images/companies.pics/College of Electronic Technology - Tripoli.jpg" alt="College Logo">
 
-    <!-- Main Options -->
+    <!-- Door Control -->
     <div class="card bg-dark border-0 mb-3">
       <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#doorMenu">🚪 Door Control</button>
       <div id="doorMenu" class="collapse">
@@ -99,8 +143,9 @@
       </div>
     </div>
 
+    <!-- Camera -->
     <div class="card bg-dark border-0 mb-3">
-      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#cameraMenu">📷 Camera Control</button>
+      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#cameraMenu">📷 Camera</button>
       <div id="cameraMenu" class="collapse">
         <ul class="list-group list-group-flush list-group-dark ms-3">
           <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('start camera')">Start Camera</button></li>
@@ -109,8 +154,9 @@
       </div>
     </div>
 
+    <!-- System -->
     <div class="card bg-dark border-0 mb-3">
-      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#systemMenu">🔒 System Control</button>
+      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#systemMenu">🔒 System</button>
       <div id="systemMenu" class="collapse">
         <ul class="list-group list-group-flush list-group-dark ms-3">
           <li class="list-group-item"><button class="cmd-btn" onclick="sendCommand('sys_loc')">Lock System</button></li>
@@ -119,6 +165,7 @@
       </div>
     </div>
 
+    <!-- Penalties -->
     <div class="card bg-dark border-0 mb-3">
       <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#penaltyMenu">⚠️ Penalties</button>
       <div id="penaltyMenu" class="collapse">
@@ -133,6 +180,7 @@
       </div>
     </div>
 
+    <!-- Stream -->
     <div class="card bg-dark border-0 mb-3">
       <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#streamMenu">📺 Livestream</button>
       <div id="streamMenu" class="collapse">
@@ -172,9 +220,31 @@
         </ul>
       </div>
     </div>
-
   </div>
 </div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-12 me-auto mb-3">
+        <em class="d-block mb-2">Where to find us?</em>
+        <strong><i class="bi-geo-alt me-2"></i> College Of Electronic Technology, Al Jraba Street, Tripoli, Libya</strong>
+        <ul class="social-icon list-unstyled d-flex mt-3">
+          <li class="me-3"><a href="https://www.facebook.com/share/167Fq9bmrP/" target="_blank" class="text-white fs-4"><i class="bi-facebook"></i></a></li>
+          <li><a href="https://t.me/smart_door_system" target="_blank" class="text-white fs-4"><i class="bi-telegram"></i></a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-12 mb-3">
+        <em class="d-block mb-2">Contact Us</em>
+        <p><strong>Email:</strong> <a href="mailto:smart.door.system.project@gmail.com" class="text-white">smart.door.system.project@gmail.com</a></p>
+      </div>
+      <div class="col-lg-8 col-12">
+        <p class="mb-0">© Smart Door System - Python Project 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -202,6 +272,19 @@
     alert("✅ Sent: " + command);
   }
   window.sendCommand = sendCommand;
+
+  // Theme Toggle
+  document.getElementById("themeToggle").addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+    let btn = document.getElementById("themeToggle");
+    if (document.body.classList.contains("light-mode")) {
+      btn.innerText = "🌙 Dark Mode";
+      btn.classList.replace("btn-light","btn-dark");
+    } else {
+      btn.innerText = "☀️ Light Mode";
+      btn.classList.replace("btn-dark","btn-light");
+    }
+  });
 </script>
 </body>
 </html>
