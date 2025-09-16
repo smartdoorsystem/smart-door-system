@@ -66,22 +66,30 @@ Bootstrap 5 HTML CSS Template
 
       
 .booking-form-image {
-  margin-bottom: 20px; /* مسافة تحت الصورة */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 24px;    /* هذه تضيف مسافة تحت الصورة */
+  max-width: 300px;       /* اختياري لتصغير الصورة شوية */
 }
-
 .control-card {
   background: var(--card);
   border: 0;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,.35);
-  margin-bottom: 16px;
 
-  width: 100%;
-  max-width: 430px;    /* غيرها حسب ما يعجبك */
-  margin-left: auto;
-  margin-right: auto;
-  padding: 15px;       /* حط padding بسيط داخلي للكارت */
+  /* مسافة تحت كل كارت */
+  margin-bottom: 24px;
+
+  /* هنا التغيير المهم: */
+  width: 100%;           /* عرض كامل على الشاشات الصغيرة */
+  max-width: 430px;       /* أقصى عرض على الشاشات الكبيرة */
+  margin-left: auto;      /* توسيط */
+  margin-right: auto;     /* توسيط */
+
+  /* padding داخلي بسيط */
+  padding: 15px;
 }
       
 
@@ -197,12 +205,12 @@ Bootstrap 5 HTML CSS Template
                         <div class="row">
   <div class="container py-3 text-center">
     <h1>Fittnesstime.ly - Control Page</h1>
-      <div class="col-lg-5 col-12 p-0">
+      <div class="container text-center">
                                         <div class="booking-form-image-wrap">
                                             
                                             <img src="images/companies.pics/Fittniesstime.ly.jpg" class="booking-form-image img-fluid mx-auto d-block" alt="">
                                         </div>
-
+<div class="container text-center">
                             
     <!-- ========== OPTIONS ========== -->
     <div class="card control-card">
@@ -351,6 +359,7 @@ Bootstrap 5 HTML CSS Template
          <li class="list-group-item"><a href="downloads/FaceRecognition Explanation.txt" download>Face Recognition</a></li>
         </ul>
       </div>
+    </div>
                      </div>
                     </div>
                 </section>
@@ -461,6 +470,7 @@ Bootstrap 5 HTML CSS Template
   </script>
 </body>
 </html>
+
 
 
 
