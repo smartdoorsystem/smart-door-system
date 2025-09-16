@@ -3,458 +3,208 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>College of Electronic Technology Tripoli - Control Page</title>
+  <title>Smart Door System - Control Page</title>
 
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
 
   <style>
-    :root{
+    :root {
       --blue-1: #003366;
       --blue-2: #001a33;
       --card-bg: #16242f;
       --panel: #1f3946;
       --panel-hover: #2b4a5e;
       --text: #f7fbff;
-      --accent: #66a3ff;
     }
-
-    /* Body / theme */
     body {
       margin:0;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       color: var(--text);
       background: linear-gradient(130deg, var(--blue-1), var(--blue-2));
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
       transition: background .35s ease, color .35s ease;
     }
-    body.light-mode {
-      --card-bg: #ffffff;
-      --panel: #f3f6fb;
-      --panel-hover: #e6eefc;
-      --text: #06222f;
-      background: linear-gradient(130deg, #eaf4ff, #ffffff);
+    body.dark-mode {
+      --card-bg: #1a1a1a;
+      --panel: #2a2a2a;
+      --panel-hover: #3a3a3a;
+      --text: #ffffff;
+      background: linear-gradient(130deg, #0d0d0d, #1a1a1a);
     }
-
-    /* Navbar */
-    .navbar {
-      background: rgba(0,51,102,0.92);
-      backdrop-filter: blur(4px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.18);
-    }
-    body.light-mode .navbar { background: rgba(230,241,255,0.95); }
-
-    .navbar .nav-link { color: var(--text) !important; font-weight:600;}
-    body.light-mode .navbar .nav-link { color: #0b2940 !important; }
-
-    /* Main card container */
-    .wrap {
-      max-width: 880px;
-      margin: 28px auto;
-      padding: 22px;
-    }
+    .wrap { max-width:880px; margin:28px auto; padding:22px; }
     .main-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      background: var(--card-bg);
       border-radius: 16px;
       padding: 28px;
       box-shadow: 0 18px 60px rgba(2,8,20,0.45);
-      border: 1px solid rgba(255,255,255,0.04);
     }
-    body.light-mode .main-card {
-      background: linear-gradient(180deg,#fff,#f8fbff);
-      box-shadow: 0 8px 30px rgba(8,20,40,0.06);
-      border: 1px solid rgba(6,34,47,0.06);
-    }
-
-    /* header / image */
-    .top-row { display:flex; gap:20px; align-items:center; justify-content:center; flex-wrap:wrap; }
-    .brand-block { text-align:center; }
-    .brand-title { font-size:20px; font-weight:800; letter-spacing:0.06em; margin:0 0 6px; color:var(--text); }
-    body.light-mode .brand-title { color: #022034; }
-
-    .brand-sub { font-size:13px; color: rgba(255,255,255,0.75); margin-bottom:6px; }
-    body.light-mode .brand-sub { color: rgba(2,34,52,0.7); }
-
-    .brand-img {
-      width: 210px; max-width: 45vw; height: auto;
-      border-radius: 10px;
-      display:block; margin: 0 auto;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-      transition: transform .35s ease, box-shadow .35s ease;
-    }
-    .brand-img:hover { transform: translateY(-6px); box-shadow: 0 18px 45px rgba(0,0,0,0.45); }
-
-    /* panel / group */
-    .panel {
-      background: linear-gradient(180deg, var(--panel), color-mix(in srgb, var(--panel) 75%, black 5%));
-      border-radius: 10px;
-      padding: 10px;
-      margin-top:18px;
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-    body.light-mode .panel { background: var(--panel); border-color: rgba(2,34,52,0.04); }
-
+    .brand-title { text-align:center; font-size:22px; font-weight:800; margin-bottom:12px; }
+    .brand-img { width:210px; display:block; margin:0 auto 20px; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.4); }
+    .panel { margin-top:18px; }
     .btn-toggle {
       display:flex; align-items:center; justify-content:space-between;
-      width:100%;
-      padding:12px 14px;
-      font-weight:700;
-      border-radius:8px;
-      border: none;
-      background: transparent;
-      color: var(--text);
-      cursor:pointer;
-      transition: background .22s ease, transform .12s ease, box-shadow .18s ease;
+      width:100%; padding:12px 14px;
+      font-weight:700; border-radius:8px; border:none;
+      background: var(--panel); color:var(--text); cursor:pointer;
+      transition: background .22s ease;
     }
-    .btn-toggle .label { display:flex; gap:12px; align-items:center; }
-    .btn-toggle .chev { transition: transform .28s cubic-bezier(.2,.8,.2,1); }
-
-    .group-card { margin-bottom:12px; }
-    .group-body { padding:8px 12px 14px; }
-
-    /* list items with subtle animation */
+    .btn-toggle:hover { background: var(--panel-hover); }
     .list-item {
-      display:block; width:100%;
-      padding:10px 12px; margin:6px 0; border-radius:8px;
-      background: transparent; color:var(--text); border:1px solid rgba(255,255,255,0.02);
-      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
-      cursor:pointer;
-      font-weight:600;
+      display:block; width:100%; padding:10px 12px; margin:6px 0;
+      border-radius:8px; background: transparent; color:var(--text);
+      border:1px solid rgba(255,255,255,0.05);
+      transition: background .18s ease;
+      text-align:left;
     }
-    .list-item:hover { transform: translateY(-3px); background: rgba(255,255,255,0.03); box-shadow: 0 8px 24px rgba(2,10,20,0.25); }
-    body.light-mode .list-item { border-color: rgba(2,34,52,0.04); background: transparent; color: #042834; }
-    .list-item small { display:block; opacity:0.75; font-weight:500; font-size:12px; }
-
-    /* collapse animations: we manage open/close chevron rotation + fade children */
-    .chev.open { transform: rotate(90deg); }
-    .sublist { overflow: hidden; transition: opacity .28s ease, transform .28s ease; transform-origin: top; opacity:0; transform: translateY(-6px) scaleY(.99); }
-    .sublist.show { opacity:1; transform: translateY(0) scaleY(1); }
-
-    /* hover glow accent */
-    .accent-glow:hover { box-shadow: 0 6px 30px rgba(102,163,255,0.14); }
-
-    /* footer */
-    footer.site-footer {
-      margin-top:30px; padding:18px 0; border-top: 1px solid rgba(255,255,255,0.03);
-      background: rgba(0,0,0,0.06);
-    }
-    body.light-mode footer.site-footer { background: transparent; }
-
-    /* small screens tweaks */
-    @media (max-width:576px){
-      .brand-img { width: 160px; }
-      .main-card { padding:18px; }
-    }
-
-    /* login modal custom */
-    .modal-content.login-modal { background: linear-gradient(180deg,#0b2233,#06202a); color:var(--text); border-radius:12px; }
-    body.light-mode .modal-content.login-modal { background: linear-gradient(180deg,#ffffff,#f6fbff); color:#022034; }
-    .form-control { border-radius:8px; }
+    .list-item:hover { background: rgba(255,255,255,0.05); }
+    .chev { transition: transform .28s ease; }
+    .chev.open { transform:rotate(90deg); }
+    .sublist { padding:10px 20px; }
   </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg">
-  <div class="container">
-    <a class="navbar-brand d-flex align-items-center me-3 text-white fw-bold" href="#">
-      <img src="images/smart door system.png" alt="logo" style="height:36px; margin-right:8px;">
-      Smart Door System
-    </a>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navMain">
-      <ul class="navbar-nav ms-auto align-items-center">
-        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#components">Components</a></li>
-        <li class="nav-item"><a class="nav-link" href="#downloads">Downloads</a></li>
-        <li class="nav-item ms-2">
-          <button id="themeToggle" class="btn btn-sm btn-light">☀️ Light</button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!-- WRAPPER -->
 <div class="wrap">
   <div class="main-card">
+    <h2 class="brand-title">College of Electronic Technology Tripoli</h2>
+    <img src="images/companies.pics/College of Electronic Technology - Tripoli.jpg" alt="College Logo" class="brand-img">
 
-    <div class="top-row">
-      <div class="brand-block">
-        <h2 class="brand-title">College of Electronic Technology Tripoli</h2>
-        <div class="brand-sub">Control Page · Smart Door System</div>
+    <!-- Master Menu -->
+    <div class="panel">
+      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#mainMenu">
+        <span><i class="bi bi-list"></i> Smart Door System Options</span>
+        <i class="bi bi-chevron-right chev"></i>
+      </button>
+      <div id="mainMenu" class="collapse sublist">
+
+        <!-- Door Control -->
+        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#doorMenu">
+          <span><i class="bi bi-door-closed-fill"></i> Door Control</span>
+          <i class="bi bi-chevron-right chev"></i>
+        </button>
+        <div id="doorMenu" class="collapse sublist">
+          <button class="list-item" onclick="sendCommand('normal_door')">Open & Close Door</button>
+          <button class="list-item" onclick="sendCommand('door_openn')">Open Door Only</button>
+          <button class="list-item" onclick="sendCommand('door_closee')">Close Door Only</button>
+        </div>
+
+        <!-- Camera -->
+        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#cameraMenu">
+          <span><i class="bi bi-camera-video-fill"></i> Camera</span>
+          <i class="bi bi-chevron-right chev"></i>
+        </button>
+        <div id="cameraMenu" class="collapse sublist">
+          <button class="list-item" onclick="sendCommand('start camera')">Start Camera</button>
+          <button class="list-item" onclick="sendCommand('stop camera')">Stop Camera</button>
+        </div>
+
+        <!-- System -->
+        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#systemMenu">
+          <span><i class="bi bi-shield-lock-fill"></i> System</span>
+          <i class="bi bi-chevron-right chev"></i>
+        </button>
+        <div id="systemMenu" class="collapse sublist">
+          <button class="list-item" onclick="sendCommand('sys_loc')">Lock System</button>
+          <button class="list-item" onclick="sendCommand('sys_unloc')">Unlock System</button>
+        </div>
+
+        <!-- Penalties -->
+        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#penaltyMenu">
+          <span><i class="bi bi-exclamation-triangle-fill"></i> Penalties</span>
+          <i class="bi bi-chevron-right chev"></i>
+        </button>
+        <div id="penaltyMenu" class="collapse sublist">
+          <button class="list-item" onclick="sendCommand('sys_pen')">Penalty</button>
+          <button class="list-item" onclick="sendCommand('sys_pen30')">Penalty 30s</button>
+          <button class="list-item" onclick="sendCommand('sys_pen60')">Penalty 1m</button>
+          <button class="list-item" onclick="sendCommand('sys_buzzcof')">Coffin Dance</button>
+          <button class="list-item" onclick="sendCommand('sys_buzzpoc')">Pirates of the Caribbean</button>
+          <button class="list-item" onclick="sendCommand('sys_buzztok')">Tokyo Drift</button>
+        </div>
+
+        <!-- Livestream -->
+        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#streamMenu">
+          <span><i class="bi bi-tv-fill"></i> Livestream</span>
+          <i class="bi bi-chevron-right chev"></i>
+        </button>
+        <div id="streamMenu" class="collapse sublist">
+          <button class="list-item" onclick="sendCommand('start_stream')">Start Livestream</button>
+          <button class="list-item" onclick="sendCommand('stop_stream')">Stop Livestream</button>
+        </div>
       </div>
-
-      <img class="brand-img" src="images/companies.pics/College of Electronic Technology - Tripoli.jpg" alt="College image">
     </div>
 
-    <!-- Panels (card-like groups) -->
-    <div class="panel mt-3" id="controlsPanel">
-
-      <!-- Door -->
-      <div class="group-card">
-        <button class="btn-toggle accent-glow" data-target="#doorSub" aria-expanded="false">
-          <span class="label"><i class="bi bi-door-closed-fill"></i> Door Control</span>
-          <i class="bi bi-chevron-right chev"></i>
-        </button>
-        <div id="doorSub" class="sublist collapse sublist-contents">
-          <button class="list-item" onclick="sendCommand('normal_door')">Open & Close Door <small>open then close</small></button>
-          <button class="list-item" onclick="sendCommand('door_openn')">Open Door Only <small>open only</small></button>
-          <button class="list-item" onclick="sendCommand('door_closee')">Close Door Only <small>close only</small></button>
-        </div>
-      </div>
-
-      <!-- Camera -->
-      <div class="group-card">
-        <button class="btn-toggle accent-glow" data-target="#cameraSub" aria-expanded="false">
-          <span class="label"><i class="bi bi-camera-video-fill"></i> Camera</span>
-          <i class="bi bi-chevron-right chev"></i>
-        </button>
-        <div id="cameraSub" class="sublist collapse sublist-contents">
-          <button class="list-item" onclick="sendCommand('start camera')">Start Camera <small>begin capture</small></button>
-          <button class="list-item" onclick="sendCommand('stop camera')">Stop Camera <small>end capture</small></button>
-        </div>
-      </div>
-
-      <!-- System -->
-      <div class="group-card">
-        <button class="btn-toggle accent-glow" data-target="#systemSub" aria-expanded="false">
-          <span class="label"><i class="bi bi-shield-lock-fill"></i> System</span>
-          <i class="bi bi-chevron-right chev"></i>
-        </button>
-        <div id="systemSub" class="sublist collapse sublist-contents">
-          <button class="list-item" onclick="sendCommand('sys_loc')">Lock System <small>prevent changes</small></button>
-          <button class="list-item" onclick="sendCommand('sys_unloc')">Unlock System <small>allow changes</small></button>
-        </div>
-      </div>
-
-      <!-- Penalties -->
-      <div class="group-card">
-        <button class="btn-toggle accent-glow" data-target="#penaltySub" aria-expanded="false">
-          <span class="label"><i class="bi bi-exclamation-triangle-fill"></i> Penalties</span>
-          <i class="bi bi-chevron-right chev"></i>
-        </button>
-        <div id="penaltySub" class="sublist collapse sublist-contents">
-          <button class="list-item" onclick="sendCommand('sys_pen')">Penalty <small>default</small></button>
-          <button class="list-item" onclick="sendCommand('sys_pen30')">Penalty 30s <small>30 seconds</small></button>
-          <button class="list-item" onclick="sendCommand('sys_pen60')">Penalty 1m <small>60 seconds</small></button>
-          <button class="list-item" onclick="sendCommand('sys_buzzcof')">Coffin Dance <small>fun buzzer</small></button>
-          <button class="list-item" onclick="sendCommand('sys_buzzpoc')">Pirates of the Caribbean <small>tune</small></button>
-          <button class="list-item" onclick="sendCommand('sys_buzztok')">Tokyo Drift <small>tune</small></button>
-        </div>
-      </div>
-
-      <!-- Stream -->
-      <div class="group-card">
-        <button class="btn-toggle accent-glow" data-target="#streamSub" aria-expanded="false">
-          <span class="label"><i class="bi bi-tv-fill"></i> Livestream</span>
-          <i class="bi bi-chevron-right chev"></i>
-        </button>
-        <div id="streamSub" class="sublist collapse sublist-contents">
-          <button class="list-item" onclick="sendCommand('start_stream')">Start Livestream <small>open stream</small></button>
-          <button class="list-item" onclick="sendCommand('stop_stream')">Stop Livestream <small>close stream</small></button>
-        </div>
-      </div>
-
-      <!-- Add-ons + Explanation -->
-      <div class="group-card">
-        <button class="btn-toggle accent-glow" data-target="#addonsSub" aria-expanded="false">
-          <span class="label"><i class="bi bi-plus-circle-fill"></i> Add-ons & Docs</span>
-          <i class="bi bi-chevron-right chev"></i>
-        </button>
-        <div id="addonsSub" class="sublist collapse sublist-contents">
-          <a class="list-item" href="downloads/colors.png" download>TKinter Color Chart</a>
-          <a class="list-item" href="downloads/smart door system - project arduino components.pptx" download>Arduino Components</a>
-          <a class="list-item" href="downloads/smart door system - project python components.pptx" download>Python Components</a>
-          <a class="list-item" href="downloads/smart door system 1.0.zip" download>Version 1.0</a>
-        </div>
-      </div>
-
-    </div> <!-- panel -->
-  </div> <!-- main-card -->
-</div> <!-- wrap -->
-
-<!-- FOOTER -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-5 col-12 me-auto mb-3">
-        <em class="d-block mb-2">Where to find us?</em>
-        <strong><i class="bi-geo-alt me-2"></i> College Of Electronic Technology, Al Jraba Street, Tripoli, Libya</strong>
-        <ul class="social-icon list-unstyled d-flex mt-3">
-          <li class="me-3"><a href="https://www.facebook.com/share/167Fq9bmrP/" target="_blank" class="text-decoration-none text-reset fs-4"><i class="bi-facebook"></i></a></li>
-          <li><a href="https://t.me/smart_door_system" target="_blank" class="text-decoration-none text-reset fs-4"><i class="bi-telegram"></i></a></li>
-        </ul>
-      </div>
-      <div class="col-lg-3 col-12 mb-3">
-        <em class="d-block mb-2">Contact Us</em>
-        <p><strong>Email:</strong> <a href="mailto:smart.door.system.project@gmail.com">smart.door.system.project@gmail.com</a></p>
-      </div>
-      <div class="col-lg-8 col-12">
-        <p class="mb-0">© Smart Door System - Python Project 2025</p>
+    <!-- Add-ons -->
+    <div class="panel">
+      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#addonMenu">
+        <span><i class="bi bi-plus-circle-fill"></i> Smart Door System Add-ons Options</span>
+        <i class="bi bi-chevron-right chev"></i>
+      </button>
+      <div id="addonMenu" class="collapse sublist">
+        <a href="downloads/colors.png" class="list-item" download>TKinter Color Chart</a>
       </div>
     </div>
-  </div>
-</footer>
 
-<!-- LOGIN MODAL (shown on load) -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
-    <div class="modal-content login-modal p-3">
-      <div class="modal-header border-0">
-        <h5 class="modal-title">Enter credentials</h5>
-      </div>
-      <div class="modal-body">
-        <div class="mb-2">
-          <input id="username" class="form-control" placeholder="Username" autocomplete="off" />
-        </div>
-        <div class="mb-2">
-          <input id="password" type="password" class="form-control" placeholder="Password" autocomplete="new-password" />
-        </div>
-        <div id="loginMsg" style="font-size:13px;color:rgba(255,200,200,0.95);min-height:18px;"></div>
-      </div>
-      <div class="modal-footer border-0">
-        <button class="btn btn-outline-light" id="loginBtn">Login</button>
+    <!-- Explanation -->
+    <div class="panel">
+      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#explainMenu">
+        <span><i class="bi bi-book-fill"></i> Smart Door System Explanation</span>
+        <i class="bi bi-chevron-right chev"></i>
+      </button>
+      <div id="explainMenu" class="collapse sublist">
+        <a href="downloads/smart door system - project arduino components.pptx" class="list-item" download>Arduino Components</a>
+        <a href="downloads/smart door system - project python components.pptx" class="list-item" download>Python Components</a>
+        <a href="downloads/Arduino Libraries.txt" class="list-item" download>Arduino Libraries</a>
+        <a href="downloads/Python Libraries.txt" class="list-item" download>Python Libraries</a>
+        <a href="downloads/Arduino Explanation.txt" class="list-item" download>Explain Arduino Code</a>
+        <a href="downloads/Python Explanation.txt" class="list-item" download>Explain Python Code</a>
+        <a href="downloads/smart door system 1.0.zip" class="list-item" download>Version 1.0</a>
+        <a href="downloads/smart door system 2.0.zip" class="list-item" download>Version 2.0</a>
+        <a href="downloads/smart door system 3.0.zip" class="list-item" download>Version 3.0</a>
+        <a href="downloads/dt-06 wifi configuration.pdf" class="list-item" download>DT-06 WiFi Config</a>
+        <a href="downloads/FaceRecognition Explanation.txt" class="list-item" download>Face Recognition</a>
       </div>
     </div>
+
+    <!-- Mode Toggle -->
+    <div class="panel">
+      <button class="btn-toggle" id="themeToggle">
+        <span><i class="bi bi-sun-fill"></i> Light / Dark Mode</span>
+      </button>
+    </div>
+
   </div>
 </div>
 
-<!-- Bootstrap bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- AUTH SCRIPT: contains obfuscated hash (will be removed from DOM after successful login) -->
-<script id="authScript">
-/*
-  Implementation notes:
-  - We store a SHA-256 hex digest of (username + ':' + password + pepper).
-  - We compute SHA-256 of user input the same way, compare digests.
-  - After successful login we remove this script element to reduce exposure.
-  - This obfuscates credentials in the client; NOT full-proof against determined attacker.
-*/
-const __pepper = "pX7!z2R"; // small pepper (client-side) — it's ok to be present but improves obfuscation slightly
-// expected digest for username "cet" and password "1037" with above pepper: sha256("cet:1037pX7!z2R")
-const __expectedDigest = "7e5c4a98b8f4f562e45a5d6a2f4696cb0d9f301e7f8b0b6d9b2c5a9f3e7b0d37";
-</script>
-
 <script>
-/* ---------- Utility: hex conversion & digest ---------- */
-async function sha256hex(str){
-  const enc = new TextEncoder().encode(str);
-  const buf = await crypto.subtle.digest('SHA-256', enc);
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-}
-
-/* ---------- AUTH CHECK ---------- */
-const loginModalEl = new bootstrap.Modal(document.getElementById('loginModal'), {backdrop:'static', keyboard:false});
-document.addEventListener('DOMContentLoaded', () => {
-  // show modal on load
-  loginModalEl.show();
-  document.getElementById('username').focus();
-});
-
-/* perform login when button pressed or Enter */
-document.getElementById('loginBtn').addEventListener('click', tryLogin);
-document.getElementById('password').addEventListener('keydown', (e)=>{ if(e.key==='Enter') tryLogin(); });
-
-async function tryLogin(){
-  const u = document.getElementById('username').value.trim();
-  const p = document.getElementById('password').value;
-  const msg = document.getElementById('loginMsg');
-
-  if(!u || !p){ msg.textContent = "Enter username and password."; return; }
-
-  // compute digest same as stored
-  const s = `${u}:${p}` + window.__pepper;
-  const digest = await sha256hex(s);
-
-  // compare with expected digest (from authScript). This makes plaintext creds not visible.
-  if(digest === window.__expectedDigest){
-    msg.style.color = 'lightgreen';
-    msg.textContent = "Login successful. Welcome!";
-    // hide modal and remove auth script to make discovery harder
-    setTimeout(()=>{
-      loginModalEl.hide();
-      // remove the script tag that contained the hash
-      const sc = document.getElementById('authScript');
-      if(sc) sc.remove();
-      // clear inputs from DOM
-      document.getElementById('username').value = '';
-      document.getElementById('password').value = '';
-    }, 400);
-  } else {
-    msg.style.color = '#ffc5c5';
-    msg.textContent = "Incorrect credentials.";
-    // small shake animation
-    const md = document.querySelector('.modal-dialog');
-    md.animate([{ transform:'translateX(0)'},{ transform:'translateX(-6px)'},{ transform:'translateX(6px)'},{ transform:'translateX(0)'}], { duration: 300 });
-  }
-}
-
-/* ---------- Collapse / chevron behaviour & smooth reveal ---------- */
-document.querySelectorAll('.btn-toggle').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const target = btn.getAttribute('data-target');
-    const el = document.querySelector(target);
-    if(!el) return;
-    const bs = new bootstrap.Collapse(el, {toggle:false});
-    if(el.classList.contains('show')) bs.hide();
-    else bs.show();
+  // Theme toggle
+  const themeBtn = document.getElementById('themeToggle');
+  themeBtn.addEventListener('click', ()=>{
+    document.body.classList.toggle('dark-mode');
+    let icon = themeBtn.querySelector('i');
+    if(document.body.classList.contains('dark-mode')){
+      icon.classList.remove('bi-sun-fill');
+      icon.classList.add('bi-moon-fill');
+    } else {
+      icon.classList.remove('bi-moon-fill');
+      icon.classList.add('bi-sun-fill');
+    }
   });
-});
 
-// Add hooks to animate chevrons and sublist classes
-document.querySelectorAll('.sublist').forEach(s=>{
-  s.addEventListener('show.bs.collapse', (e)=>{
-    s.classList.add('show');
-    // rotate chevron
-    const prev = s.previousElementSibling;
-    if(prev){ const ch = prev.querySelector('.chev'); if(ch) ch.classList.add('open'); }
+  // Chevron animation
+  document.querySelectorAll('.btn-toggle[data-bs-toggle="collapse"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const chev = btn.querySelector('.chev');
+      const target = document.querySelector(btn.dataset.bsTarget);
+      target.addEventListener('shown.bs.collapse', ()=> chev.classList.add('open'));
+      target.addEventListener('hidden.bs.collapse', ()=> chev.classList.remove('open'));
+    });
   });
-  s.addEventListener('hide.bs.collapse', (e)=>{
-    s.classList.remove('show');
-    const prev = s.previousElementSibling;
-    if(prev){ const ch = prev.querySelector('.chev'); if(ch) ch.classList.remove('open'); }
-  });
-});
 
-/* ---------- Theme toggle (with persistence) ---------- */
-const themeBtn = document.getElementById('themeToggle');
-function applyTheme(t){
-  if(t==='light'){ document.body.classList.add('light-mode'); themeBtn.innerText = '🌙 Dark'; themeBtn.classList.remove('btn-light'); themeBtn.classList.add('btn-dark'); }
-  else { document.body.classList.remove('light-mode'); themeBtn.innerText = '☀️ Light'; themeBtn.classList.remove('btn-dark'); themeBtn.classList.add('btn-light'); }
-}
-themeBtn.addEventListener('click', ()=>{
-  const isLight = document.body.classList.toggle('light-mode');
-  applyTheme(isLight ? 'light' : 'dark');
-  localStorage.setItem('sds_theme', isLight ? 'light' : 'dark');
-});
-const saved = localStorage.getItem('sds_theme') || 'dark';
-applyTheme(saved);
-
-/* ---------- Firebase & sendCommand stub ---------- */
-/* Keep your Firebase config or existing logic here. This stub uses alert to demonstrate. */
-async function sendCommand(command){
-  // optional: block commands until login modal hidden
-  if(document.getElementById('loginModal') && document.getElementById('loginModal').classList.contains('show')){
-    alert('Please login first.');
-    return;
-  }
-  // Example: use Firebase set(...) like in your original file
-  // For demo we show a toast-like alert:
-  const toast = document.createElement('div');
-  toast.style.position = 'fixed';
-  toast.style.right = '18px';
-  toast.style.bottom = '18px';
-  toast.style.background = 'linear-gradient(90deg,#1b7cff,#004b9e)';
-  toast.style.color = '#fff';
-  toast.style.padding = '10px 14px';
-  toast.style.borderRadius = '8px';
-  toast.style.boxShadow = '0 8px 30px rgba(0,0,0,0.25)';
-  toast.innerText = `✅ Sent: ${command}`
+  // Dummy sendCommand
+  function sendCommand(cmd){ alert("Sent: " + cmd); }
+</script>
+</body>
+</html>
