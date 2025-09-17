@@ -13,9 +13,8 @@
     :root {
       --bg1:#003366;
       --bg2:#001a33;
-      --card:#1c2a3a;
-      --list:#2a3f55;
-      --list-hover:#34516d;
+      --card-dark:#2a2a2a;   /* رمادي داكن للكارد في دارك مود */
+      --card-light:#f2f2f2;  /* رمادي فاتح للكارد في لايت مود */
       --text:#fff;
     }
 
@@ -32,7 +31,7 @@
     }
 
     .main-card {
-      background: var(--card);
+      background: var(--card-dark);
       border-radius: 18px;
       box-shadow: 0 10px 30px rgba(0,0,0,.35);
       padding: 30px;
@@ -40,8 +39,17 @@
       max-width: 700px;
     }
 
+    .main-card img {
+      max-width: 250px;
+      height: auto;
+      margin: 0 auto 20px;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,.4);
+    }
+
     .form-control {
-      background: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.9);
       border: none;
       border-radius: 10px;
       margin-bottom: 15px;
@@ -67,12 +75,16 @@
     }
 
     footer {
-      background: rgba(0,51,102,0.9);
+      background: #2a2a2a;
       color:#fff;
       margin-top: 40px;
       padding: 20px 0;
     }
     footer a { color:#fff; }
+
+    nav.navbar {
+      background: #2a2a2a !important;
+    }
 
     /* Light Mode */
     .light-mode {
@@ -80,18 +92,19 @@
       color: #222 !important;
     }
     .light-mode .main-card {
-      background: #fff;
+      background: var(--card-light);
       color: #222;
     }
+    .light-mode nav.navbar,
     .light-mode footer {
-      background: #003366;
+      background: #003366 !important;
     }
   </style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg" style="background: rgba(0,51,102,0.9);">
+<nav class="navbar navbar-expand-lg">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center me-3 text-white fw-bold" href="index.html">
       <img src="images/smart door system.png" class="navbar-brand-image img-fluid me-2" alt="Logo" style="height:40px;">
@@ -120,6 +133,9 @@
 <div class="container">
   <div class="main-card">
     <h1>Job Application Form</h1>
+    <!-- الصورة الجديدة -->
+    <img src="images/companies.pics/College of Electronic Technology - Tripoli.jpg" alt="College Logo">
+
     <form class="custom-form" action="https://formspree.io/f/xdklgoae" method="post" enctype="multipart/form-data">
       <input type="text" name="name" class="form-control" placeholder="Full Name" required>
       <input type="date" name="birth" class="form-control" required>
