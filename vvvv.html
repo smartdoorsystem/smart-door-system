@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,17 +13,16 @@
 
   <style>
     :root {
-      --bg1:#003366;
-      --bg2:#001a33;
-      --card-dark:#2a2a2a;
-      --card-light:#f9f9f9;
-      --text:#fff;
+      --bg1: #003366;
+      --bg2: #001a33;
+      --card-dark: #2a2a2a;
+      --card-light: #f9f9f9;
     }
 
     body {
       background: linear-gradient(120deg, var(--bg1), var(--bg2));
-      color: var(--text);
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      color: #fff;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
       transition: background 0.5s ease, color 0.5s ease;
     }
 
@@ -29,6 +30,7 @@
       font-weight: 800;
       text-align: center;
       margin-bottom: 20px;
+      color: #000;
     }
 
     .main-card {
@@ -57,18 +59,22 @@
     }
 
     .form-label {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
       margin-bottom: 5px;
       display: block;
+      color: #444;
       transition: color 0.5s ease;
     }
 
+    /* Light Mode → الخانات اكحل والنص أبيض */
     .form-control, .form-select {
       border: none;
       border-radius: 10px;
       margin-bottom: 15px;
       padding: 10px 12px;
+      background: #222 !important; /* اكحل */
+      color: #fff !important;      /* نص أبيض */
       transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
     }
 
@@ -95,12 +101,12 @@
 
     footer {
       background: rgba(0,51,102,0.9);
-      color:#fff;
+      color: #fff;
       margin-top: 40px;
       padding: 20px 0;
       transition: background 0.5s ease, color 0.5s ease;
     }
-    footer a { color:#fff; }
+    footer a { color: #fff; }
 
     nav.navbar {
       background: rgba(0,51,102,0.9) !important;
@@ -116,10 +122,11 @@
       background: var(--card-dark);
       color: #fff;
     }
+    /* Dark Mode → الخانات أبيض والنص اكحل */
     .dark-mode .form-control, 
     .dark-mode .form-select {
-      background: #333;
-      color: #fff;
+      background: #fff !important; /* أبيض */
+      color: #000 !important;      /* نص اكحل */
     }
     .dark-mode .form-label {
       color: #ddd;
@@ -142,9 +149,11 @@
       color: #ffdd57;
       transform: rotate(20deg) scale(1.2);
     }
+
   </style>
 </head>
 <body>
+  
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
@@ -253,3 +262,4 @@
 </script>
 </body>
 </html>
+
