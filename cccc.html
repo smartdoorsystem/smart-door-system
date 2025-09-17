@@ -1,248 +1,323 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Smart Door System - College of Electronic Technology Tripoli Control Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>College of Electronic Technology - Job Application</title>
 
-  <!-- Bootstrap 5 -->
+  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
 
   <style>
     :root {
-      --blue-1: #003366;
-      --blue-2: #001a33;
-      --card-bg: #16242f;
-      --panel: #1f3946;
-      --panel-hover: #2b4a5e;
-      --text: #f7fbff;
-      --nav-bg: rgba(0,51,102,0.9);
-      --footer-bg: rgba(0,51,102,0.9);
+      --bg1: #003366;
+      --bg2: #001a33;
+      --card-dark: #2a2a2a;
+      --card-light: #f9f9f9;
+      --input-dark: #111;  /* خانات في light mode */
+      --input-light: #fff; /* خانات في dark mode */
     }
-    body {
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      color: var(--text);
-      background: linear-gradient(130deg, var(--blue-1), var(--blue-2));
-      transition: background .35s ease, color .35s ease;
-    }
-    body.dark-mode {
-      --card-bg: #1a1a1a;
-      --panel: #2a2a2a;
-      --panel-hover: #3a3a3a;
-      --text: #ffffff;
-      --nav-bg: #2a2a2a;
-      --footer-bg: #2a2a2a;
-      background: linear-gradient(130deg, #0d0d0d, #1a1a1a);
-    }
-    .wrap { max-width:880px; margin:28px auto; padding:22px; }
-    .main-card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      padding: 28px;
-      box-shadow: 0 18px 60px rgba(2,8,20,0.45);
-    }
-    .brand-title { text-align:center; font-size:22px; font-weight:800; margin-bottom:12px; }
-    .brand-img { width:210px; display:block; margin:0 auto 20px; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.4); }
-    .panel { margin-top:18px; }
-    .btn-toggle {
-      display:flex; align-items:center; justify-content:space-between;
-      width:100%; padding:12px 14px;
-      font-weight:700; border-radius:8px; border:none;
-      background: var(--panel); color:var(--text); cursor:pointer;
-      transition: background .22s ease;
-    }
-    .btn-toggle:hover { background: var(--panel-hover); }
-    .list-item {
-      display:block; width:100%; padding:10px 12px; margin:6px 0;
-      border-radius:8px; background: transparent; color:var(--text);
-      border:1px solid rgba(255,255,255,0.05);
-      transition: background .18s ease;
-      text-align:left;
-    }
-    .list-item:hover { background: rgba(255,255,255,0.05); }
-    .chev { transition: transform .28s ease; }
-    .chev.open { transform:rotate(90deg); }
-    .sublist { padding:10px 20px; }
-    nav.navbar { background: var(--nav-bg) !important; transition: background .35s ease; }
-    footer { background: var(--footer-bg); color:#fff; margin-top:40px; padding:20px 0; transition: background .35s ease; }
 
-    /* Login overlay */
-    #loginOverlay {
-      position: fixed;
-      top:0; left:0; right:0; bottom:0;
-      background: rgba(0,0,0,0.85);
-      display:flex; align-items:center; justify-content:center;
-      z-index: 2000;
+    body {
+      background: linear-gradient(120deg, var(--bg1), var(--bg2));
+      color: #fff;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      transition: background 0.5s ease, color 0.5s ease;
     }
-    #loginBox {
-      background:#fff; color:#000; padding:20px; border-radius:12px; width:300px;
-      text-align:center;
+
+    h1 {
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 20px;
     }
-    #loginBox input { width:100%; padding:10px; margin:8px 0; border-radius:8px; border:1px solid #ccc; }
-    #loginBox button { width:100%; padding:10px; background:#003366; color:#fff; border:none; border-radius:8px; }
+
+    .main-card {
+      background: var(--card-light);
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      padding: 30px;
+      margin: 30px auto;
+      max-width: 700px;
+      color: #222;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    .main-card img {
+      max-width: 250px;
+      height: auto;
+      margin: 0 auto 20px;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,.4);
+      transition: transform 0.4s ease;
+    }
+
+    .main-card img:hover {
+      transform: scale(1.05);
+    }
+
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
+      color: #444;
+      transition: color 0.5s ease;
+    }
+
+    .form-control, .form-select {
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      padding: 10px 12px;
+      background: var(--input-dark);
+      color: #fff; /* Light Mode → نص أبيض */
+      transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border: 2px solid #6699CC;
+      box-shadow: none;
+    }
+
+    button[type="submit"] {
+      background: #6699CC;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      font-weight: bold;
+      border-radius: 10px;
+      width: 100%;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button[type="submit"]:hover {
+      background: #44688c;
+      transform: scale(1.02);
+    }
+
+    footer {
+      background: rgba(0,51,102,0.9);
+      color: #fff;
+      margin-top: 40px;
+      padding: 20px 0;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+    footer a { color: #fff; }
+
+    nav.navbar {
+      background: rgba(0,51,102,0.9) !important;
+      transition: background 0.5s ease;
+    }
+
+    /* Dark Mode */
+    .dark-mode {
+      background: #000 !important;
+      color: #fff !important;
+    }
+    .dark-mode .main-card {
+      background: var(--card-dark);
+      color: #fff;
+    }
+    .dark-mode .form-control, .dark-mode .form-select {
+      background: var(--input-light);
+      color: #000; /* Dark Mode → نص اكحل */
+    }
+    .dark-mode .form-label {
+      color: #ddd;
+    }
+    .dark-mode nav.navbar,
+    .dark-mode footer {
+      background: #2a2a2a !important;
+    }
+
+    /* زر تبديل المود */
+    .mode-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.3rem;
+      color: #fff;
+      margin-left: 12px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .mode-btn:hover {
+      color: #ffdd57;
+      transform: rotate(20deg) scale(1.2);
+    }
+
   </style>
 </head>
 <body>
-
-<!-- Login Overlay -->
-<div id="loginOverlay">
-  <div id="loginBox">
-    <h4>Login</h4>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="checkLogin()">Login</button>
-    <p id="loginError" style="color:red; display:none; margin-top:8px;">Wrong credentials!</p>
-  </div>
-</div>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center me-3 text-white fw-bold" href="index.html">
-      <img src="images/smart door system.png" alt="Logo" style="height:40px; margin-right:8px;">
+      <img src="images/smart door system.png" class="navbar-brand-image img-fluid me-2" alt="Logo" style="height:40px;">
       Smart Door System
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-lg-auto">
-        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_1">Home</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_2">Our Story</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_3">Components</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_4">Versions</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="index.html#section_5">Contact</a></li>
+      <ul class="navbar-nav ms-lg-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link text-white" href="#section_1">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#section_2">Our Story</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#section_3">Components</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#section_4">Versions</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#section_5">Contact</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="download.html">App</a></li>
+        <li class="nav-item">
+          <button id="themeToggle" class="mode-btn" title="Toggle Mode">🌙</button>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- Main Content -->
-<div class="wrap">
+<!-- Main Card with Form -->
+<div class="container">
   <div class="main-card">
-    <h2 class="brand-title">College of Electronic Technology Tripoli - Control Page</h2>
-    <img src="images/companies.pics/College of Electronic Technology - Tripoli.jpg" alt="College Logo" class="brand-img">
+    <h1>Job Application Form</h1>
+    <img src="images/companies.pics/College of Electronic Technology - Tripoli.jpg" alt="College Logo">
 
-    <!-- Smart Door System Options -->
-    <div class="panel">
-      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#mainMenu">
-        <span><i class="bi bi-list"></i> Smart Door System Options</span>
-        <i class="bi bi-chevron-right chev"></i>
-      </button>
-      <div id="mainMenu" class="collapse sublist">
+    <form class="custom-form" action="https://formspree.io/f/xdklgoae" method="post" enctype="multipart/form-data">
 
-        <!-- Door Control -->
-        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#doorMenu">
-          <span><i class="bi bi-door-closed-fill"></i> Door Control</span>
-          <i class="bi bi-chevron-right chev"></i>
-        </button>
-        <div id="doorMenu" class="collapse sublist">
-          <button class="list-item" onclick="sendCommand('normal_door')">Open & Close Door</button>
-          <button class="list-item" onclick="sendCommand('door_openn')">Open Door Only</button>
-          <button class="list-item" onclick="sendCommand('door_closee')">Close Door Only</button>
-        </div>
+      <label for="name" class="form-label">Full Name</label>
+      <input type="text" name="name" id="name" class="form-control" required>
 
-        <!-- Camera -->
-        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#cameraMenu">
-          <span><i class="bi bi-camera-video-fill"></i> Camera</span>
-          <i class="bi bi-chevron-right chev"></i>
-        </button>
-        <div id="cameraMenu" class="collapse sublist">
-          <button class="list-item" onclick="sendCommand('start camera')">Start Camera</button>
-          <button class="list-item" onclick="sendCommand('stop camera')">Stop Camera</button>
-        </div>
+      <label for="birth" class="form-label">Date of Birth</label>
+      <input type="date" name="birth" id="birth" class="form-control" required>
 
-        <!-- System -->
-        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#systemMenu">
-          <span><i class="bi bi-shield-lock-fill"></i> System</span>
-          <i class="bi bi-chevron-right chev"></i>
-        </button>
-        <div id="systemMenu" class="collapse sublist">
-          <button class="list-item" onclick="sendCommand('sys_loc')">Lock System</button>
-          <button class="list-item" onclick="sendCommand('sys_unloc')">Unlock System</button>
-        </div>
+      <label for="email" class="form-label">Email</label>
+      <input type="email" name="email" id="email" class="form-control" required>
 
-        <!-- Penalties -->
-        <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#penaltyMenu">
-          <span><i class="bi bi-exclamation-triangle-fill"></i> Penalties</span>
-          <i class="bi bi-chevron-right chev"></i>
-        </button>
-        <div id="penaltyMenu" class="collapse sublist">
-          <button class="list-item" onclick="sendCommand('sys_pen')">Penalty</button>
-          <button class="list-item" onclick="sendCommand('sys_pen30')">Penalty 30s</button>
-          <button class="list-item" onclick="sendCommand('sys_pen60')">Penalty 1m</button>
-          <button class="list-item" onclick="sendCommand('sys_buzzcof')">Coffin Dance</button>
-          <button class="list-item" onclick="sendCommand('sys_buzzpoc')">Pirates of the Caribbean</button>
-          <button class="list-item" onclick="sendCommand('sys_buzztok')">Tokyo Drift</button>
-        </div>
-
-       <!-- Livestream -->
-<button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#streamMenu">
-  <span><i class="bi bi-tv-fill"></i> Livestream</span>
-  <i class="bi bi-chevron-right chev"></i>
-</button>
-<div id="streamMenu" class="collapse sublist">
-  <button class="list-item" onclick="startStream()">Start Livestream</button>
-  <button class="list-item" onclick="stopStream()">Stop Livestream</button>
-
-  <!-- Twitch Box -->
-  <div id="twitchBox" class="mt-3" style="display:none; margin-top:20px;">
-    <h3 class="p-3">📺 Livestream</h3>
-    <div class="ratio ratio-16x9">
-      <iframe id="twitchStream"
-        src="https://player.twitch.tv/?channel=jq7v444&parent=smartdoorsystem.github.io"
-        frameborder="0" allowfullscreen="true" scrolling="no">
-      </iframe>
-    </div>
-        </div>
+      <label for="phone" class="form-label">Phone Number</label>
+      <div class="input-group mb-3">
+        <select class="form-select" id="countryCode" name="countryCode" style="max-width:200px;">
+          <!-- كل الدول -->
+          <option value="+93">Afghanistan (+93)</option>
+          <option value="+355">Albania (+355)</option>
+          <option value="+213">Algeria (+213)</option>
+          <option value="+376">Andorra (+376)</option>
+          <option value="+244">Angola (+244)</option>
+          <option value="+54">Argentina (+54)</option>
+          <option value="+374">Armenia (+374)</option>
+          <option value="+61">Australia (+61)</option>
+          <option value="+43">Austria (+43)</option>
+          <option value="+994">Azerbaijan (+994)</option>
+          <option value="+973">Bahrain (+973)</option>
+          <option value="+880">Bangladesh (+880)</option>
+          <option value="+32">Belgium (+32)</option>
+          <option value="+229">Benin (+229)</option>
+          <option value="+591">Bolivia (+591)</option>
+          <option value="+387">Bosnia & Herzegovina (+387)</option>
+          <option value="+267">Botswana (+267)</option>
+          <option value="+55">Brazil (+55)</option>
+          <option value="+359">Bulgaria (+359)</option>
+          <option value="+226">Burkina Faso (+226)</option>
+          <option value="+237">Cameroon (+237)</option>
+          <option value="+1">Canada (+1)</option>
+          <option value="+56">Chile (+56)</option>
+          <option value="+86">China (+86)</option>
+          <option value="+57">Colombia (+57)</option>
+          <option value="+506">Costa Rica (+506)</option>
+          <option value="+385">Croatia (+385)</option>
+          <option value="+53">Cuba (+53)</option>
+          <option value="+357">Cyprus (+357)</option>
+          <option value="+420">Czech Republic (+420)</option>
+          <option value="+45">Denmark (+45)</option>
+          <option value="+20">Egypt (+20)</option>
+          <option value="+372">Estonia (+372)</option>
+          <option value="+251">Ethiopia (+251)</option>
+          <option value="+358">Finland (+358)</option>
+          <option value="+33">France (+33)</option>
+          <option value="+995">Georgia (+995)</option>
+          <option value="+49">Germany (+49)</option>
+          <option value="+30">Greece (+30)</option>
+          <option value="+502">Guatemala (+502)</option>
+          <option value="+224">Guinea (+224)</option>
+          <option value="+509">Haiti (+509)</option>
+          <option value="+36">Hungary (+36)</option>
+          <option value="+354">Iceland (+354)</option>
+          <option value="+91">India (+91)</option>
+          <option value="+62">Indonesia (+62)</option>
+          <option value="+98">Iran (+98)</option>
+          <option value="+964">Iraq (+964)</option>
+          <option value="+353">Ireland (+353)</option>
+          <option value="+39">Italy (+39)</option>
+          <option value="+81">Japan (+81)</option>
+          <option value="+962">Jordan (+962)</option>
+          <option value="+7">Kazakhstan (+7)</option>
+          <option value="+254">Kenya (+254)</option>
+          <option value="+965">Kuwait (+965)</option>
+          <option value="+961">Lebanon (+961)</option>
+          <option value="+218" selected>Libya (+218)</option>
+          <option value="+370">Lithuania (+370)</option>
+          <option value="+352">Luxembourg (+352)</option>
+          <option value="+389">Macedonia (+389)</option>
+          <option value="+60">Malaysia (+60)</option>
+          <option value="+356">Malta (+356)</option>
+          <option value="+52">Mexico (+52)</option>
+          <option value="+212">Morocco (+212)</option>
+          <option value="+31">Netherlands (+31)</option>
+          <option value="+64">New Zealand (+64)</option>
+          <option value="+234">Nigeria (+234)</option>
+          <option value="+47">Norway (+47)</option>
+          <option value="+92">Pakistan (+92)</option>
+          <option value="+970">Palestine (+970)</option>
+          <option value="+507">Panama (+507)</option>
+          <option value="+63">Philippines (+63)</option>
+          <option value="+48">Poland (+48)</option>
+          <option value="+351">Portugal (+351)</option>
+          <option value="+974">Qatar (+974)</option>
+          <option value="+40">Romania (+40)</option>
+          <option value="+7">Russia (+7)</option>
+          <option value="+966">Saudi Arabia (+966)</option>
+          <option value="+221">Senegal (+221)</option>
+          <option value="+381">Serbia (+381)</option>
+          <option value="+65">Singapore (+65)</option>
+          <option value="+421">Slovakia (+421)</option>
+          <option value="+386">Slovenia (+386)</option>
+          <option value="+27">South Africa (+27)</option>
+          <option value="+82">South Korea (+82)</option>
+          <option value="+34">Spain (+34)</option>
+          <option value="+94">Sri Lanka (+94)</option>
+          <option value="+46">Sweden (+46)</option>
+          <option value="+41">Switzerland (+41)</option>
+          <option value="+963">Syria (+963)</option>
+          <option value="+886">Taiwan (+886)</option>
+          <option value="+255">Tanzania (+255)</option>
+          <option value="+66">Thailand (+66)</option>
+          <option value="+216">Tunisia (+216)</option>
+          <option value="+90">Turkey (+90)</option>
+          <option value="+971">UAE (+971)</option>
+          <option value="+380">Ukraine (+380)</option>
+          <option value="+44">United Kingdom (+44)</option>
+          <option value="+1">United States (+1)</option>
+          <option value="+598">Uruguay (+598)</option>
+          <option value="+58">Venezuela (+58)</option>
+          <option value="+84">Vietnam (+84)</option>
+          <option value="+967">Yemen (+967)</option>
+          <option value="+260">Zambia (+260)</option>
+          <option value="+263">Zimbabwe (+263)</option>
+        </select>
+        <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your number" required>
       </div>
-    </div>
 
-    <!-- Add-ons -->
-    <div class="panel">
-      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#addonMenu">
-        <span><i class="bi bi-plus-circle-fill"></i> Smart Door System Add-ons Options</span>
-        <i class="bi bi-chevron-right chev"></i>
-      </button>
-      <div id="addonMenu" class="collapse sublist">
-        <a href="downloads/colors.png" class="list-item" download>TKinter Color Chart</a>
-      </div>
-    </div>
+      <label for="cv" class="form-label">CV</label>
+      <textarea name="cv" rows="3" class="form-control" id="cv"></textarea>
 
-    <!-- Explanation -->
-    <div class="panel">
-      <button class="btn-toggle" data-bs-toggle="collapse" data-bs-target="#explainMenu">
-        <span><i class="bi bi-book-fill"></i> Smart Door System Explanation</span>
-        <i class="bi bi-chevron-right chev"></i>
-      </button>
-      <div id="explainMenu" class="collapse sublist">
-        <a href="downloads/smart door system - project arduino components.pptx" class="list-item" download>Arduino Components</a>
-        <a href="downloads/smart door system - project python components.pptx" class="list-item" download>Python Components</a>
-        <a href="downloads/Arduino Libraries.txt" class="list-item" download>Arduino Libraries</a>
-        <a href="downloads/Python Libraries.txt" class="list-item" download>Python Libraries</a>
-        <a href="downloads/Arduino Explanation.txt" class="list-item" download>Explain Arduino Code</a>
-        <a href="downloads/Python Explanation.txt" class="list-item" download>Explain Python Code</a>
-        <a href="downloads/smart door system 1.0.zip" class="list-item" download>Version 1.0</a>
-        <a href="downloads/smart door system 2.0.zip" class="list-item" download>Version 2.0</a>
-        <a href="downloads/smart door system 3.0.zip" class="list-item" download>Version 3.0</a>
-        <a href="downloads/dt-06 wifi configuration.pdf" class="list-item" download>DT-06 WiFi Config</a>
-        <a href="downloads/FaceRecognition Explanation.txt" class="list-item" download>Face Recognition</a>
-      </div>
-    </div>
+      <label for="job" class="form-label">Required Job</label>
+      <input type="text" name="job" id="job" class="form-control" required>
 
-    <!-- Mode Toggle -->
-    <div class="panel">
-      <button class="btn-toggle" id="themeToggle">
-        <span><i class="bi bi-sun-fill"></i> Light / Dark Mode</span>
-      </button>
-    </div>
-
+      <button type="submit">Submit</button>
+    </form>
   </div>
 </div>
 
+<!-- Footer -->
 <footer class="site-footer">
   <div class="container">
     <div class="row">
@@ -265,95 +340,19 @@
   </div>
 </footer>
 
-<!-- Toast container -->
-<div class="toast-container" id="toastContainer"></div>
-
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Firebase + Commands -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
-    authDomain: "smart-door-system-project.firebaseapp.com",
-    databaseURL: "https://smart-door-system-project-default-rtdb.firebaseio.com",
-    projectId: "smart-door-system-project",
-    storageBucket: "smart-door-system-project.firebasestorage.app",
-    messagingSenderId: "298920936811",
-    appId: "1:298920936811:web:033b6b7af47d93d52f382e",
-    measurementId: "G-HY1Y22VZJT"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  function showToast(message) {
-    const container = document.getElementById('toastContainer');
-    const toastEl = document.createElement('div');
-    toastEl.className = 'toast align-items-center text-bg-primary border-0 show mb-2';
-    toastEl.role = 'alert';
-    toastEl.innerHTML = `<div class="d-flex"><div class="toast-body">${message}</div></div>`;
-    container.appendChild(toastEl);
-    setTimeout(()=>toastEl.remove(), 3000);
-  }
-
-  function sendCommand(command) {
-    set(ref(db, "commands/last"), { action: command, timestamp: Date.now() });
-    showToast("✅ Sent: " + command);
-  }
-  window.sendCommand = sendCommand;
-
-// Livestream controls
-window.startStream = function() {
-  sendCommand("start_stream");
-  document.getElementById("twitchBox").style.display = "block";
-}
-window.stopStream = function() {
-  sendCommand("stop_stream");
-  document.getElementById("twitchBox").style.display = "none";
-}
-
-</script>
-
 <script>
-  // Login system (hidden credentials)
-  function _0x2d83(_0x33181a,_0x2b6fdb){const _0x126565=_0x1265();return _0x2d83=function(_0x2d83f7,_0xd9e43c){_0x2d83f7=_0x2d83f7-0x141;let _0x2b919a=_0x126565[_0x2d83f7];return _0x2b919a;},_0x2d83(_0x33181a,_0x2b6fdb);}const _0x54dac9=_0x2d83;(function(_0x1953c5,_0x4f8bfd){const _0x3383ab=_0x2d83,_0x4e1f83=_0x1953c5();while(!![]){try{const _0x3d62f1=-parseInt(_0x3383ab(0x14f))/0x1*(parseInt(_0x3383ab(0x14b))/0x2)+-parseInt(_0x3383ab(0x142))/0x3+-parseInt(_0x3383ab(0x145))/0x4*(parseInt(_0x3383ab(0x152))/0x5)+parseInt(_0x3383ab(0x148))/0x6+-parseInt(_0x3383ab(0x146))/0x7+-parseInt(_0x3383ab(0x143))/0x8*(parseInt(_0x3383ab(0x14c))/0x9)+-parseInt(_0x3383ab(0x154))/0xa*(-parseInt(_0x3383ab(0x147))/0xb);if(_0x3d62f1===_0x4f8bfd)break;else _0x4e1f83['push'](_0x4e1f83['shift']());}catch(_0x4df00b){_0x4e1f83['push'](_0x4e1f83['shift']());}}}(_0x1265,0xdd820));const _user=_0x54dac9(0x14a),_pass=_0x54dac9(0x151);function _0x1265(){const _0x420bf9=['2944799HJwRFu','4254564iVRiqA','password','cet','467404eFTAnD','207oNAfUk','getElementById','loginOverlay','1OEysjR','style','1037','35PMdhvE','loginError','140JcEtQK','display','1354035AXcsPM','608872drMsxU','value','177428rULIct','5625697brTdKG'];_0x1265=function(){return _0x420bf9;};return _0x1265();}function checkLogin(){const _0x518664=_0x54dac9;let _0xbc34e7=document[_0x518664(0x14d)]('username')[_0x518664(0x144)],_0x49ae8b=document['getElementById'](_0x518664(0x149))[_0x518664(0x144)];_0xbc34e7===_user&&_0x49ae8b===_pass?document[_0x518664(0x14d)](_0x518664(0x14e))['style']['display']='none':document[_0x518664(0x14d)](_0x518664(0x153))[_0x518664(0x150)][_0x518664(0x141)]='block';}
-</script>
-
-  
-<script>
-  // Theme toggle
-  const themeBtn = document.getElementById('themeToggle');
-  themeBtn.addEventListener('click', ()=>{
-    document.body.classList.toggle('dark-mode');
-    let icon = themeBtn.querySelector('i');
-    if(document.body.classList.contains('dark-mode')){
-      icon.classList.remove('bi-sun-fill');
-      icon.classList.add('bi-moon-fill');
+  const btn = document.getElementById("themeToggle");
+  btn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    if (document.body.classList.contains("dark-mode")) {
+      btn.innerText = "☀️";
     } else {
-      icon.classList.remove('bi-moon-fill');
-      icon.classList.add('bi-sun-fill');
+      btn.innerText = "🌙";
     }
-  });
-
-  // Chevron animation
-  document.querySelectorAll('.btn-toggle[data-bs-toggle="collapse"]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const chev = btn.querySelector('.chev');
-      const target = document.querySelector(btn.dataset.bsTarget);
-      target.addEventListener('shown.bs.collapse', ()=> chev.classList.add('open'));
-      target.addEventListener('hidden.bs.collapse', ()=> chev.classList.remove('open'));
-    });
   });
 </script>
 </body>
 </html>
-
-
-
-
-
-
