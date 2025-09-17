@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>College of Electronic Technology - Job Application</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --bg1:#003366;
+      --bg2:#001a33;
+      --card:#1c2a3a;
+      --list:#2a3f55;
+      --list-hover:#34516d;
+      --text:#fff;
+    }
+
+    body {
+      background: linear-gradient(120deg, var(--bg1), var(--bg2));
+      color: var(--text);
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    }
+
+    h1 {
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .main-card {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      padding: 30px;
+      margin: 30px auto;
+      max-width: 700px;
+    }
+
+    .form-control {
+      background: rgba(255,255,255,0.85);
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .form-control:focus {
+      border: 2px solid #6699CC;
+      box-shadow: none;
+    }
+
+    button[type="submit"] {
+      background: #6699CC;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      font-weight: bold;
+      border-radius: 10px;
+      width: 100%;
+    }
+
+    button[type="submit"]:hover {
+      background: #44688c;
+    }
+
+    footer {
+      background: rgba(0,51,102,0.9);
+      color:#fff;
+      margin-top: 40px;
+      padding: 20px 0;
+    }
+    footer a { color:#fff; }
+
+    /* Light Mode */
+    .light-mode {
+      background: #f9f9f9 !important;
+      color: #222 !important;
+    }
+    .light-mode .main-card {
+      background: #fff;
+      color: #222;
+    }
+    .light-mode footer {
+      background: #003366;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg" style="background: rgba(0,51,102,0.9);">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center me-3 text-white fw-bold" href="index.html">
+      <img src="images/smart door system.png" class="navbar-brand-image img-fluid me-2" alt="Logo" style="height:40px;">
+      Smart Door System
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-lg-auto">
+        <li class="nav-item"><a class="nav-link text-white" href="#section_1">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#section_2">Our Story</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#section_3">Components</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#section_4">Versions</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#section_5">Contact</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="download.html">App</a></li>
+        <li class="nav-item">
+          <button id="themeToggle" class="btn btn-sm btn-light ms-3">🌙 Dark Mode</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Card with Form -->
+<div class="container">
+  <div class="main-card">
+    <h1>Job Application Form</h1>
+    <form class="custom-form" action="https://formspree.io/f/xdklgoae" method="post" enctype="multipart/form-data">
+      <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+      <input type="date" name="birth" class="form-control" required>
+      <input type="email" name="email" class="form-control" placeholder="Email" required>
+      <input type="tel" name="phone" class="form-control" placeholder="Phone: +218" required>
+      <textarea name="cv" rows="3" class="form-control" placeholder="Your CV"></textarea>
+      <input type="text" name="job" class="form-control" placeholder="Job Title" required>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-12 me-auto mb-3">
+        <em class="d-block mb-2">Where to find us?</em>
+        <strong><i class="bi-geo-alt me-2"></i> College Of Electronic Technology, Al Jraba Street, Tripoli, Libya</strong>
+        <ul class="social-icon list-unstyled d-flex mt-3">
+          <li class="me-3"><a href="https://www.facebook.com/share/167Fq9bmrP/" target="_blank" class="text-white fs-4"><i class="bi-facebook"></i></a></li>
+          <li><a href="https://t.me/smart_door_system" target="_blank" class="text-white fs-4"><i class="bi-telegram"></i></a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-12 mb-3">
+        <em class="d-block mb-2">Contact Us</em>
+        <p><strong>Email:</strong> <a href="mailto:smart.door.system.project@gmail.com" class="text-white">smart.door.system.project@gmail.com</a></p>
+      </div>
+      <div class="col-lg-8 col-12">
+        <p class="mb-0">© Smart Door System - Python Project 2025</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Theme Toggle
+  document.getElementById("themeToggle").addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+    let btn = document.getElementById("themeToggle");
+    if (document.body.classList.contains("light-mode")) {
+      btn.innerText = "🌙 Dark Mode";
+      btn.classList.replace("btn-light","btn-dark");
+    } else {
+      btn.innerText = "☀️ Light Mode";
+      btn.classList.replace("btn-dark","btn-light");
+    }
+  });
+</script>
+</body>
+</html>
