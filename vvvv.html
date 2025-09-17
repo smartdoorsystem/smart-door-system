@@ -11,10 +11,10 @@
 
   <style>
     :root {
-      --bg1:#003366;   /* أزرق غامق */
-      --bg2:#001a33;   /* أزرق داكن */
-      --card-dark:#2a2a2a;  /* للكارد في دارك مود */
-      --card-light:#f9f9f9; /* للكارد في لايت مود */
+      --bg1:#003366;
+      --bg2:#001a33;
+      --card-dark:#2a2a2a;
+      --card-light:#f9f9f9;
       --text:#fff;
     }
 
@@ -39,7 +39,7 @@
       margin: 30px auto;
       max-width: 700px;
       color: #222;
-      transition: background 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+      transition: background 0.5s ease, color 0.5s ease;
     }
 
     .main-card img {
@@ -56,15 +56,23 @@
       transform: scale(1.05);
     }
 
-    .form-control {
-      background: rgba(255,255,255,0.9);
+    .form-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
+      transition: color 0.5s ease;
+    }
+
+    .form-control, .form-select {
       border: none;
       border-radius: 10px;
       margin-bottom: 15px;
-      transition: background 0.3s ease, border 0.3s ease;
+      padding: 10px 12px;
+      transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
     }
 
-    .form-control:focus {
+    .form-control:focus, .form-select:focus {
       border: 2px solid #6699CC;
       box-shadow: none;
     }
@@ -107,6 +115,14 @@
     .dark-mode .main-card {
       background: var(--card-dark);
       color: #fff;
+    }
+    .dark-mode .form-control, 
+    .dark-mode .form-select {
+      background: #333;
+      color: #fff;
+    }
+    .dark-mode .form-label {
+      color: #ddd;
     }
     .dark-mode nav.navbar,
     .dark-mode footer {
@@ -164,12 +180,35 @@
     <img src="images/companies.pics/College of Electronic Technology - Tripoli.jpg" alt="College Logo">
 
     <form class="custom-form" action="https://formspree.io/f/xdklgoae" method="post" enctype="multipart/form-data">
-      <input type="text" name="name" class="form-control" placeholder="Full Name" required>
-      <input type="date" name="birth" class="form-control" required>
-      <input type="email" name="email" class="form-control" placeholder="Email" required>
-      <input type="tel" name="phone" class="form-control" placeholder="Phone: +218" required>
-      <textarea name="cv" rows="3" class="form-control" placeholder="Your CV"></textarea>
-      <input type="text" name="job" class="form-control" placeholder="Job Title" required>
+
+      <label for="name" class="form-label">Full Name</label>
+      <input type="text" name="name" id="name" class="form-control" required>
+
+      <label for="birth" class="form-label">Date of Birth</label>
+      <input type="date" name="birth" id="birth" class="form-control" required>
+
+      <label for="email" class="form-label">Email</label>
+      <input type="email" name="email" id="email" class="form-control" required>
+
+      <label for="phone" class="form-label">Phone Number</label>
+      <div class="input-group mb-3">
+        <select class="form-select" id="countryCode" name="countryCode" style="max-width:120px;">
+          <option value="+218" selected>+218 LY</option>
+          <option value="+20">+20 EG</option>
+          <option value="+216">+216 TN</option>
+          <option value="+212">+212 MA</option>
+          <option value="+971">+971 UAE</option>
+          <option value="+966">+966 SA</option>
+        </select>
+        <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your number" required>
+      </div>
+
+      <label for="cv" class="form-label">CV</label>
+      <textarea name="cv" rows="3" class="form-control" id="cv"></textarea>
+
+      <label for="job" class="form-label">Required Job</label>
+      <input type="text" name="job" id="job" class="form-control" required>
+
       <button type="submit">Submit</button>
     </form>
   </div>
