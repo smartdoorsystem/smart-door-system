@@ -238,18 +238,15 @@
         </div>
       </div>
 
-      <!-- WEATHER -->
-      <div class="card">
-        <h2>Weather (requires API key)</h2>
-        <div style="display:flex;gap:8px;margin-top:8px">
-<input id="weatherApi" value="073c92ad4345c3a4a1d9b10671e10b52" style="display:none;" />
-<button class="btn" id="weatherGet" style="display:none;">Get</button>
-        </div>
-        <div style="margin-top:12px">
-          <div id="weatherBox">Location not loaded</div>
-          <small class="muted">Allow location access when prompted.</small>
-        </div>
-      </div>
+<!-- PROFILE CARD بدل Weather -->
+<div class="card" style="text-align:center">
+  <h2>Personal Info</h2>
+  <img src="profile.jpg" alt="Profile Picture" 
+       style="width:100px;height:100px;border-radius:50%;object-fit:cover;margin-bottom:10px">
+  <div><strong id="empName">Abdelraouf Shenkada</strong></div>
+  <div class="muted" id="empJob">Software Engineer</div>
+  <div class="muted" id="empDept">Smart Door System Center</div>
+</div>
 
     </div> <!-- end grid-wide -->
 
@@ -801,3 +798,4 @@ window.addEventListener('beforeunload', function(e){
 </body>
 
 </html>
+
