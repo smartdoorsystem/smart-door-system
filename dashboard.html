@@ -517,7 +517,7 @@ const weatherBox = qs('weatherBox');
 
 weatherGet.addEventListener('click', ()=>{
   const key = weatherKeyInput.value.trim();
-  if(!key){ alert('Enter API key'); return; }
+  if(!key){ alert('073c92ad4345c3a4a1d9b10671e10b52'); return; }
   if(!navigator.geolocation){ weatherBox.textContent = 'Geolocation not supported'; return; }
   navigator.geolocation.getCurrentPosition(pos=>{
     const lat = pos.coords.latitude, lon = pos.coords.longitude;
@@ -772,4 +772,5 @@ window.addEventListener('beforeunload', function(e){
 </body>
 
 </html>
+
 
