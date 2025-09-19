@@ -818,16 +818,20 @@ function setUserData(user){
   document.querySelector("#empName").textContent = u.empName;
   document.querySelector("#empJob").textContent = u.empJob;
   document.querySelector("#empDept").textContent = u.empDept;
-document.getElementById("empPic").src = u.empPic;
-
+  document.getElementById("empPic").src = u.empPic;
 
   // employment
   document.querySelector("#startDate").value = u.startDate;
   updateWorkDuration();
+
+  // ✅ إضافة خاصة بالرسائل
+  window.currentUserId = user;
+  startMessageListener(user);
 }
 </script>
 </body>
 </html>
+
 
 
 
