@@ -7,394 +7,429 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0f1724;
-    --card:#0f1728;
-    --glass: rgba(255,255,255,0.03);
-    --accent-1: linear-gradient(135deg,#7b61ff,#2be7b7);
-    --accent-2: linear-gradient(135deg,#ff6b6b,#ffd86b);
-    --glass-2: rgba(255,255,255,0.04);
-    --muted: #98a0b3;
-    --success: #4ade80;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    min-height:100vh;
-    font-family:'Inter',system-ui,Segoe UI,Roboto,Arial;
-    background: radial-gradient(1200px 600px at 10% 10%, rgba(43,231,183,0.06), transparent),
-                radial-gradient(900px 500px at 90% 90%, rgba(123,97,255,0.06), transparent),
-                var(--bg);
-    color:#e6eef8;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    padding:20px;
-  }
+  :root{
+    --bg:#0f1724;
+    --card:#0f1728;
+    --glass: rgba(255,255,255,0.03);
+    --accent-1: linear-gradient(135deg,#7b61ff,#2be7b7);
+    --accent-2: linear-gradient(135deg,#ff6b6b,#ffd86b);
+    --glass-2: rgba(255,255,255,0.04);
+    --muted: #98a0b3;
+    --success: #4ade80;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:'Inter',system-ui,Segoe UI,Roboto,Arial;
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(43,231,183,0.06), transparent),
+                radial-gradient(900px 500px at 90% 90%, rgba(123,97,255,0.06), transparent),
+                var(--bg);
+    color:#e6eef8;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding:20px;
+  }
 
-  header{
-    width:100%;
-    max-width:1400px;
-    margin:0 auto 18px;
-    display:flex;
-    gap:12px;
-    align-items:center;
-    justify-content:space-between;
-  }
-  .brand{
-    display:flex;
-    gap:12px;
-    align-items:center;
-  }
-  .logo{
-    width:56px;height:56px;border-radius:12px;
-    background:var(--accent-1);
-    box-shadow: 0 6px 20px rgba(43,231,183,0.08), inset 0 -6px 18px rgba(0,0,0,0.15);
-    display:flex;align-items:center;justify-content:center;font-weight:800;
-    font-size:18px;color:#041018;
-  }
-  h1{font-size:18px;margin:0}
-  .subtitle{color:var(--muted);font-size:13px}
+  header{
+    width:100%;
+    max-width:1400px;
+    margin:0 auto 18px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .brand{
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+  .logo{
+    width:56px;height:56px;border-radius:12px;
+    background:var(--accent-1);
+    box-shadow: 0 6px 20px rgba(43,231,183,0.08), inset 0 -6px 18px rgba(0,0,0,0.15);
+    display:flex;align-items:center;justify-content:center;font-weight:800;
+    font-size:18px;color:#041018;
+  }
+  h1{font-size:18px;margin:0}
+  .subtitle{color:var(--muted);font-size:13px}
 
-  .controls{display:flex;gap:12px;align-items:center}
-  .chip{
-    padding:8px 12px;border-radius:999px;background:var(--glass);border:1px solid rgba(255,255,255,0.03);
-    font-size:13px;color:var(--muted);
-  }
+  .controls{display:flex;gap:12px;align-items:center}
+  .chip{
+    padding:8px 12px;border-radius:999px;background:var(--glass);border:1px solid rgba(255,255,255,0.03);
+    font-size:13px;color:var(--muted);
+  }
 
-  main{
-    width:100%;
-    max-width:1400px;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap:20px;
-    align-items:start;
-  }
+  main{
+    width:100%;
+    max-width:1400px;
+    margin:0 auto;
+    display:grid;
+    /* This change makes the columns stack vertically on desktop */
+    grid-template-columns: 1fr;
+    gap:20px;
+    align-items:start;
+  }
+/* This media query ensures the side-by-side layout on larger screens, as requested */
+@media(min-width: 981px){
+    main {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+  /* left column grid */
+  .col-left{
+    display:grid;
+    gap:20px;
+    grid-template-rows: auto auto;
+  }
 
-  /* left column grid */
-  .col-left{
-    display:grid;
-    gap:20px;
-    grid-template-rows: auto auto;
-  }
+  /* top-left row: wide widgets */
+  .grid-wide{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:20px;
+  }
 
-  /* top-left row: wide widgets */
-  .grid-wide{
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap:20px;
-  }
+  /* right column */
+  .col-right{
+    display:grid;
+    gap:20px;
+  }
 
-  /* right column */
-  .col-right{
-    display:grid;
-    gap:20px;
-  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:14px;
+    padding:16px;
+    box-shadow: 0 8px 30px rgba(6,10,20,0.6);
+    border: 1px solid rgba(255,255,255,0.03);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{ transform: translateY(-6px); box-shadow: 0 18px 50px rgba(2,6,20,0.7); }
 
-  .card{
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-radius:14px;
-    padding:16px;
-    box-shadow: 0 8px 30px rgba(6,10,20,0.6);
-    border: 1px solid rgba(255,255,255,0.03);
-    transition: transform .18s ease, box-shadow .18s ease;
-  }
-  .card:hover{ transform: translateY(-6px); box-shadow: 0 18px 50px rgba(2,6,20,0.7); }
+  .card h2{margin:0 0 10px 0;font-size:15px}
+  small.muted{color:var(--muted);display:block;margin-top:6px;font-size:12px}
 
-  .card h2{margin:0 0 10px 0;font-size:15px}
-  small.muted{color:var(--muted);display:block;margin-top:6px;font-size:12px}
+  /* music player */
+  .music-select{
+    display:flex;gap:10px;align-items:center;
+  }
+  select, input[type="number"], input[type="text"], .calc-display, textarea{
+    background:var(--glass-2);
+    border:1px solid rgba(255,255,255,0.03);
+    color: #eaf6f1;
+    padding:10px 12px;border-radius:10px;
+    font-size:14px;width:100%;
+  }
+  button.btn{
+    background:var(--accent-1);border:none;color:#041018;padding:10px 12px;border-radius:10px;font-weight:700;cursor:pointer;
+    transition: opacity .12s;
+  }
+  button.btn.alt{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+  button.btn:active{opacity:.85}
 
-  /* music player */
-  .music-select{
-    display:flex;gap:10px;align-items:center;
-  }
-  select, input[type="number"], input[type="text"], .calc-display, textarea{
-    background:var(--glass-2);
-    border:1px solid rgba(255,255,255,0.03);
-    color: #eaf6f1;
-    padding:10px 12px;border-radius:10px;
-    font-size:14px;width:100%;
-  }
-  button.btn{
-    background:var(--accent-1);border:none;color:#041018;padding:10px 12px;border-radius:10px;font-weight:700;cursor:pointer;
-    transition: opacity .12s;
-  }
-  button.btn.alt{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-  button.btn:active{opacity:.85}
+  audio{width:100%;margin-top:12px;border-radius:8px;outline:none}
 
-  audio{width:100%;margin-top:12px;border-radius:8px;outline:none}
+  /* tasks */
+  .tasks-header{display:flex;gap:10px;align-items:center;justify-content:space-between}
+  .tasks-list{margin-top:12px;display:flex;flex-direction:column;gap:8px;max-height:260px;overflow:auto;padding-right:6px}
+  .task{
+    display:flex;align-items:center;gap:12px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
+    padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);
+    justify-content:space-between;
+  }
+  .task .left{display:flex;gap:10px;align-items:center}
+  .task .title{font-weight:600}
+  .task .meta{font-size:12px;color:var(--muted)}
 
-  /* tasks */
-  .tasks-header{display:flex;gap:10px;align-items:center;justify-content:space-between}
-  .tasks-list{margin-top:12px;display:flex;flex-direction:column;gap:8px;max-height:260px;overflow:auto;padding-right:6px}
-  .task{
-    display:flex;align-items:center;gap:12px;
-    background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
-    padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);
-    justify-content:space-between;
-  }
-  .task .left{display:flex;gap:10px;align-items:center}
-  .task .title{font-weight:600}
-  .task .meta{font-size:12px;color:var(--muted)}
+  .icon-btn{
+    width:36px;height:36px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:var(--muted);cursor:pointer;
+  }
 
-  .icon-btn{
-    width:36px;height:36px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:var(--muted);cursor:pointer;
-  }
+  /* calculator */
+  .calc-grid{display:grid;grid-template-columns: repeat(4,1fr);gap:8px;margin-top:10px}
+  .calc-key{padding:12px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);cursor:pointer;font-weight:700}
 
-  /* calculator */
-  .calc-grid{display:grid;grid-template-columns: repeat(4,1fr);gap:8px;margin-top:10px}
-  .calc-key{padding:12px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);cursor:pointer;font-weight:700}
+  /* salary */
+  .salary-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .salary-out{display:flex;flex-direction:column;gap:6px;padding:8px;background:linear-gradient(180deg, rgba(123,97,255,0.04), transparent);border-radius:8px}
 
-  /* salary */
-  .salary-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .salary-out{display:flex;flex-direction:column;gap:6px;padding:8px;background:linear-gradient(180deg, rgba(123,97,255,0.04), transparent);border-radius:8px}
+  /* small widgets */
+  .small-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
-  /* small widgets */
-  .small-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  /* notes */
+  textarea{min-height:90px;resize:vertical}
 
-  /* notes */
-  textarea{min-height:90px;resize:vertical}
-
-  /* productivity */
-  .progress{
-    height:10px;border-radius:999px;background:rgba(255,255,255,0.04);overflow:hidden;
-  }
-  .progress > i{display:block;height:100%;background:linear-gradient(90deg,#2be7b7,#7b61ff);width:0%}
-  .muted-note{color:var(--muted);font-size:12px;margin-top:8px}
-  footer{max-width:1400px;margin:20px auto 50px;color:var(--muted);text-align:center;font-size:13px}
-  @media(max-width:980px){
-    main{grid-template-columns:1fr}
-    .grid-wide{grid-template-columns:repeat(1,1fr)}
-  }
+  /* productivity */
+  .progress{
+    height:10px;border-radius:999px;background:rgba(255,255,255,0.04);overflow:hidden;
+  }
+  .progress > i{display:block;height:100%;background:linear-gradient(90deg,#2be7b7,#7b61ff);width:0%}
+  .muted-note{color:var(--muted);font-size:12px;margin-top:8px}
+  footer{max-width:1400px;margin:20px auto 50px;color:var(--muted);text-align:center;font-size:13px}
+  @media(max-width:980px){
+    main{grid-template-columns:1fr}
+    .grid-wide{grid-template-columns:repeat(1,1fr)}
+  }
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">
-    <div class="logo">SDS</div>
-    <div>
-      <h1>Employee Dashboard</h1>
-      <div class="subtitle">Smart Door System — Personal workspace</div>
-    </div>
-  </div>
-  <div class="controls">
-    <div class="chip" id="currentDate">--</div>
-    <div class="chip" id="deviceChip">Detecting device...</div>
-  </div>
+  <div class="brand">
+    <div class="logo">SDS</div>
+    <div>
+      <h1>Employee Dashboard</h1>
+      <div class="subtitle">Smart Door System — Personal workspace</div>
+    </div>
+  </div>
+  <div class="controls">
+    <div class="chip" id="currentDate">--</div>
+    <div class="chip" id="deviceChip">Detecting device...</div>
+  </div>
 </header>
 
 <main>
-  <!-- LEFT COLUMN -->
-  <section class="col-left">
+  <!-- LEFT COLUMN -->
+  <section class="col-left">
 
-    <!-- top wide widgets: Music / Tasks / Weather -->
-    <div class="grid-wide">
+    <!-- top wide widgets: Music / Tasks / Weather -->
+    <div class="grid-wide">
 
 <!-- PROFILE CARD بدل Weather -->
 <div class="card" style="text-align:center">
-  <h2>Personal Info</h2>
-  <img src="images/team/abdelraouf m.jpg" alt="Profile Picture" 
-       style="width:100px;height:100px;border-radius:50%;object-fit:cover;margin-bottom:10px">
-  <div><strong id="empName">Abdelraouf Shenkada</strong></div>
-  <div class="muted" id="empJob">Software Engineer</div>
-  <div class="muted" id="empDept">Smart Door System Center</div>
+  <h2>Personal Info</h2>
+  <img src="images/team/abdelraouf m.jpg" alt="Profile Picture" 
+       style="width:100px;height:100px;border-radius:50%;object-fit:cover;margin-bottom:10px">
+  <div><strong id="empName">Abdelraouf Shenkada</strong></div>
+  <div class="muted" id="empJob">Software Engineer</div>
+  <div class="muted" id="empDept">Smart Door System Center</div>
 </div>
 
-      
-      <!-- MUSIC -->
-      <div class="card">
-        <h2>Music Player</h2>
-        <div class="music-select">
-          <select id="songSelect">
-            <!-- Update these values to match the actual raw.githubusercontent.com paths if your songs are in repo. -->
-            <option value="songs/𝘝𝘪𝘭𝘪𝘢𝘮 𝘓𝘢𝘯𝘦 - 𝘱𝘢𝘳𝘵𝘪𝘤𝘭𝘦𝘴 𝘚𝘭𝘰𝘸𝘦𝘥   𝘙𝘦𝘷𝘦𝘳𝘣(MP3_128K).mp3">𝘝𝘪𝘭𝘪𝘢𝘮 𝘓𝘢𝘯𝘦 - 𝘱𝘢𝘳𝘵𝘪𝘤𝘭𝘦𝘴 𝘚𝘭𝘰𝘸𝘦𝘥   𝘙𝘦𝘷𝘦𝘳𝘣</option>
-            <option value="songs/Drake - Toosie Slide (Lyrics) _left foot up right foot slide_(MP3_128K).mp3">Drake - Toosie Slide</option>
-            <option value="songs/Michael Jackson-Beat it (Lyrics)(MP3_128K).mp3">Michael Jackson-Beat it</option>
-            <option value="songs/Me and the Devil(MP3_128K).mp3">Me and the Devil</option>
-          </select>
-          <button class="btn" id="playBtn">Play</button>
-          <button class="btn alt" id="stopBtn">Stop</button>
-        </div>
-        <audio id="player" controls preload="none">
-          <source id="playerSource" src="" type="audio/mpeg">
-          Your browser doesn't support audio.
-        </audio>
-        <small class="muted">Tip: host MP3s under <code>songs/</code> in your repo and adjust URLs above.</small>
-      </div>
+      
+      <!-- MUSIC -->
+      <div class="card">
+        <h2>Music Player</h2>
+        <div class="music-select">
+          <select id="songSelect">
+            <!-- Update these values to match the actual raw.githubusercontent.com paths if your songs are in repo. -->
+            <option value="songs/𝘝𝘪𝘭𝘪𝘢𝘮 𝘓𝘢𝘯𝘦 - 𝘱𝘢𝘳𝘵𝘪𝘤𝘭𝘦𝘴 𝘚𝘭𝘰𝘸𝘦𝘥   𝘙𝘦𝘷𝘦𝘳𝘣(MP3_128K).mp3">𝘝𝘪𝘭𝘪𝘢𝘮 𝘓𝘢𝘯𝘦 - 𝘱𝘢𝘳𝘵𝘪𝘤𝘭𝘦𝘴 𝘚𝘭𝘰𝘸𝘦𝘥   𝘙𝘦𝘷𝘦𝘳𝘣</option>
+            <option value="songs/Drake - Toosie Slide (Lyrics) _left foot up right foot slide_(MP3_128K).mp3">Drake - Toosie Slide</option>
+            <option value="songs/Michael Jackson-Beat it (Lyrics)(MP3_128K).mp3">Michael Jackson-Beat it</option>
+            <option value="songs/Me and the Devil(MP3_128K).mp3">Me and the Devil</option>
+          </select>
+          <button class="btn" id="playBtn">Play</button>
+          <button class="btn alt" id="stopBtn">Stop</button>
+        </div>
+        <audio id="player" controls preload="none">
+          <source id="playerSource" src="" type="audio/mpeg">
+          Your browser doesn't support audio.
+        </audio>
+        <small class="muted">Tip: host MP3s under <code>songs/</code> in your repo and adjust URLs above.</small>
+      </div>
 
-      <!-- TASKS -->
-      <div class="card">
-        <div class="tasks-header">
-          <div>
-            <h2>To-Do</h2>
-            <small class="muted">Add tasks — they persist after reload</small>
-          </div>
-          <div>
-            <button class="btn alt" id="clearCompleted">Clear Completed</button>
-          </div>
-        </div>
+      <!-- TASKS -->
+      <div class="card">
+        <div class="tasks-header">
+          <div>
+            <h2>To-Do</h2>
+            <small class="muted">Add tasks — they persist after reload</small>
+          </div>
+          <div>
+            <button class="btn alt" id="clearCompleted">Clear Completed</button>
+          </div>
+        </div>
 
-        <div style="display:flex;gap:8px;margin-top:12px">
-          <input id="taskInput" placeholder="New task..." />
-          <button class="btn" id="addTaskBtn">Add</button>
-        </div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <input id="taskInput" placeholder="New task..." />
+          <button class="btn" id="addTaskBtn">Add</button>
+        </div>
 
-        <div class="tasks-list" id="tasksList"></div>
+        <div class="tasks-list" id="tasksList"></div>
 
-        <div style="display:flex;gap:10px;margin-top:12px;align-items:center;justify-content:space-between">
-          <div class="muted-note" id="tasksSummary">0 tasks</div>
-          <div style="display:flex;gap:8px">
-            <button class="icon-btn" id="sortTasks" title="Sort">⇅</button>
-            <button class="icon-btn" id="exportTasks" title="Export">⤓</button>
-          </div>
-        </div>
-      </div>
+        <div style="display:flex;gap:10px;margin-top:12px;align-items:center;justify-content:space-between">
+          <div class="muted-note" id="tasksSummary">0 tasks</div>
+          <div style="display:flex;gap:8px">
+            <button class="icon-btn" id="sortTasks" title="Sort">⇅</button>
+            <button class="icon-btn" id="exportTasks" title="Export">⤓</button>
+          </div>
+        </div>
+      </div>
 
 
 
-    </div> <!-- end grid-wide -->
+    </div> <!-- end grid-wide -->
 
-    <!-- second row: calculator + salary -->
-    <div class="grid-wide">
+    <!-- second row: calculator + salary -->
+    <div class="grid-wide">
 
-      <!-- CALCULATOR -->
-      <div class="card">
-        <h2>Calculator</h2>
-        <div style="display:flex;gap:8px;align-items:center">
-          <div style="flex:1">
-            <div class="calc-display" id="calcDisplay" style="height:46px;display:flex;align-items:center;padding:10px;border-radius:8px;font-weight:700;font-size:18px;background:rgba(0,0,0,0.25)"></div>
-            <div class="calc-grid" id="calcGrid">
-              <!-- generated by JS -->
-            </div>
-          </div>
-          <div style="width:1px;background:rgba(255,255,255,0.03);height:180px"></div>
-          <div style="width:220px">
-            <h3 style="margin-bottom:8px">Quick ops</h3>
-            <button class="btn" id="calcClear" style="width:100%;margin-bottom:8px">C</button>
-            <button class="btn alt" id="calcAns" style="width:100%;margin-bottom:8px">= Evaluate</button>
-            <small class="muted">Supports + - * / and parenthesis</small>
-          </div>
-        </div>
-      </div>
+      <!-- CALCULATOR -->
+      <div class="card">
+        <h2>Calculator</h2>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div style="flex:1">
+            <div class="calc-display" id="calcDisplay" style="height:46px;display:flex;align-items:center;padding:10px;border-radius:8px;font-weight:700;font-size:18px;background:rgba(0,0,0,0.25)"></div>
+            <div class="calc-grid" id="calcGrid">
+              <!-- generated by JS -->
+            </div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,0.03);height:180px"></div>
+          <div style="width:220px">
+            <h3 style="margin-bottom:8px">Quick ops</h3>
+            <button class="btn" id="calcClear" style="width:100%;margin-bottom:8px">C</button>
+            <button class="btn alt" id="calcAns" style="width:100%;margin-bottom:8px">= Evaluate</button>
+            <small class="muted">Supports + - * / and parenthesis</small>
+          </div>
+        </div>
+      </div>
 
-      <!-- SALARY -->
-      <div class="card">
-        <h2>Salary & Deductions</h2>
-        <div class="salary-row">
-          <div>
-            <label>Gross Monthly Salary</label>
-            <input type="number" id="grossSalary" min="0" />
-          </div>
-          <div>
-            <label>Tax %</label>
-            <input type="number" id="taxPercent" min="0" max="100" />
-          </div>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:10px">
-          <div style="flex:1">
-            <label>Social Security %</label>
-            <input type="number" id="ssPercent" min="0" max="100" />
-          </div>
-          <div style="width:140px">
-            <label>Next payday</label>
-            <div id="nextPayday" style="padding:10px;border-radius:8px;background:linear-gradient(90deg,#222,#111);text-align:center"></div>
-          </div>
-        </div>
+      <!-- SALARY -->
+      <div class="card">
+        <h2>Salary & Deductions</h2>
+        <div class="salary-row">
+          <div>
+            <label>Gross Monthly Salary</label>
+            <input type="number" id="grossSalary" min="0" />
+          </div>
+          <div>
+            <label>Tax %</label>
+            <input type="number" id="taxPercent" min="0" max="100" />
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:10px">
+          <div style="flex:1">
+            <label>Social Security %</label>
+            <input type="number" id="ssPercent" min="0" max="100" />
+          </div>
+          <div style="width:140px">
+            <label>Next payday</label>
+            <div id="nextPayday" style="padding:10px;border-radius:8px;background:linear-gradient(90deg,#222,#111);text-align:center"></div>
+          </div>
+        </div>
 
-        <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
-          <button class="btn" id="calcSalaryBtn">Calculate</button>
-          <button class="btn alt" id="saveProfile">Save profile</button>
-        </div>
+        <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
+          <button class="btn" id="calcSalaryBtn">Calculate</button>
+          <button class="btn alt" id="saveProfile">Save profile</button>
+        </div>
 
-        <div style="margin-top:12px" id="salaryResult">
-          <!-- results -->
-        </div>
-        <small class="muted">Salary assumed to arrive on the 1st of each month.</small>
-      </div>
+        <div style="margin-top:12px" id="salaryResult">
+          <!-- results -->
+        </div>
+        <small class="muted">Salary assumed to arrive on the 1st of each month.</small>
+      </div>
 
-      <!-- Employment card (rightmost in this row replaced by empty column to keep 3cols) -->
-      <div class="card">
-        <h2>Employment</h2>
-        <div>
-          <label>Job Title</label>
-          <input id="jobTitle" placeholder="e.g. Production Operator" />
-        </div>
-        <div style="margin-top:10px">
-          <label>Started working on</label>
-          <input id="startDate" type="text" placeholder="YYYY-MM-DD" />
-        </div>
-        <div style="margin-top:12px">
-          <button class="btn" id="saveStart">Update</button>
-        </div>
-        <div style="margin-top:12px">
-          <div id="workDuration">You have worked: --</div>
-          <div id="daysSince" class="muted-note"></div>
-        </div>
-      </div>
+      <!-- Employment card (rightmost in this row replaced by empty column to keep 3cols) -->
+      <div class="card">
+        <h2>Employment</h2>
+        <div>
+          <label>Job Title</label>
+          <input id="jobTitle" placeholder="e.g. Production Operator" />
+        </div>
+        <div style="margin-top:10px">
+          <label>Started working on</label>
+          <input id="startDate" type="text" placeholder="YYYY-MM-DD" />
+        </div>
+        <div style="margin-top:12px">
+          <button class="btn" id="saveStart">Update</button>
+        </div>
+        <div style="margin-top:12px">
+          <div id="workDuration">You have worked: --</div>
+          <div id="daysSince" class="muted-note"></div>
+        </div>
+      </div>
 
-    </div> <!-- end second row -->
+    </div> <!-- end second row -->
 
-  </section>
+  </section>
 
-  <!-- RIGHT COLUMN -->
-  <aside class="col-right">
+  <!-- RIGHT COLUMN -->
+  <aside class="col-right">
 
-    <div class="card">
-      <h2>Device & Profile</h2>
-      <div id="deviceInfo">Detecting...</div>
-      <div style="margin-top:12px">
-        <label>Profile name</label>
-        <input id="profileName" placeholder="Your name" />
-        <small class="muted">Saved locally</small>
-      </div>
-    </div>
+    <div class="card">
+      <h2>Device & Profile</h2>
+      <div id="deviceInfo">Detecting...</div>
+      <div style="margin-top:12px">
+        <label>Profile name</label>
+        <input id="profileName" placeholder="Your name" />
+        <small class="muted">Saved locally</small>
+      </div>
+    </div>
 
-    <div class="card">
-      <h2>Pomodoro Timer</h2>
-      <div style="display:flex;gap:8px;align-items:center">
-        <div style="font-weight:800;font-size:28px" id="timerDisplay">25:00</div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <button class="btn" id="startTimer">Start</button>
-          <button class="btn alt" id="stopTimer">Stop</button>
-        </div>
-      </div>
-      <small class="muted">25 / 5 by default. You can change in code.</small>
-    </div>
+    <div class="card">
+      <h2>Pomodoro Timer</h2>
+      <div style="display:flex;gap:8px;align-items:center">
+        <div style="font-weight:800;font-size:28px" id="timerDisplay">25:00</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="btn" id="startTimer">Start</button>
+          <button class="btn alt" id="stopTimer">Stop</button>
+        </div>
+      </div>
+      <small class="muted">25 / 5 by default. You can change in code.</small>
+    </div>
 
-    <div class="card">
-      <h2>Pinned Notes</h2>
-      <textarea id="pinnedNotes" placeholder="Important notes..."></textarea>
-      <div style="display:flex;gap:8px;margin-top:8px">
-        <button class="btn" id="saveNotes">Save</button>
-        <button class="btn alt" id="clearNotes">Clear</button>
-      </div>
-      <small class="muted">Notes saved locally in your browser.</small>
-    </div>
+    <div class="card">
+      <h2>Pinned Notes</h2>
+      <textarea id="pinnedNotes" placeholder="Important notes..."></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn" id="saveNotes">Save</button>
+        <button class="btn alt" id="clearNotes">Clear</button>
+      </div>
+      <small class="muted">Notes saved locally in your browser.</small>
+    </div>
 
-    <div class="card">
-      <h2>Productivity</h2>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div>Tasks total: <strong id="prodTotal">0</strong></div>
-        <div>Tasks done: <strong id="prodDone">0</strong></div>
-        <div class="progress"><i id="prodBar"></i></div>
-        <div class="muted-note">Completion rate</div>
-      </div>
-    </div>
+    <div class="card">
+      <h2>Productivity</h2>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div>Tasks total: <strong id="prodTotal">0</strong></div>
+        <div>Tasks done: <strong id="prodDone">0</strong></div>
+        <div class="progress"><i id="prodBar"></i></div>
+        <div class="muted-note">Completion rate</div>
+      </div>
+    </div>
 
-  </aside>
+  </aside>
 </main>
 
 <footer>Made for you — customize and drop into your GitHub Pages repo. Replace song links to match your repo structure and add OpenWeatherMap API key to fetch weather.</footer>
 
+<!-- Custom Message Box for alerts -->
+<div id="messageBox" style="
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #2d3748;
+    color: #e2e8f0;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+">
+    <p id="messageText" style="font-size: 1.125rem;"></p>
+    <button onclick="document.getElementById('messageBox').style.display='none'" class="btn">OK</button>
+</div>
+
+
 <script>
 /* ============================
-   Utilities & Initialization
-   ============================ */
+   Utilities & Initialization
+   ============================ */
+
+// A simple function to display a custom message box instead of alert()
+function showMessage(text) {
+    document.getElementById('messageText').textContent = text;
+    document.getElementById('messageBox').style.display = 'flex';
+}
+
 const LS = {
-  tasks: 'sds_tasks_v1',
-  profile: 'sds_profile_v1',
-  notes: 'sds_notes_v1',
-  settings: 'sds_settings_v1'
+  tasks: 'sds_tasks_v1',
+  profile: 'sds_profile_v1',
+  notes: 'sds_notes_v1',
+  settings: 'sds_settings_v1'
 };
 
 function qs(id){return document.getElementById(id)}
@@ -403,27 +438,27 @@ function loadLS(key, fallback){ try{ const v = JSON.parse(localStorage.getItem(k
 
 /* show current date in header */
 function formatDate(d){
-  return d.toLocaleString(undefined,{weekday:'short',year:'numeric',month:'short',day:'numeric'});
+  return d.toLocaleString(undefined,{weekday:'short',year:'numeric',month:'short',day:'numeric'});
 }
 qs('currentDate').textContent = formatDate(new Date());
 
 /* device detection */
 function detectDevice(){
-  const ua = navigator.userAgent;
-  const platform = navigator.platform || 'Unknown';
-  const info = {
-    ua, platform, width: screen.width, height: screen.height
-  };
-  const s = `<div><strong>UA:</strong> ${ua.split(')')[0]})</div>
-             <div class="muted-note">Platform: ${platform} • ${info.width}×${info.height}</div>`;
-  qs('deviceInfo').innerHTML = s;
-  qs('deviceChip').textContent = platform.includes('Win') ? 'Desktop' : (platform.includes('Android')||/Android/.test(ua) ? 'Mobile' : 'Browser');
+  const ua = navigator.userAgent;
+  const platform = navigator.platform || 'Unknown';
+  const info = {
+    ua, platform, width: screen.width, height: screen.height
+  };
+  const s = `<div><strong>UA:</strong> ${ua.split(')')[0]})</div>
+             <div class="muted-note">Platform: ${platform} • ${info.width}×${info.height}</div>`;
+  qs('deviceInfo').innerHTML = s;
+  qs('deviceChip').textContent = platform.includes('Win') ? 'Desktop' : (platform.includes('Android')||/Android/.test(ua) ? 'Mobile' : 'Browser');
 }
 detectDevice();
 
 /* ============================
-   MUSIC PLAYER
-   ============================ */
+   MUSIC PLAYER
+   ============================ */
 const player = qs('player');
 const playerSource = qs('playerSource');
 const songSelect = qs('songSelect');
@@ -436,21 +471,21 @@ player.load();
 
 // change song
 songSelect.addEventListener('change', ()=>{
-  playerSource.src = songSelect.value;
-  player.load();
+  playerSource.src = songSelect.value;
+  player.load();
 });
 
 // play/stop
 playBtn.addEventListener('click', ()=> {
-  player.play().catch(()=>{ alert('Autoplay blocked — press play on the audio control') });
+  player.play().catch(()=>{ showMessage('Autoplay blocked — press play on the audio control') });
 });
 stopBtn.addEventListener('click', ()=> {
-  player.pause(); player.currentTime = 0;
+  player.pause(); player.currentTime = 0;
 });
 
 /* ============================
-   TASKS (localStorage persistence)
-   ============================ */
+   TASKS (localStorage persistence)
+   ============================ */
 let tasks = loadLS(LS.tasks, []); // {id, title, done, created}
 const tasksList = qs('tasksList');
 const taskInput = qs('taskInput');
@@ -461,29 +496,29 @@ const exportTasks = qs('exportTasks');
 const tasksSummary = qs('tasksSummary');
 
 function renderTasks(){
-  tasksList.innerHTML = '';
-  if(tasks.length === 0){ tasksList.innerHTML = '<div class="muted-note">No tasks yet</div>' }
-  tasks.forEach(t=>{
-    const div = document.createElement('div'); div.className = 'task';
-    const left = document.createElement('div'); left.className='left';
-    const cb = document.createElement('input'); cb.type='checkbox'; cb.checked = !!t.done;
-    cb.addEventListener('change', ()=>{ t.done = cb.checked; saveTasks(); renderTasks(); updateProductivity(); });
-    const txt = document.createElement('div'); txt.innerHTML = `<div class="title">${escapeHtml(t.title)}</div><div class="meta">${new Date(t.created).toLocaleString()}</div>`;
-    left.appendChild(cb); left.appendChild(txt);
-    const actions = document.createElement('div');
-    const del = document.createElement('button'); del.className='icon-btn'; del.innerHTML='✕';
-    del.addEventListener('click', ()=>{ tasks = tasks.filter(x=>x.id!==t.id); saveTasks(); renderTasks(); updateProductivity(); })
-    actions.appendChild(del);
-    div.appendChild(left); div.appendChild(actions);
-    tasksList.appendChild(div);
-  });
-  tasksSummary.textContent = `${tasks.length} task(s) • ${tasks.filter(t=>t.done).length} done`;
+  tasksList.innerHTML = '';
+  if(tasks.length === 0){ tasksList.innerHTML = '<div class="muted-note">No tasks yet</div>' }
+  tasks.forEach(t=>{
+    const div = document.createElement('div'); div.className = 'task';
+    const left = document.createElement('div'); left.className='left';
+    const cb = document.createElement('input'); cb.type='checkbox'; cb.checked = !!t.done;
+    cb.addEventListener('change', ()=>{ t.done = cb.checked; saveTasks(); renderTasks(); updateProductivity(); });
+    const txt = document.createElement('div'); txt.innerHTML = `<div class="title">${escapeHtml(t.title)}</div><div class="meta">${new Date(t.created).toLocaleString()}</div>`;
+    left.appendChild(cb); left.appendChild(txt);
+    const actions = document.createElement('div');
+    const del = document.createElement('button'); del.className='icon-btn'; del.innerHTML='✕';
+    del.addEventListener('click', ()=>{ tasks = tasks.filter(x=>x.id!==t.id); saveTasks(); renderTasks(); updateProductivity(); })
+    actions.appendChild(del);
+    div.appendChild(left); div.appendChild(actions);
+    tasksList.appendChild(div);
+  });
+  tasksSummary.textContent = `${tasks.length} task(s) • ${tasks.filter(t=>t.done).length} done`;
 }
 
 function saveTasks(){ saveLS(LS.tasks, tasks) }
 function addTask(title){
-  const t = {id: Date.now().toString(36), title, done:false, created: new Date().toISOString()};
-  tasks.unshift(t); saveTasks(); renderTasks(); updateProductivity();
+  const t = {id: Date.now().toString(36), title, done:false, created: new Date().toISOString()};
+  tasks.unshift(t); saveTasks(); renderTasks(); updateProductivity();
 }
 addTaskBtn.addEventListener('click', ()=>{ const v = taskInput.value.trim(); if(!v) return; addTask(v); taskInput.value=''; })
 taskInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ addTaskBtn.click(); } });
@@ -497,59 +532,59 @@ function escapeHtml(s){ return s.replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;
 renderTasks();
 
 /* ============================
-   PRODUCTIVITY summary
-   ============================ */
+   PRODUCTIVITY summary
+   ============================ */
 function updateProductivity(){
-  const total = tasks.length;
-  const done = tasks.filter(t=>t.done).length;
-  qs('prodTotal').textContent = total;
-  qs('prodDone').textContent = done;
-  const pct = total === 0 ? 0 : Math.round(done/total*100);
-  qs('prodBar').style.width = pct + '%';
+  const total = tasks.length;
+  const done = tasks.filter(t=>t.done).length;
+  qs('prodTotal').textContent = total;
+  qs('prodDone').textContent = done;
+  const pct = total === 0 ? 0 : Math.round(done/total*100);
+  qs('prodBar').style.width = pct + '%';
 }
 updateProductivity();
 
 
 
 /* ============================
-   CALCULATOR
-   ============================ */
+   CALCULATOR
+   ============================ */
 const calcDisplay = qs('calcDisplay');
 const calcGrid = qs('calcGrid');
 let calcExpr = '';
 function rebuildCalc(){
-  calcGrid.innerHTML = '';
-  const keys = [
-  '7','8','9','/',
-  '4','5','6','*',
-  '1','2','3','-',
-  '0','.','(',')',
-  '+','C','←','='
+  calcGrid.innerHTML = '';
+  const keys = [
+  '7','8','9','/',
+  '4','5','6','*',
+  '1','2','3','-',
+  '0','.','(',')',
+  '+','C','←','='
 ];
-  keys.forEach(k=>{
-    const b = document.createElement('button'); b.className='calc-key'; b.textContent=k;
-    b.addEventListener('click', ()=> onCalcKey(k));
-    calcGrid.appendChild(b);
-  });
-  renderCalc();
+  keys.forEach(k=>{
+    const b = document.createElement('button'); b.className='calc-key'; b.textContent=k;
+    b.addEventListener('click', ()=> onCalcKey(k));
+    calcGrid.appendChild(b);
+  });
+  renderCalc();
 }
 function renderCalc(){ calcDisplay.textContent = calcExpr || '0' }
 function onCalcKey(k){
-  if(k === 'C'){ calcExpr = ''; renderCalc(); return; }
-  if(k === '←'){ calcExpr = calcExpr.slice(0,-1); renderCalc(); return; }
-  if(k === '='){ evaluateCalc(); return; }
-  // unify × ÷
-  if(k === '×') k='*'; if(k === '÷') k='/';
-  calcExpr += k; renderCalc();
+  if(k === 'C'){ calcExpr = ''; renderCalc(); return; }
+  if(k === '←'){ calcExpr = calcExpr.slice(0,-1); renderCalc(); return; }
+  if(k === '='){ evaluateCalc(); return; }
+  // unify × ÷
+  if(k === '×') k='*'; if(k === '÷') k='/';
+  calcExpr += k; renderCalc();
 }
 function evaluateCalc(){
-  try{
-    // safe eval: allow digits, operators, parentheses, decimal and spaces
-    if(!/^[0-9+\-*/().\s]+$/.test(calcExpr)) { alert('Unsupported expression'); return; }
-    const val = Function('"use strict";return ('+calcExpr+')')();
-    calcExpr = String(val);
-    renderCalc();
-  }catch(e){ alert('Invalid expression'); }
+  try{
+    // safe eval: allow digits, operators, parentheses, decimal and spaces
+    if(!/^[0-9+\-*/().\s]+$/.test(calcExpr)) { showMessage('Unsupported expression'); return; }
+    const val = Function('"use strict";return ('+calcExpr+')')();
+    calcExpr = String(val);
+    renderCalc();
+  }catch(e){ showMessage('Invalid expression'); }
 }
 rebuildCalc();
 
@@ -557,8 +592,8 @@ qs('calcClear').addEventListener('click', ()=>{ calcExpr=''; renderCalc(); });
 qs('calcAns').addEventListener('click', evaluateCalc);
 
 /* ============================
-   SALARY & PROFILE
-   ============================ */
+   SALARY & PROFILE
+   ============================ */
 const grossSalaryEl = qs('grossSalary');
 const taxPercentEl = qs('taxPercent');
 const ssPercentEl = qs('ssPercent');
@@ -568,68 +603,68 @@ const calcSalaryBtn = qs('calcSalaryBtn');
 const saveProfileBtn = qs('saveProfile');
 
 function computeNextPayday(now = new Date()){
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const today = now.getDate();
-  // لو اليوم قبل 1 → راتب نفس الشهر، لو لا → راتب الشهر الجاي
-  const paydayMonth = (today <= 1) ? month : month + 1;
-  return new Date(year, paydayMonth, 1, 9, 0, 0);
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const today = now.getDate();
+  // لو اليوم قبل 1 → راتب نفس الشهر، لو لا → راتب الشهر الجاي
+  const paydayMonth = (today <= 1) ? month : month + 1;
+  return new Date(year, paydayMonth, 1, 9, 0, 0);
 }
 
 function formatCountdown(target){
-  const now = new Date();
-  const diff = target - now;
-  if(diff <= 0) return 'Today';
-  const days = Math.floor(diff / (1000*60*60*24));
-  const hours = Math.floor(diff / (1000*60*60) % 24);
-  const mins = Math.floor(diff / (1000*60) % 60);
-  return `${days}d ${hours}h ${mins}m`;
+  const now = new Date();
+  const diff = target - now;
+  if(diff <= 0) return 'Today';
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor(diff / (1000*60*60) % 24);
+  const mins = Math.floor(diff / (1000*60) % 60);
+  return `${days}d ${hours}h ${mins}m`;
 }
 
 function calcSalary(){
-  const gross = Number(grossSalaryEl.value) || 0;
-  const tax = Number(taxPercentEl.value) || 0;
-  const ss = Number(ssPercentEl.value) || 0;
-  const taxAmt = gross * (tax/100);
-  const ssAmt = gross * (ss/100);
-  const net = gross - taxAmt - ssAmt;
-  salaryResultEl.innerHTML = `
-    <div class="salary-out"><div>Gross: <strong>${formatNumber(gross)} </strong></div>
-    <div>Tax (${tax}%): <strong>${formatNumber(taxAmt)}</strong></div>
-    <div>Social Security (${ss}%): <strong>${formatNumber(ssAmt)}</strong></div>
-    <div style="margin-top:8px;border-top:1px dashed rgba(255,255,255,0.03);padding-top:8px">Net pay: <strong style="font-size:18px">${formatNumber(net)}</strong></div></div>
-  `;
-  const payday = computeNextPayday();
-  nextPaydayEl.textContent = payday.toLocaleDateString() + ' • ' + formatCountdown(payday);
+  const gross = Number(grossSalaryEl.value) || 0;
+  const tax = Number(taxPercentEl.value) || 0;
+  const ss = Number(ssPercentEl.value) || 0;
+  const taxAmt = gross * (tax/100);
+  const ssAmt = gross * (ss/100);
+  const net = gross - taxAmt - ssAmt;
+  salaryResultEl.innerHTML = `
+    <div class="salary-out"><div>Gross: <strong>${formatNumber(gross)} </strong></div>
+    <div>Tax (${tax}%): <strong>${formatNumber(taxAmt)}</strong></div>
+    <div>Social Security (${ss}%): <strong>${formatNumber(ssAmt)}</strong></div>
+    <div style="margin-top:8px;border-top:1px dashed rgba(255,255,255,0.03);padding-top:8px">Net pay: <strong style="font-size:18px">${formatNumber(net)}</strong></div></div>
+  `;
+  const payday = computeNextPayday();
+  nextPaydayEl.textContent = payday.toLocaleDateString() + ' • ' + formatCountdown(payday);
 }
 function formatNumber(n){
-  return n.toLocaleString();
+  return n.toLocaleString();
 }
 calcSalaryBtn.addEventListener('click', ()=>{
-  calcSalary(); saveProfile();
+  calcSalary(); saveProfile();
 });
 saveProfileBtn.addEventListener('click', saveProfile);
 function saveProfile(){
-  const profile = loadLS(LS.profile, {});
-  profile.gross = Number(grossSalaryEl.value) || 0;
-  profile.tax = Number(taxPercentEl.value) || 0;
-  profile.ss = Number(ssPercentEl.value) || 0;
-  profile.jobTitle = qs('jobTitle').value || profile.jobTitle || '';
-  profile.name = qs('profileName').value || profile.name || '';
-  saveLS(LS.profile, profile);
-  alert('Profile saved locally');
-  populateProfile();
+  const profile = loadLS(LS.profile, {});
+  profile.gross = Number(grossSalaryEl.value) || 0;
+  profile.tax = Number(taxPercentEl.value) || 0;
+  profile.ss = Number(ssPercentEl.value) || 0;
+  profile.jobTitle = qs('jobTitle').value || profile.jobTitle || '';
+  profile.name = qs('profileName').value || profile.name || '';
+  saveLS(LS.profile, profile);
+  showMessage('Profile saved locally');
+  populateProfile();
 }
 
 /* load profile on start */
 function populateProfile(){
-  const profile = loadLS(LS.profile, {});
-  if(profile.gross) grossSalaryEl.value = profile.gross;
-  if(profile.tax) taxPercentEl.value = profile.tax;
-  if(profile.ss) ssPercentEl.value = profile.ss;
-  if(profile.jobTitle) qs('jobTitle').value = profile.jobTitle;
-  if(profile.name) qs('profileName').value = profile.name;
-  calcSalary();
+  const profile = loadLS(LS.profile, {});
+  if(profile.gross) grossSalaryEl.value = profile.gross;
+  if(profile.tax) taxPercentEl.value = profile.tax;
+  if(profile.ss) ssPercentEl.value = profile.ss;
+  if(profile.jobTitle) qs('jobTitle').value = profile.jobTitle;
+  if(profile.name) qs('profileName').value = profile.name;
+  calcSalary();
 }
 populateProfile();
 
@@ -637,8 +672,8 @@ populateProfile();
 setInterval(()=>{ const payday = computeNextPayday(); nextPaydayEl.textContent = payday.toLocaleDateString() + ' • ' + formatCountdown(payday); }, 60*1000);
 
 /* ============================
-   Employment duration
-   ============================ */
+   Employment duration
+   ============================ */
 const startDateEl = qs('startDate');
 const saveStartBtn = qs('saveStart');
 const workDurationEl = qs('workDuration');
@@ -646,57 +681,57 @@ const daysSinceEl = qs('daysSince');
 
 // prefill start date as 2025-08-01 if none (as per user)
 (function initStart(){
-  const saved = loadLS(LS.profile, {});
-  if(saved.startDate) startDateEl.value = saved.startDate;
-  else { startDateEl.value = '2025-08-01'; saveLS(LS.profile, {...saved, startDate:startDateEl.value}); }
-  updateWorkDuration();
+  const saved = loadLS(LS.profile, {});
+  if(saved.startDate) startDateEl.value = saved.startDate;
+  else { startDateEl.value = '2025-08-01'; saveLS(LS.profile, {...saved, startDate:startDateEl.value}); }
+  updateWorkDuration();
 })();
 
 saveStartBtn.addEventListener('click', ()=>{
-  const val = startDateEl.value.trim();
-  if(!/^\d{4}-\d{2}-\d{2}$/.test(val)){ alert('Use YYYY-MM-DD'); return; }
-  const profile = loadLS(LS.profile, {}); profile.startDate = val; saveLS(LS.profile, profile);
-  updateWorkDuration();
-  alert('Start date updated');
+  const val = startDateEl.value.trim();
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(val)){ showMessage('Use YYYY-MM-DD'); return; }
+  const profile = loadLS(LS.profile, {}); profile.startDate = val; saveLS(LS.profile, profile);
+  updateWorkDuration();
+  showMessage('Start date updated');
 });
 
 function updateWorkDuration(){
-  const profile = loadLS(LS.profile, {});
-  const sd = profile.startDate || startDateEl.value;
-  const since = new Date(sd + 'T00:00:00');
-  const now = new Date();
-  if(isNaN(since)) { workDurationEl.textContent = 'Invalid start date'; return; }
-  // compute months and days roughly
-  let years = now.getFullYear() - since.getFullYear();
-  let months = now.getMonth() - since.getMonth();
-  let days = now.getDate() - since.getDate();
-  if(days < 0){ months -= 1; const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate(); days += prevMonth; }
-  if(months < 0){ years -= 1; months += 12; }
-  const totalDays = Math.floor((now - since)/(1000*60*60*24));
-  workDurationEl.innerHTML = `You have worked <strong>${years}y ${months}m ${days}d</strong>`;
-  daysSinceEl.textContent = `Total: ${totalDays} days since ${sd}`;
+  const profile = loadLS(LS.profile, {});
+  const sd = profile.startDate || startDateEl.value;
+  const since = new Date(sd + 'T00:00:00');
+  const now = new Date();
+  if(isNaN(since)) { workDurationEl.textContent = 'Invalid start date'; return; }
+  // compute months and days roughly
+  let years = now.getFullYear() - since.getFullYear();
+  let months = now.getMonth() - since.getMonth();
+  let days = now.getDate() - since.getDate();
+  if(days < 0){ months -= 1; const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate(); days += prevMonth; }
+  if(months < 0){ years -= 1; months += 12; }
+  const totalDays = Math.floor((now - since)/(1000*60*60*24));
+  workDurationEl.innerHTML = `You have worked <strong>${years}y ${months}m ${days}d</strong>`;
+  daysSinceEl.textContent = `Total: ${totalDays} days since ${sd}`;
 }
 
 /* ============================
-   Pinned Notes (persist)
-   ============================ */
+   Pinned Notes (persist)
+   ============================ */
 const notesEl = qs('pinnedNotes');
 const saveNotesBtn = qs('saveNotes');
 const clearNotesBtn = qs('clearNotes');
 notesEl.value = loadLS(LS.notes, '');
-saveNotesBtn.addEventListener('click', ()=>{ saveLS(LS.notes, notesEl.value); alert('Notes saved locally'); });
+saveNotesBtn.addEventListener('click', ()=>{ saveLS(LS.notes, notesEl.value); showMessage('Notes saved locally'); });
 clearNotesBtn.addEventListener('click', ()=>{ notesEl.value=''; saveLS(LS.notes, ''); });
 
 /* ============================
-   Profile name (persist)
-   ============================ */
+   Profile name (persist)
+   ============================ */
 qs('profileName').addEventListener('change', ()=> {
-  const p = loadLS(LS.profile, {}); p.name = qs('profileName').value; saveLS(LS.profile,p);
+  const p = loadLS(LS.profile, {}); p.name = qs('profileName').value; saveLS(LS.profile,p);
 });
 
 /* ============================
-   Pomodoro Timer
-   ============================ */
+   Pomodoro Timer
+   ============================ */
 let timerInterval = null;
 let remaining = 25*60; // seconds
 const timerDisplay = qs('timerDisplay');
@@ -704,48 +739,48 @@ const startTimerBtn = qs('startTimer');
 const stopTimerBtn = qs('stopTimer');
 
 function renderTimer(){
-  const mm = String(Math.floor(remaining/60)).padStart(2,'0');
-  const ss = String(remaining%60).padStart(2,'0');
-  timerDisplay.textContent = `${mm}:${ss}`;
+  const mm = String(Math.floor(remaining/60)).padStart(2,'0');
+  const ss = String(remaining%60).padStart(2,'0');
+  timerDisplay.textContent = `${mm}:${ss}`;
 }
 startTimerBtn.addEventListener('click', ()=>{
-  if(timerInterval) return;
-  timerInterval = setInterval(()=>{
-    remaining -= 1;
-    if(remaining <= 0){ clearInterval(timerInterval); timerInterval=null; remaining = 25*60; alert('Pomodoro finished'); }
-    renderTimer();
-  }, 1000);
+  if(timerInterval) return;
+  timerInterval = setInterval(()=>{
+    remaining -= 1;
+    if(remaining <= 0){ clearInterval(timerInterval); timerInterval=null; remaining = 25*60; showMessage('Pomodoro finished'); }
+    renderTimer();
+  }, 1000);
 });
 stopTimerBtn.addEventListener('click', ()=>{
-  if(timerInterval) clearInterval(timerInterval);
-  timerInterval = null;
+  if(timerInterval) clearInterval(timerInterval);
+  timerInterval = null;
 });
 
 renderTimer();
 
 /* ============================
-   Load pinned app settings & tasks on init
-   ============================ */
+   Load pinned app settings & tasks on init
+   ============================ */
 (function initAll(){
-  // profile name and job title loaded above
-  const profile = loadLS(LS.profile, {});
-  if(profile.name) qs('profileName').value = profile.name;
-  if(profile.jobTitle) qs('jobTitle').value = profile.jobTitle;
-  if(profile.startDate) startDateEl.value = profile.startDate;
+  // profile name and job title loaded above
+  const profile = loadLS(LS.profile, {});
+  if(profile.name) qs('profileName').value = profile.name;
+  if(profile.jobTitle) qs('jobTitle').value = profile.jobTitle;
+  if(profile.startDate) startDateEl.value = profile.startDate;
 
-  // tasks already loaded
-  updateWorkDuration();
-  updateProductivity();
+  // tasks already loaded
+  updateWorkDuration();
+  updateProductivity();
 })();
 
 /* ============================
-   Helpers
-   ============================ */
+   Helpers
+   ============================ */
 function formatCurrency(n){ return n.toLocaleString(); }
 
 /* Prevent accidental navigation from losing unsaved notes/tasks? Optional
 window.addEventListener('beforeunload', function(e){
-  // nothing forced; user data saved automatically
+  // nothing forced; user data saved automatically
 });
 */
 
@@ -753,8 +788,3 @@ window.addEventListener('beforeunload', function(e){
 </body>
 
 </html>
-
-
-
-
-
