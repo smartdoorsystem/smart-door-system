@@ -359,6 +359,18 @@
       <div style="margin-top:12px">
       </div>
     </div>
+    
+    <!-- START: MESSAGES CARD (paste into dashboard.html right column) -->
+<div class="card" id="chatCard">
+  <h2>Messages</h2>
+  <div id="messagesList" style="max-height:220px;overflow:auto;padding:8px;border-radius:8px;background:rgba(0,0,0,0.04)"></div>
+  <div style="display:flex;gap:8px;margin-top:10px">
+    <input id="msgInput" placeholder="اكتب رسالة..." />
+    <button id="sendMsgBtn" class="btn">Send</button>
+  </div>
+  <small class="muted">Messages are synced via Firebase Realtime DB.</small>
+</div>
+<!-- END: MESSAGES CARD -->
 
     <div class="card">
       <h2>Pomodoro Timer</h2>
@@ -816,6 +828,7 @@ document.getElementById("empPic").src = u.empPic;
 </script>
 </body>
 </html>
+
 
 
 
