@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Buy Smart Door System — Order</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f3f6ff;
+      --card:#ffffff;
+      --accent:#6c5ce7;
+      --muted:#7b7f9a;
+      --success:#2ecc71;
+      --danger:#e74c3c;
+      --glass: rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(108,92,231,0.06), transparent 8%),
+        radial-gradient(800px 500px at 90% 90%, rgba(98,149,255,0.04), transparent 8%),
+        var(--bg);
+      color:#111827;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:32px;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* Container */
+    .wrap{
+      width:100%;
+      max-width:920px;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:start;
+    }
+
+    /* Left: product info */
+    .product {
+      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.95));
+      border-radius:16px;
+      box-shadow: 0 10px 30px rgba(12,18,36,0.06);
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .logo {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .logo .mark{
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent), #4f8cff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:700;
+      box-shadow:0 6px 18px rgba(99,80,226,0.2);
+    }
+    h1{margin:0;font-size:20px;}
+    p.lead{margin:0;color:var(--muted);font-size:14px}
+
+    .features{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+    .chip{
+      padding:8px 12px;
+      background:var(--glass);
+      border-radius:999px;
+      font-size:13px;
+      color:#332e56;
+      border:1px solid rgba(18,24,50,0.03);
+    }
+
+    .price-card{
+      margin-top:6px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px;
+      border-radius:12px;
+      background:linear-gradient(180deg,rgba(108,92,231,0.06), transparent);
+    }
+    .price {font-weight:700;font-size:20px;}
+    .old-price{font-size:13px;color:var(--muted); text-decoration:line-through}
+
+    .product-img{
+      width:100%;
+      height:220px;
+      border-radius:12px;
+      background:linear-gradient(180deg, #fff, rgba(245,246,255,0.8));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(10,20,50,0.03);
+      box-shadow: 0 6px 18px rgba(12,18,36,0.04) inset;
+      margin-top:12px;
+    }
+    .product-img svg{width:70%; height:70%; opacity:0.95}
+
+    /* Right: form */
+    .card{
+      background:linear-gradient(180deg, var(--card), #fbfbff);
+      border-radius:14px;
+      padding:22px;
+      box-shadow: 0 20px 40px rgba(12,18,36,0.06);
+    }
+    .form-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:12px;
+    }
+    .form-title h2{margin:0;font-size:18px}
+    .small-muted{font-size:13px;color:var(--muted)}
+
+    form .row{display:flex; gap:12px; margin-bottom:12px}
+    form .col{flex:1; min-width:0}
+    label{display:block;font-size:13px;margin-bottom:6px;color:#33394f}
+    input[type="text"], input[type="email"], input[type="tel"], select, textarea, input[type="number"]{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(17,24,39,0.08);
+      background:transparent;
+      font-size:14px;
+      outline:none;
+      transition:box-shadow .12s, border-color .12s;
+    }
+    input:focus, select:focus, textarea:focus{
+      box-shadow:0 8px 18px rgba(99,80,226,0.08);
+      border-color:var(--accent);
+    }
+    textarea{min-height:80px;resize:vertical;padding-top:10px}
+
+    .payment-methods{display:flex; gap:8px; margin:6px 0 14px}
+    .pm{
+      flex:1;
+      padding:8px;
+      border-radius:10px;
+      border:1px solid rgba(17,24,39,0.06);
+      text-align:center;
+      cursor:pointer;
+      user-select:none;
+      font-weight:600;
+    }
+    .pm.active{
+      border-color: rgba(108,92,231,0.18);
+      background:linear-gradient(90deg, rgba(108,92,231,0.06), rgba(79,140,255,0.03));
+      box-shadow:0 8px 24px rgba(99,80,226,0.06);
+      color:var(--accent);
+    }
+
+    .note{font-size:13px;color:var(--muted);margin-top:6px}
+
+    .actions{
+      margin-top:16px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .btn{
+      padding:12px 18px;
+      border-radius:10px;
+      border:0;
+      font-weight:700;
+      cursor:pointer;
+      color:white;
+      background:var(--accent);
+      box-shadow:0 10px 30px rgba(99,80,226,0.18);
+    }
+    .btn.secondary{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(17,24,39,0.06);
+      font-weight:600;
+      box-shadow:none;
+    }
+
+    .summary{
+      margin-top:14px;
+      border-radius:10px;
+      padding:10px;
+      background:rgba(15,23,42,0.02);
+      font-size:14px;
+      color:#1f2937;
+    }
+
+    /* toast / modal */
+    .overlay{
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:60;
+      background:rgba(8,12,30,0.45)
+    }
+    .overlay.show{display:flex}
+    .modal{
+      width:calc(100% - 60px);
+      max-width:520px;
+      background:white;
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 20px 60px rgba(10,15,40,0.4);
+    }
+    .modal h3{margin:0 0 8px 0}
+    .modal p{margin:0 0 12px 0;color:var(--muted)}
+
+    .flex-right{display:flex; gap:8px; justify-content:flex-end}
+
+    /* small screens */
+    @media(max-width:900px){
+      .wrap{grid-template-columns: 1fr; padding:6px}
+      .product-img{height:160px}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <!-- Product info / left -->
+    <div class="product" aria-hidden="false">
+      <div class="logo">
+        <div class="mark">SD</div>
+        <div>
+          <h1>Smart Door System</h1>
+          <p class="lead">Secure, remote-controlled smart locking and access analytics for homes and offices.</p>
+        </div>
+      </div>
+
+      <div class="features" aria-hidden="true">
+        <div class="chip">Remote Lock/Unlock</div>
+        <div class="chip">Mobile Notifications</div>
+        <div class="chip">Visitor Log</div>
+        <div class="chip">Easy Install</div>
+      </div>
+
+      <div class="price-card" role="region" aria-label="price">
+        <div>
+          <div class="price">$149.00</div>
+          <div class="old-price">$199</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:13px;color:var(--muted)">Ships in 2–4 business days</div>
+          <div style="font-size:12px;color:var(--muted); margin-top:6px">1-year limited warranty</div>
+        </div>
+      </div>
+
+      <div class="product-img" aria-hidden="true">
+        <!-- simple SVG illustration -->
+        <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="22" width="188" height="96" rx="14" fill="#eef2ff"/>
+          <rect x="24" y="40" width="120" height="64" rx="10" fill="#fff"/>
+          <circle cx="156" cy="72" r="16" fill="#6c5ce7" />
+          <rect x="146" y="68" width="20" height="8" rx="2" fill="white"/>
+        </svg>
+      </div>
+
+      <p class="note">Need bulk order or custom integration? After placing an order, contact support to arrange installation or volume discount.</p>
+    </div>
+
+    <!-- Form / right -->
+    <div class="card" role="form" aria-labelledby="order-title">
+      <div class="form-title">
+        <div>
+          <h2 id="order-title">Order Smart Door System</h2>
+          <div class="small-muted">Fill the form and choose payment method below</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:12px;color:var(--muted)">Order ID: <strong id="orderId">#--</strong></div>
+        </div>
+      </div>
+
+      <form id="orderForm" novalidate>
+        <!-- buyer info -->
+        <div class="row">
+          <div class="col">
+            <label for="fullName">Full name</label>
+            <input id="fullName" name="fullName" type="text" placeholder="John Doe" required>
+          </div>
+          <div class="col">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="phone">Phone number</label>
+            <input id="phone" name="phone" type="tel" placeholder="+1 555 555 5555" required>
+          </div>
+          <div class="col">
+            <label for="qty">Quantity</label>
+            <input id="qty" name="qty" type="number" min="1" value="1" required>
+          </div>
+        </div>
+
+        <label for="address">Shipping address</label>
+        <textarea id="address" name="address" placeholder="Street, City, State, ZIP" required></textarea>
+
+        <label for="model">Model / Package</label>
+        <select id="model" name="model" required>
+          <option value="basic">Basic Kit — Door lock + WiFi adapter</option>
+          <option value="pro">Pro Kit — Lock + Camera + WiFi Hub</option>
+          <option value="installer">Installer Pack — Pro + professional setup</option>
+        </select>
+
+        <label style="margin-top:10px">Payment method</label>
+        <div class="payment-methods" role="radiogroup" aria-label="Payment method">
+          <div class="pm active" data-method="card" tabindex="0">Card (Credit/Debit)</div>
+          <div class="pm" data-method="mobile" tabindex="0">Mobile Credit (Phone Balance)</div>
+          <div class="pm" data-method="cod" tabindex="0">Cash on Delivery</div>
+        </div>
+
+        <!-- Card fields (placeholder only: do not process real cards here) -->
+        <div id="cardFields" class="card-section">
+          <div class="row">
+            <div class="col">
+              <label for="cardName">Cardholder name</label>
+              <input id="cardName" name="cardName" type="text" placeholder="Name on card">
+            </div>
+            <div class="col">
+              <label for="cardNumber">Card number</label>
+              <input id="cardNumber" name="cardNumber" type="text" placeholder="4242 4242 4242 4242" maxlength="19">
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile payment -->
+        <div id="mobileFields" class="card-section" style="display:none">
+          <div class="row">
+            <div class="col">
+              <label for="mobileOperator">Mobile operator</label>
+              <select id="mobileOperator" name="mobileOperator">
+                <option value="">Choose operator</option>
+                <option value="vodafone">Vodafone</option>
+                <option value="mtn">MTN</option>
+                <option value="ooredoo">Ooredoo</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="mobileTopup">Top-up amount (USD)</label>
+              <input id="mobileTopup" name="mobileTopup" type="number" min="1" placeholder="Enter amount">
+            </div>
+          </div>
+          <p class="note">If you choose Mobile Credit, we'll send a payment request to your mobile operator to debit your phone balance. For demo purposes this is simulated here.</p>
+        </div>
+
+        <!-- COD note -->
+        <div id="codNote" style="display:none" class="note">Cash on Delivery available in supported regions. Please prepare exact amount at delivery.</div>
+
+        <div class="summary" id="orderSummary" aria-live="polite">
+          <strong>Order summary</strong>
+          <div style="margin-top:8px" id="summaryText">
+            Model: Basic Kit • Qty: 1 • Subtotal: $149.00
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="previewBtn" class="btn">Preview & Confirm</button>
+          <button type="reset" class="btn secondary">Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal overlay -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <h3>Confirm your order</h3>
+      <p id="modalSummary">Checking details...</p>
+
+      <div style="margin-top:14px;display:flex; gap:8px; justify-content:flex-end;">
+        <button id="confirmBtn" class="btn">Confirm & Pay</button>
+        <button id="closeBtn" class="btn secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple front-end form handling and UI interactions
+    (function(){
+      const orderIdEl = document.getElementById('orderId');
+      orderIdEl.textContent = '#'+Math.floor(Math.random()*900000 + 100000);
+
+      const pmButtons = document.querySelectorAll('.pm');
+      const cardFields = document.getElementById('cardFields');
+      const mobileFields = document.getElementById('mobileFields');
+      const codNote = document.getElementById('codNote');
+      const summaryText = document.getElementById('summaryText');
+      const qtyEl = document.getElementById('qty');
+      const modelEl = document.getElementById('model');
+      const priceMap = { basic:149, pro:249, installer:399 };
+
+      function setActiveMethod(method){
+        pmButtons.forEach(b => {
+          b.classList.toggle('active', b.dataset.method === method);
+          b.setAttribute('aria-checked', b.dataset.method === method ? 'true' : 'false');
+        });
+        // show/hide specific fields
+        cardFields.style.display = (method==='card') ? '' : 'none';
+        mobileFields.style.display = (method==='mobile') ? '' : 'none';
+        codNote.style.display = (method==='cod') ? '' : 'none';
+      }
+
+      pmButtons.forEach(b=>{
+        b.addEventListener('click', ()=> setActiveMethod(b.dataset.method));
+        b.addEventListener('keydown', (e)=>{
+          if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveMethod(b.dataset.method); }
+        });
+      });
+
+      // update summary when qty or model changes
+      function updateSummary(){
+        const model = modelEl.value;
+        const qty = parseInt(qtyEl.value) || 1;
+        const unit = priceMap[model] || 0;
+        const subtotal = (unit * qty).toFixed(2);
+        summaryText.innerHTML = `Model: <strong>${modelEl.options[modelEl.selectedIndex].text}</strong> • Qty: <strong>${qty}</strong> • Subtotal: <strong>$${subtotal}</strong>`;
+      }
+      qtyEl.addEventListener('input', updateSummary);
+      modelEl.addEventListener('change', updateSummary);
+
+      updateSummary();
+
+      // Preview modal
+      const overlay = document.getElementById('overlay');
+      const modalSummary = document.getElementById('modalSummary');
+      const previewBtn = document.getElementById('previewBtn');
+      const confirmBtn = document.getElementById('confirmBtn');
+      const closeBtn = document.getElementById('closeBtn');
+      const form = document.getElementById('orderForm');
+
+      function getActiveMethod(){
+        const act = document.querySelector('.pm.active');
+        return act ? act.dataset.method : 'card';
+      }
+
+      previewBtn.addEventListener('click', ()=>{
+        // basic validation
+        const name = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const qty = parseInt(qtyEl.value) || 1;
+
+        if(!name || !email || !phone || !address){
+          alert('Please fill your name, email, phone and address before continuing.');
+          return;
+        }
+        // build summary
+        const method = getActiveMethod();
+        const model = modelEl.value;
+        const unit = priceMap[model] || 0;
+        const subtotal = (unit * qty).toFixed(2);
+
+        let methodDetails = '';
+        if(method === 'card'){
+          const cardName = document.getElementById('cardName').value || '(not provided)';
+          methodDetails = `Pay by Card — Cardholder: ${cardName}`;
+        } else if(method === 'mobile'){
+          const op = document.getElementById('mobileOperator').value || '(operator not chosen)';
+          const top = document.getElementById('mobileTopup').value || '(amount not entered)';
+          methodDetails = `Mobile Credit — Operator: ${op}, Amount: ${top} USD`;
+        } else {
+          methodDetails = 'Cash on Delivery';
+        }
+
+        modalSummary.innerHTML = `
+          <strong>Customer:</strong> ${escapeHtml(name)} • ${escapeHtml(email)} • ${escapeHtml(phone)}<br>
+          <strong>Ship to:</strong> ${escapeHtml(address)}<br>
+          <strong>Order:</strong> ${escapeHtml(modelEl.options[modelEl.selectedIndex].text)} × ${qty} — <strong>$${subtotal}</strong><br>
+          <strong>Payment:</strong> ${methodDetails}
+        `;
+
+        overlay.classList.add('show');
+        overlay.setAttribute('aria-hidden','false');
+      });
+
+      closeBtn.addEventListener('click', ()=> {
+        overlay.classList.remove('show');
+        overlay.setAttribute('aria-hidden','true');
+      });
+
+      // Confirm / fake process
+      confirmBtn.addEventListener('click', (e)=>{
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = 'Processing...';
+
+        // simulate network / operator flow
+        setTimeout(()=>{
+          // if mobile payment chosen, show simulated result
+          const method = getActiveMethod();
+
+          if(method === 'mobile'){
+            // Basic client-side check
+            const op = document.getElementById('mobileOperator').value;
+            const top = parseFloat(document.getElementById('mobileTopup').value || 0);
+            if(!op || top <= 0){ alert('Please choose operator and enter top-up amount for Mobile Credit.'); confirmBtn.disabled=false; confirmBtn.textContent='Confirm & Pay'; return; }
+            // simulate success
+            overlay.classList.remove('show');
+            overlay.setAttribute('aria-hidden','true');
+            alert('Mobile payment request sent. Your phone operator will process the debit. Order placed successfully!');
+            form.reset();
+            updateSummary();
+          } else if(method === 'card'){
+            overlay.classList.remove('show');
+            overlay.setAttribute('aria-hidden','true');
+            alert('Card processed (demo). Order placed successfully!');
+            form.reset();
+            updateSummary();
+          } else {
+            overlay.classList.remove('show');
+            overlay.setAttribute('aria-hidden','true');
+            alert('Order placed. Please have cash ready on delivery.');
+            form.reset();
+            updateSummary();
+          }
+
+          confirmBtn.disabled=false;
+          confirmBtn.textContent='Confirm & Pay';
+        }, 1400);
+      });
+
+      // helper: minimal HTML escaping
+      function escapeHtml(str){
+        return String(str).replace(/[&<>"']/g, function(m){
+          return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
+        });
+      }
+
+      // Optional: keep Enter key from submitting unexpectedly
+      form.addEventListener('submit', function(e){ e.preventDefault(); });
+
+    })();
+  </script>
+</body>
+</html>
