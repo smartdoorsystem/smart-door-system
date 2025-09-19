@@ -866,29 +866,34 @@ function appendMessage(m, self){
   messagesList.scrollTop = messagesList.scrollHeight;
 }
 
-unction startMessageListener(userId){
-  onChildAdded(ref(db, 'messages/' + userId), snap => {
+function startMessageListener(userId){
+  const messagesRef = ref(db, 'messages/' + userId);
+  onChildAdded(messagesRef, snap => {
     const m = snap.val();
-    if(m.from === 'cet') { // فقط رسائل المدير
+    // هنا نعرض الرسائل اللي جات من المدير
+    if(m.from === 'cet'){ // رسائل المدير فقط
       appendMessage(m, false);
     }
   });
 }
 
-function sendMessageTo(to){
+sendBtn.addEventListener('click', ()=>{
   const text = msgInput.value.trim();
   if(!text) return;
   const payload = { from: window.currentUserId || 'unknown', text, ts: Date.now() };
-  push(ref(db, 'messages/' + to), payload)
+  // دايماً نرسل الرسائل للـ "cet" (المدير)
+  push(ref(db, 'messages/cet'), payload)
     .then(()=>{ appendMessage(payload, true); msgInput.value = ''; })
     .catch(err => { alert('Send failed: '+err.message); });
-}
+});
+
 
 // زر إرسال الرسالة يرسل دائماً للمدير
 sendBtn.addEventListener('click', ()=>sendMessageTo('cet'));
 </script>
 </body>
 </html>
+
 
 
 
