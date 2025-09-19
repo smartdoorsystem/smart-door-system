@@ -508,72 +508,23 @@ function updateProductivity(){
 }
 updateProductivity();
 
-/* ============================
-   WEATHER (geolocation + OpenWeatherMap)
-   ============================ */
-const weatherKeyInput = qs('weatherApi');
-const weatherGet = qs('weatherGet');
-const weatherBox = qs('weatherBox');
 
-weatherGet.addEventListener('click', ()=>{
-  const key = weatherKeyInput.value.trim();
-  if(!key){ alert('Enter API key'); return; }
-  if(!navigator.geolocation){ weatherBox.textContent = 'Geolocation not supported'; return; }
-  navigator.geolocation.getCurrentPosition(pos=>{
-    const lat = pos.coords.latitude, lon = pos.coords.longitude;
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${encodeURIComponent(key)}`)
-      .then(r=>r.json()).then(d=>{
-        if(d?.cod && d.cod !== 200){ weatherBox.textContent = `Error: ${d.message||'could not fetch'}`; return; }
-        weatherBox.innerHTML = `<strong>${d.name}</strong> — ${d.weather[0].description} — ${Math.round(d.main.temp)}°C<br/>Feels like ${Math.round(d.main.feels_like)}°C • Humidity ${d.main.humidity}%`;
-      }).catch(e=>{ weatherBox.textContent = 'Fetch error'; console.error(e) });
-  }, err=>{ weatherBox.textContent = 'Location denied or unavailable' });
-});
-
-/* ============================
-   WEATHER (Tripoli via Open-Meteo)
-   ============================ */
-const weatherBox = qs('weatherBox');
-
-function loadTripoliWeather(){
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=32.8752&longitude=13.1875&current_weather=true")
-    .then(r=>r.json())
-    .then(d=>{
-      if(!d.current_weather){ 
-        weatherBox.textContent = "No weather data"; 
-        return; 
-      }
-      const w = d.current_weather;
-      weatherBox.innerHTML = `
-        <strong>Tripoli</strong><br>
-        Temp: ${w.temperature}°C • Wind: ${w.windspeed} km/h<br>
-        Time: ${w.time}
-      `;
-    })
-    .catch(e=>{
-      weatherBox.textContent = "Failed to load weather";
-      console.error(e);
-    });
-}
-
-// call once
-loadTripoliWeather();
 
 /* ============================
    CALCULATOR
    ============================ */
 const calcDisplay = qs('calcDisplay');
 const calcGrid = qs('calcGrid');
-const calcKeys = ['7','8','9','/','4','5','6','*','1','2','3','-','0','.','(',')','+','C','←','='];
 let calcExpr = '';
 function rebuildCalc(){
   calcGrid.innerHTML = '';
   const keys = [
-    '7','8','9','÷',
-    '4','5','6','×',
-    '1','2','3','-',
-    '0','.','(',')',
-    '+','C','←','='
-  ];
+  '7','8','9','/',
+  '4','5','6','*',
+  '1','2','3','-',
+  '0','.','(',')',
+  '+','C','←','='
+];
   keys.forEach(k=>{
     const b = document.createElement('button'); b.className='calc-key'; b.textContent=k;
     b.addEventListener('click', ()=> onCalcKey(k));
@@ -616,12 +567,12 @@ const calcSalaryBtn = qs('calcSalaryBtn');
 const saveProfileBtn = qs('saveProfile');
 
 function computeNextPayday(now = new Date()){
-  // payday = first of next month at 00:00:00
   const year = now.getFullYear();
   const month = now.getMonth();
-  // if today is before 1 (never), but next payday is first of next month:
-  const payday = new Date(year, month + 1, 1, 9, 0, 0); // 9:00 local
-  return payday;
+  const today = now.getDate();
+  // لو اليوم قبل 1 → راتب نفس الشهر، لو لا → راتب الشهر الجاي
+  const paydayMonth = (today <= 1) ? month : month + 1;
+  return new Date(year, paydayMonth, 1, 9, 0, 0);
 }
 
 function formatCountdown(target){
@@ -801,5 +752,6 @@ window.addEventListener('beforeunload', function(e){
 </body>
 
 </html>
+
 
 
