@@ -369,9 +369,25 @@
 
   // (optional) expose for debugging
   window.__db = db;
+  <script>
+function checkLogin() {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  // الحساب الوحيد للمدير
+  if (username === "cet" && password === "1037") {
+    // إخفاء overlay
+    document.getElementById("loginOverlay").style.display = "none";
+  } else {
+    // إظهار رسالة خطأ
+    document.getElementById("loginError").style.display = "block";
+  }
+}
+</script>
 </script>
 </body>
 </html>
+
 
 
 
