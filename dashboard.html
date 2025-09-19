@@ -800,7 +800,7 @@ document.getElementById("btnLogin").addEventListener("click", ()=>{
   const p = document.getElementById("loginPass").value.trim();
   if(USERS[u] && USERS[u].pw === p){
     document.getElementById("loginOverlay").style.display = "none";
-    setUserData(u);
+    setUserData(u); // <-- This is the line that's missing or commented out
   } else {
     alert("Wrong username or password");
   }
