@@ -342,6 +342,16 @@ const recipientSelect = document.getElementById('msgRecipientSelect');
 const managerMsgInput = document.getElementById('managerMsgInput');
 const managerSendBtn = document.getElementById('managerSendBtn');
 
+  const otherUsers = ['abdelraouf', 'abdulali']; // المستخدمين الذين سيرسلون للمدير
+
+otherUsers.forEach(user => {
+  onChildAdded(ref(db, 'messages/' + user), snap => {
+    const m = snap.val();
+    // فقط عرض الرسائل المرسلة من هؤلاء للمدير
+    if(m.from !== managerId) appendManagerMessage(m, false);
+  });
+});
+
 // عرض الرسالة
 function appendManagerMessage(m, self){
   const el = document.createElement('div');
@@ -413,5 +423,6 @@ managerMsgInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') sendManag
 </script>
 </body>
 </html>
+
 
 
