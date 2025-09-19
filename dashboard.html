@@ -530,31 +530,32 @@ weatherGet.addEventListener('click', ()=>{
 });
 
 /* ============================
-   WEATHER (Tripoli fixed)
+   WEATHER (Tripoli via Open-Meteo)
    ============================ */
 const weatherBox = qs('weatherBox');
-const apiKey = "073c92ad4345c3a4a1d9b10671e10b52"; // مفتاحك
 
 function loadTripoliWeather(){
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=Tripoli,LY&units=metric&appid=${apiKey}&units=metric`)
-    .then(r=>r.json()).then(d=>{
-      if(d?.cod && d.cod !== 200){ 
-        weatherBox.textContent = `Error: ${d.message||'could not fetch'}`; 
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=32.8752&longitude=13.1875&current_weather=true")
+    .then(r=>r.json())
+    .then(d=>{
+      if(!d.current_weather){ 
+        weatherBox.textContent = "No weather data"; 
         return; 
       }
+      const w = d.current_weather;
       weatherBox.innerHTML = `
-        <strong>${d.name}</strong><br>
-        ${d.weather[0].description} — ${Math.round(d.main.temp)}°C<br>
-        Feels like ${Math.round(d.main.feels_like)}°C • Humidity ${d.main.humidity}% • Wind ${d.wind.speed} m/s
+        <strong>Tripoli</strong><br>
+        Temp: ${w.temperature}°C • Wind: ${w.windspeed} km/h<br>
+        Time: ${w.time}
       `;
     })
-    .catch(e=>{ 
-      weatherBox.textContent = 'Fetch error'; 
-      console.error(e) 
+    .catch(e=>{
+      weatherBox.textContent = "Failed to load weather";
+      console.error(e);
     });
 }
 
-// call once when page loads
+// call once
 loadTripoliWeather();
 
 /* ============================
@@ -798,4 +799,5 @@ window.addEventListener('beforeunload', function(e){
 
 </script>
 </body>
+
 </html>
