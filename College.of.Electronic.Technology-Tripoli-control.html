@@ -293,8 +293,9 @@
 <!-- Firebase + Commands -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
-
+  
+  import { getDatabase, ref, set, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+  
   const firebaseConfig = {
     apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
     authDomain: "smart-door-system-project.firebaseapp.com",
@@ -334,7 +335,47 @@ window.stopStream = function() {
   sendCommand("stop_stream");
   document.getElementById("twitchBox").style.display = "none";
 }
+// ===== Messaging (Manager side) =====
+const managerId = 'cet'; // اسم المدير
+const messagesListEl = document.getElementById('managerMessagesList');
+const recipientSelect = document.getElementById('msgRecipientSelect');
+const managerMsgInput = document.getElementById('managerMsgInput');
+const managerSendBtn = document.getElementById('managerSendBtn');
 
+// عرض الرسالة
+function appendManagerMessage(m, self){
+  const el = document.createElement('div');
+  el.style.margin = '6px 0';
+  el.style.padding = '8px';
+  el.style.borderRadius = '8px';
+  el.style.background = self ? 'linear-gradient(90deg,#ffd86b,#ff6b6b)' : 'rgba(255,255,255,0.03)';
+  el.innerHTML = `<div style="font-weight:700">${self ? 'You' : (m.from||'')}</div>
+                  <div style="margin-top:4px">${m.text}</div>
+                  <div style="font-size:11px;color:gray;margin-top:6px">${new Date(m.ts).toLocaleString()}</div>`;
+  messagesListEl.appendChild(el);
+  messagesListEl.scrollTop = messagesListEl.scrollHeight;
+}
+
+// استلام رسائل للمدير
+onChildAdded(ref(db, 'messages/' + managerId), snap => {
+  const m = snap.val();
+  if(m.from !== managerId) appendManagerMessage(m, false);
+});
+
+// إرسال رسالة
+function sendManagerMessage(){
+  const to = recipientSelect.value;
+  const text = managerMsgInput.value.trim();
+  if(!text) return;
+  const payload = { from: managerId, text, ts: Date.now() };
+  push(ref(db, 'messages/' + to), payload)
+    .then(()=> { appendManagerMessage(payload, true); managerMsgInput.value = ''; if(typeof showToast==='function') showToast('Message sent to '+to); })
+    .catch(err => alert('Send failed: '+err.message));
+}
+
+managerSendBtn.addEventListener('click', sendManagerMessage);
+managerMsgInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') sendManagerMessage(); });
+  
 </script>
 
 <script>
@@ -372,4 +413,5 @@ window.stopStream = function() {
 </script>
 </body>
 </html>
+
 
