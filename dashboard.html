@@ -867,10 +867,10 @@ function appendMessage(m, self){
 }
 
 function startMessageListener(userId){
-  const messagesRef = ref(db, 'messages/' + userId); // الرسائل الخاصة بالموظف
+  const messagesRef = ref(db, 'messages/' + userId); // مجلد الموظف نفسه
   onChildAdded(messagesRef, snap => {
     const m = snap.val();
-    // استقبل أي رسالة جديدة لهذا الموظف
+    // عرض أي رسالة جاية من المدير
     if(m.from === 'cet'){ 
       appendMessage(m, false);
     }
@@ -889,11 +889,11 @@ sendBtn.addEventListener('click', ()=>{
 });
 
 
-// زر إرسال الرسالة يرسل دائماً للمدير
-sendBtn.addEventListener('click', ()=>sendMessageTo('cet'));
+
 </script>
 </body>
 </html>
+
 
 
 
