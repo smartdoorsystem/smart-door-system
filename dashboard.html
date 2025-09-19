@@ -169,6 +169,17 @@
 </style>
 </head>
 <body>
+  <!-- LOGIN OVERLAY -->
+<div id="loginOverlay" style="position:fixed;inset:0;background:rgba(15,23,36,0.95);display:flex;align-items:center;justify-content:center;z-index:9999">
+  <div style="width:320px;background:rgba(255,255,255,0.04);padding:20px;border-radius:12px">
+    <h2 style="margin-top:0">Login</h2>
+    <input id="loginUser" placeholder="Username" style="width:100%;margin-bottom:10px;padding:8px;border-radius:8px;border:none;background:rgba(0,0,0,0.2);color:#fff">
+    <input id="loginPass" type="password" placeholder="Password" style="width:100%;margin-bottom:10px;padding:8px;border-radius:8px;border:none;background:rgba(0,0,0,0.2);color:#fff">
+    <button id="btnLogin" class="btn" style="width:100%">Login</button>
+    <small class="muted" style="display:block;margin-top:8px">Try: abdo/1037 or ahmed/2121</small>
+  </div>
+</div>
+
 <header>
   <div class="brand">
     <div class="logo">judy</div>
@@ -390,6 +401,32 @@
 <footer>Made for you — customize and drop into your GitHub Pages repo. Replace song links to match your repo structure and add OpenWeatherMap API key to fetch weather.</footer>
 
 <script>
+  /* USERS DATABASE */
+const USERS = {
+  abdo: {
+    pw: "1037",
+    logo: "AB",
+    headerTitle: "Employee Dashboard",
+    headerSub: "Abdo — Personal workspace",
+    empPic: "images/team/abdelraouf m.jpg",
+    empName: "Abdo",
+    empJob: "Software Engineer",
+    empDept: "Smart Door System Center",
+    startDate: "2025-01-01"
+  },
+  ahmed: {
+    pw: "2121",
+    logo: "AH",
+    headerTitle: "Employee Dashboard",
+    headerSub: "Ahmed — Personal workspace",
+    empPic: "images/team/Abdulali1.jpg",
+    empName: "Ahmed",
+    empJob: "Technician",
+    empDept: "Maintenance Department",
+    startDate: "2025-02-15"
+  }
+};
+
 /* ============================
    Utilities & Initialization
    ============================ */
@@ -752,10 +789,41 @@ window.addEventListener('beforeunload', function(e){
 });
 */
 
+
+/* LOGIN HANDLER */
+document.getElementById("btnLogin").addEventListener("click", ()=>{
+  const u = document.getElementById("loginUser").value.trim().toLowerCase();
+  const p = document.getElementById("loginPass").value.trim();
+  if(USERS[u] && USERS[u].pw === p){
+    document.getElementById("loginOverlay").style.display = "none";
+    setUserData(u);
+  } else {
+    alert("Wrong username or password");
+  }
+});
+
+function setUserData(user){
+  const u = USERS[user];
+
+  // header
+  document.querySelector(".logo").textContent = u.logo;
+  document.querySelector("header h1").textContent = u.headerTitle;
+  document.querySelector("header .subtitle").textContent = u.headerSub;
+
+  // personal info
+  document.querySelector("#empName").textContent = u.empName;
+  document.querySelector("#empJob").textContent = u.empJob;
+  document.querySelector("#empDept").textContent = u.empDept;
+  document.querySelector(".card img").src = u.empPic;
+
+  // employment
+  document.querySelector("#startDate").value = u.startDate;
+  updateWorkDuration();
+}
 </script>
 </body>
-
 </html>
+
 
 
 
