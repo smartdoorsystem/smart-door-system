@@ -248,27 +248,28 @@
       </div>
 
       
-      
-      <!-- MUSIC -->
-      <div class="card">
-        <h2>Music Player</h2>
-        <div class="music-select">
-          <select id="songSelect">
-            <!-- Update these values to match the actual raw.githubusercontent.com paths if your songs are in repo. -->
-            <option value="songs/𝘝𝘪𝘭𝘪𝘢𝘮 𝘓𝘢𝘯𝘦 - 𝘱𝘢𝘳𝘵𝘪𝘤𝘭𝘦𝘴 𝘚𝘭𝘰𝘸𝘦𝘥   𝘙𝘦𝘷𝘦𝘳𝘣(MP3_128K).mp3">𝘝𝘪𝘭𝘪𝘢𝘮 𝘓𝘢𝘯𝘦 - 𝘱𝘢𝘳𝘵𝘪𝘤𝘭𝘦𝘴 𝘚𝘭𝘰𝘸𝘦𝘥   𝘙𝘦𝘷𝘦𝘳𝘣</option>
-            <option value="songs/Drake - Toosie Slide (Lyrics) _left foot up right foot slide_(MP3_128K).mp3">Drake - Toosie Slide</option>
-            <option value="songs/Michael Jackson-Beat it (Lyrics)(MP3_128K).mp3">Michael Jackson-Beat it</option>
-            <option value="songs/Me and the Devil(MP3_128K).mp3">Me and the Devil</option>
-          </select>
-          <button class="btn" id="playBtn">Play</button>
-          <button class="btn alt" id="stopBtn">Stop</button>
-        </div>
-        <audio id="player" controls preload="none">
-          <source id="playerSource" src="" type="audio/mpeg">
-          Your browser doesn't support audio.
-        </audio>
-        <small class="muted">Tip: host MP3s under <code>songs/</code> in your repo and adjust URLs above.</small>
+    <div class="card">
+      <h2>Productivity</h2>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div>Tasks total: <strong id="prodTotal">0</strong></div>
+        <div>Tasks done: <strong id="prodDone">0</strong></div>
+        <div class="progress"><i id="prodBar"></i></div>
+        <div class="muted-note">Completion rate</div>
       </div>
+    </div>
+
+
+        <div class="card">
+      <h2>Pinned Notes</h2>
+      <textarea id="pinnedNotes" placeholder="Important notes..."></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn" id="saveNotes">Save</button>
+        <button class="btn alt" id="clearNotes">Clear</button>
+      </div>
+      <small class="muted">Notes saved locally in your browser.</small>
+    </div>  
+      
+    
 
 
 
@@ -360,25 +361,28 @@
       <small class="muted">30 by default. You can change in code.</small>
     </div>
 
-    <div class="card">
-      <h2>Pinned Notes</h2>
-      <textarea id="pinnedNotes" placeholder="Important notes..."></textarea>
-      <div style="display:flex;gap:8px;margin-top:8px">
-        <button class="btn" id="saveNotes">Save</button>
-        <button class="btn alt" id="clearNotes">Clear</button>
-      </div>
-      <small class="muted">Notes saved locally in your browser.</small>
-    </div>
 
-    <div class="card">
-      <h2>Productivity</h2>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div>Tasks total: <strong id="prodTotal">0</strong></div>
-        <div>Tasks done: <strong id="prodDone">0</strong></div>
-        <div class="progress"><i id="prodBar"></i></div>
-        <div class="muted-note">Completion rate</div>
+
+      <!-- MUSIC -->
+      <div class="card">
+        <h2>Music Player</h2>
+        <div class="music-select">
+          <select id="songSelect">
+            <!-- Update these values to match the actual raw.githubusercontent.com paths if your songs are in repo. -->
+            <option value="songs/𝘝𝘪𝘭𝘪𝘢𝘮 𝘓𝘢𝘯𝘦 - 𝘱𝘢𝘳𝘵𝘪𝘤𝘭𝘦𝘴 𝘚𝘭𝘰𝘸𝘦𝘥   𝘙𝘦𝘷𝘦𝘳𝘣(MP3_128K).mp3">𝘝𝘪𝘭𝘪𝘢𝘮 𝘓𝘢𝘯𝘦 - 𝘱𝘢𝘳𝘵𝘪𝘤𝘭𝘦𝘴 𝘚𝘭𝘰𝘸𝘦𝘥   𝘙𝘦𝘷𝘦𝘳𝘣</option>
+            <option value="songs/Drake - Toosie Slide (Lyrics) _left foot up right foot slide_(MP3_128K).mp3">Drake - Toosie Slide</option>
+            <option value="songs/Michael Jackson-Beat it (Lyrics)(MP3_128K).mp3">Michael Jackson-Beat it</option>
+            <option value="songs/Me and the Devil(MP3_128K).mp3">Me and the Devil</option>
+          </select>
+          <button class="btn" id="playBtn">Play</button>
+          <button class="btn alt" id="stopBtn">Stop</button>
+        </div>
+        <audio id="player" controls preload="none">
+          <source id="playerSource" src="" type="audio/mpeg">
+          Your browser doesn't support audio.
+        </audio>
+        <small class="muted">Tip: host MP3s under <code>songs/</code> in your repo and adjust URLs above.</small>
       </div>
-    </div>
 
   </aside>
 </main>
@@ -752,6 +756,7 @@ window.addEventListener('beforeunload', function(e){
 </body>
 
 </html>
+
 
 
 
