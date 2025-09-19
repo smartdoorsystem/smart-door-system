@@ -876,8 +876,6 @@ function sendMessageTo(to){
     .catch(err => { alert('Send failed: '+err.message); });
 }
 
-// الاستماع للرسائل الموجهة لهذا الموظف
-let listenerStartedFor = null;
 function startMessageListener(userId){
   if(!userId) return;
   if(listenerStartedFor === userId) return;
@@ -887,9 +885,12 @@ function startMessageListener(userId){
     const self = (m.from === window.currentUserId);
     if(!self) appendMessage(m, false);
   });
+}
+sendBtn.addEventListener('click', ()=>sendMessageTo(window.currentUserId));
 </script>
 </body>
 </html>
+
 
 
 
