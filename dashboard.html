@@ -200,6 +200,24 @@
   <div class="muted" id="empDept">Smart Door System Center</div>
 </div>
 
+
+
+ <!-- Employment card (rightmost in this row replaced by empty column to keep 3cols) -->
+      <div class="card">
+        <h2>Employment</h2>
+      
+        <div style="margin-top:10px">
+          <label>Started working on</label>
+          <input id="startDate" type="text" placeholder="YYYY-MM-DD" />
+        </div>
+        <div style="margin-top:12px">
+          <button class="btn" id="saveStart">Update</button>
+        </div>
+        <div style="margin-top:12px">
+          <div id="workDuration">You have worked: --</div>
+          <div id="daysSince" class="muted-note"></div>
+        </div>
+      </div>
       
       <!-- MUSIC -->
       <div class="card">
@@ -747,6 +765,7 @@ window.addEventListener('beforeunload', function(e){
 </body>
 
 </html>
+
 
 
 
