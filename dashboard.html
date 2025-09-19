@@ -866,7 +866,15 @@ function appendMessage(m, self){
   messagesList.scrollTop = messagesList.scrollHeight;
 }
 
-// إرسال رسالة للمدير (cet)
+unction startMessageListener(userId){
+  onChildAdded(ref(db, 'messages/' + userId), snap => {
+    const m = snap.val();
+    if(m.from === 'cet') { // فقط رسائل المدير
+      appendMessage(m, false);
+    }
+  });
+}
+
 function sendMessageTo(to){
   const text = msgInput.value.trim();
   if(!text) return;
@@ -876,20 +884,12 @@ function sendMessageTo(to){
     .catch(err => { alert('Send failed: '+err.message); });
 }
 
-function startMessageListener(userId){
-  if(!userId) return;
-  if(listenerStartedFor === userId) return;
-  listenerStartedFor = userId;
-  onChildAdded(ref(db, 'messages/' + userId), (snap) => {
-    const m = snap.val();
-    const self = (m.from === window.currentUserId);
-    if(!self) appendMessage(m, false);
-  });
-}
-sendBtn.addEventListener('click', ()=>sendMessageTo(window.currentUserId));
+// زر إرسال الرسالة يرسل دائماً للمدير
+sendBtn.addEventListener('click', ()=>sendMessageTo('cet'));
 </script>
 </body>
 </html>
+
 
 
 
