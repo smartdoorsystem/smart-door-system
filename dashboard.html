@@ -867,15 +867,16 @@ function appendMessage(m, self){
 }
 
 function startMessageListener(userId){
-  const messagesRef = ref(db, 'messages/' + userId);
+  const messagesRef = ref(db, 'messages/cet'); // رسائل المدير
   onChildAdded(messagesRef, snap => {
     const m = snap.val();
-    // هنا نعرض الرسائل اللي جات من المدير
-    if(m.from === 'cet'){ // رسائل المدير فقط
+    // إذا الرسالة موجهة للموظف الحالي
+    if(m.to === userId){ 
       appendMessage(m, false);
     }
   });
 }
+
 
 sendBtn.addEventListener('click', ()=>{
   const text = msgInput.value.trim();
@@ -893,6 +894,7 @@ sendBtn.addEventListener('click', ()=>sendMessageTo('cet'));
 </script>
 </body>
 </html>
+
 
 
 
