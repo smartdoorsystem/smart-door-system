@@ -654,8 +654,7 @@ function saveProfile(){
   profile.gross = Number(grossSalaryEl.value) || 0;
   profile.tax = Number(taxPercentEl.value) || 0;
   profile.ss = Number(ssPercentEl.value) || 0;
-  profile.jobTitle = qs('jobTitle').value || profile.jobTitle || '';
-  profile.name = qs('profileName').value || profile.name || '';
+
   saveLS(LS.profile, profile);
   alert('Profile saved locally');
   populateProfile();
@@ -667,8 +666,7 @@ function populateProfile(){
   if(profile.gross) grossSalaryEl.value = profile.gross;
   if(profile.tax) taxPercentEl.value = profile.tax;
   if(profile.ss) ssPercentEl.value = profile.ss;
-  if(profile.jobTitle) qs('jobTitle').value = profile.jobTitle;
-  if(profile.name) qs('profileName').value = profile.name;
+
   calcSalary();
 }
 populateProfile();
@@ -727,12 +725,6 @@ notesEl.value = loadLS(LS.notes, '');
 saveNotesBtn.addEventListener('click', ()=>{ saveLS(LS.notes, notesEl.value); alert('Notes saved locally'); });
 clearNotesBtn.addEventListener('click', ()=>{ notesEl.value=''; saveLS(LS.notes, ''); });
 
-/* ============================
-   Profile name (persist)
-   ============================ */
-qs('profileName').addEventListener('change', ()=> {
-  const p = loadLS(LS.profile, {}); p.name = qs('profileName').value; saveLS(LS.profile,p);
-});
 
 /* ============================
    Pomodoro Timer
@@ -824,6 +816,7 @@ document.getElementById("empPic").src = u.empPic;
 </script>
 </body>
 </html>
+
 
 
 
