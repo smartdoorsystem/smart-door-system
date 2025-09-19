@@ -828,9 +828,68 @@ function setUserData(user){
   window.currentUserId = user;
   startMessageListener(user);
 }
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+// انسخ نفس إعدادات firebaseConfig من ملف المدير
+const firebaseConfig = {
+  apiKey: "AIzaSyACQ7ot2G6wvmNRM_hmmTDK8p7zMBQ1w2c",
+  authDomain: "smart-door-system-project.firebaseapp.com",
+  databaseURL: "https://smart-door-system-project-default-rtdb.firebaseio.com",
+  projectId: "smart-door-system-project",
+  storageBucket: "smart-door-system-project.firebasestorage.app",
+  messagingSenderId: "298920936811",
+  appId: "1:298920936811:web:033b6b7af47d93d52f382e",
+  measurementId: "G-HY1Y22VZJT"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const messagesList = document.getElementById('messagesList');
+const msgInput = document.getElementById('msgInput');
+const sendBtn = document.getElementById('sendMsgBtn');
+
+function appendMessage(m, self){
+  const d = document.createElement('div');
+  d.style.margin = '6px 0';
+  d.style.padding = '8px';
+  d.style.borderRadius = '8px';
+  d.style.background = self ? 'linear-gradient(90deg,#2be7b7,#7b61ff)' : 'rgba(255,255,255,0.03)';
+  d.style.color = self ? '#041018' : '';
+  d.innerHTML = `<div style="font-weight:700">${self ? 'You' : (m.from||'')}</div>
+                 <div style="margin-top:4px">${m.text}</div>
+                 <div style="font-size:11px;color:gray;margin-top:6px">${new Date(m.ts).toLocaleString()}</div>`;
+  messagesList.appendChild(d);
+  messagesList.scrollTop = messagesList.scrollHeight;
+}
+
+// إرسال رسالة للمدير (cet)
+function sendMessageTo(to){
+  const text = msgInput.value.trim();
+  if(!text) return;
+  const payload = { from: window.currentUserId || 'unknown', text, ts: Date.now() };
+  push(ref(db, 'messages/' + to), payload)
+    .then(()=>{ appendMessage(payload, true); msgInput.value = ''; })
+    .catch(err => { alert('Send failed: '+err.message); });
+}
+
+// الاستماع للرسائل الموجهة لهذا الموظف
+let listenerStartedFor = null;
+function startMessageListener(userId){
+  if(!userId) return;
+  if(listenerStartedFor === userId) return;
+  listenerStartedFor = userId;
+  onChildAdded(ref(db, 'messages/' + userId), (snap) => {
+    const m = snap.val();
+    const self = (m.from === window.currentUserId);
+    if(!self) appendMessage(m, false);
+  });
 </script>
 </body>
 </html>
+
 
 
 
