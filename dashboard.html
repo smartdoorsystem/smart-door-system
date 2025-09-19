@@ -867,11 +867,11 @@ function appendMessage(m, self){
 }
 
 function startMessageListener(userId){
-  const messagesRef = ref(db, 'messages/cet'); // رسائل المدير
+  const messagesRef = ref(db, 'messages/' + userId); // الرسائل الخاصة بالموظف
   onChildAdded(messagesRef, snap => {
     const m = snap.val();
-    // إذا الرسالة موجهة للموظف الحالي
-    if(m.to === userId){ 
+    // استقبل أي رسالة جديدة لهذا الموظف
+    if(m.from === 'cet'){ 
       appendMessage(m, false);
     }
   });
@@ -894,6 +894,7 @@ sendBtn.addEventListener('click', ()=>sendMessageTo('cet'));
 </script>
 </body>
 </html>
+
 
 
 
