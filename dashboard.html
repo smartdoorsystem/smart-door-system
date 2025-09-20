@@ -848,7 +848,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-
 /* ============================
    Messaging
    ============================ */
@@ -899,12 +898,13 @@ function sendMessage(){
 
 sendMsgBtn.addEventListener('click', sendMessage);
 msgInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') sendMessage(); });
-  
+
 
     
 </script>
 </body>
 </html>
+
 
 
 
