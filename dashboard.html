@@ -848,30 +848,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// ===== Messaging (Manager side) =====
-const managerId = ['abdelraouf', 'abdulali'];// اسم المدير
-const messagesListEl = document.getElementById('managerMessagesList');
-const recipientSelect = document.getElementById('msgRecipientSelect');
-const managerMsgInput = document.getElementById('managerMsgInput');
-const managerSendBtn = document.getElementById('managerSendBtn');
+/* ============================
+   Messaging
+   ============================ */
+// هذا الكود يستمع للرسائل المرسلة للموظف ويرسل رسائله للمدير 'cet'
+const messagesListEl = document.getElementById('messagesList');
+const msgInput = document.getElementById('msgInput');
+const sendMsgBtn = document.getElementById('sendMsgBtn');
 
-  const otherUsers = 'cet';  // المستخدمين الذين سيرسلون للمدير
-
-otherUsers.forEach(user => {
-  onChildAdded(ref(db, 'messages/' + user), snap => {
+// يجب أن يتم استدعاء هذه الدالة بعد تسجيل الدخول بنجاح
+function startMessageListener(userId){
+  // استمع للرسائل المرسلة إلى معرّف المستخدم
+  onChildAdded(ref(db, 'messages/' + userId), snap => {
     const m = snap.val();
-    // فقط عرض الرسائل المرسلة من هؤلاء للمدير
-    if(m.from !== managerId) appendManagerMessage(m, false);
+    // إذا كانت الرسالة من المدير 'cet' أو من أي شخص آخر، اعرضها
+    appendMessage(m, m.from === userId);
   });
-});
+}
 
-// عرض الرسالة
-function appendManagerMessage(m, self){
+function appendMessage(m, self){
   const el = document.createElement('div');
   el.style.margin = '6px 0';
   el.style.padding = '8px';
   el.style.borderRadius = '8px';
-  el.style.background = self ? 'linear-gradient(90deg,#ffd86b,#ff6b6b)' : 'rgba(255,255,255,0.03)';
+  el.style.background = self ? 'linear-gradient(90deg, #2be7b7, #7b61ff)' : 'rgba(255,255,255,0.03)';
   el.innerHTML = `<div style="font-weight:700">${self ? 'You' : (m.from||'')}</div>
                   <div style="margin-top:4px">${m.text}</div>
                   <div style="font-size:11px;color:gray;margin-top:6px">${new Date(m.ts).toLocaleString()}</div>`;
@@ -879,31 +879,24 @@ function appendManagerMessage(m, self){
   messagesListEl.scrollTop = messagesListEl.scrollHeight;
 }
 
-// استلام رسائل للمدير
-onChildAdded(ref(db, 'messages/' + managerId), snap => {
-  const m = snap.val();
-  if(m.from !== managerId) appendManagerMessage(m, false);
-});
-
-// إرسال رسالة
-function sendManagerMessage(){
-  const to = recipientSelect.value;
-  const text = managerMsgInput.value.trim();
+function sendMessage(){
+  const text = msgInput.value.trim();
   if(!text) return;
-  const payload = { from: managerId, text, ts: Date.now() };
+  const to = 'cet'; // أرسل الرسالة دائمًا إلى المدير (cet)
+  const payload = { from: window.currentUserId, text, ts: Date.now() };
   push(ref(db, 'messages/' + to), payload)
-    .then(()=> { appendManagerMessage(payload, true); managerMsgInput.value = ''; if(typeof showToast==='function') showToast('Message sent to '+to); })
+    .then(()=> { appendMessage(payload, true); msgInput.value = ''; })
     .catch(err => alert('Send failed: '+err.message));
 }
 
-managerSendBtn.addEventListener('click', sendManagerMessage);
-managerMsgInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') sendManagerMessage(); });
-
+sendMsgBtn.addEventListener('click', sendMessage);
+msgInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') sendMessage(); });
 
 
 </script>
 </body>
 </html>
+
 
 
 
