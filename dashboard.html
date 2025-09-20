@@ -848,6 +848,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+
 /* ============================
    Messaging
    ============================ */
@@ -858,11 +859,18 @@ const sendMsgBtn = document.getElementById('sendMsgBtn');
 
 // يجب أن يتم استدعاء هذه الدالة بعد تسجيل الدخول بنجاح
 function startMessageListener(userId){
-  // استمع للرسائل المرسلة إلى معرّف المستخدم
-  onChildAdded(ref(db, 'messages/' + userId), snap => {
-    const m = snap.val();
-    // إذا كانت الرسالة من المدير 'cet' أو من أي شخص آخر، اعرضها
-    appendMessage(m, m.from === userId);
+  // استمع لجميع الرسائل المرسلة إلى معرّف المستخدم
+  onValue(ref(db, 'messages/' + userId), snap => {
+    // امسح القائمة الحالية قبل عرض الرسائل الجديدة
+    messagesListEl.innerHTML = '';
+    
+    // استعرض كل الرسائل الموجودة حاليا في المسار
+    const messages = snap.val();
+    if(messages){
+      Object.values(messages).forEach(m => {
+        appendMessage(m, m.from === userId);
+      });
+    }
   });
 }
 
@@ -891,11 +899,13 @@ function sendMessage(){
 
 sendMsgBtn.addEventListener('click', sendMessage);
 msgInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') sendMessage(); });
+  
 
-
+    
 </script>
 </body>
 </html>
+
 
 
 
