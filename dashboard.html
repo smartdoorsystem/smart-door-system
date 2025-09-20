@@ -859,18 +859,10 @@ const sendMsgBtn = document.getElementById('sendMsgBtn');
 // يجب أن يتم استدعاء هذه الدالة بعد تسجيل الدخول بنجاح
 function startMessageListener(userId){
   // استمع لجميع الرسائل المرسلة إلى معرّف المستخدم
-  onValue(ref(db, 'messages/' + userId), snap => {
-    // امسح القائمة الحالية قبل عرض الرسائل الجديدة
-    messagesListEl.innerHTML = '';
-    
-    // استعرض كل الرسائل الموجودة حاليا في المسار
-    const messages = snap.val();
-    if(messages){
-      Object.values(messages).forEach(m => {
-        appendMessage(m, m.from === userId);
-      });
-    }
-  });
+  onChildAdded(ref(db, 'messages/' + userId), snap => {
+  const m = snap.val();
+  appendMessage(m, m.from === userId);
+});
 }
 
 function appendMessage(m, self){
@@ -904,6 +896,7 @@ msgInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') sendMessage(); }
 </script>
 </body>
 </html>
+
 
 
 
